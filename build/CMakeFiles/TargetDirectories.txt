@@ -1,0 +1,3 @@
+/home/claudio/Documenti/Code/ChessEngine/build/CMakeFiles/ChessEngine.dir
+/home/claudio/Documenti/Code/ChessEngine/build/CMakeFiles/edit_cache.dir
+/home/claudio/Documenti/Code/ChessEngine/build/CMakeFiles/rebuild_cache.dir

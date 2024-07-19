@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/claudio/Documenti/Code/ChessEngine/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/ChessEngine.dir/chessBoard.cpp.o -c /home/claudio/Documenti/Code/ChessEngine/chessBoard.cpp",
+  "file": "/home/claudio/Documenti/Code/ChessEngine/chessBoard.cpp",
+  "output": "CMakeFiles/ChessEngine.dir/chessBoard.cpp.o"
+},
+{
+  "directory": "/home/claudio/Documenti/Code/ChessEngine/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/ChessEngine.dir/main.cpp.o -c /home/claudio/Documenti/Code/ChessEngine/main.cpp",
+  "file": "/home/claudio/Documenti/Code/ChessEngine/main.cpp",
+  "output": "CMakeFiles/ChessEngine.dir/main.cpp.o"
+}
+]

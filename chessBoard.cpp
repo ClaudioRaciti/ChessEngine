@@ -129,16 +129,16 @@ void Board::initKnightAttacks(){
     }
 
     // West-North-West
-    uint64_t weNoWeDir = (uint64_t) 1 << 14;
-    for (int file = 8; file >= 0; file --, wrapWest(weNoWeDir)){
+    uint64_t weNoWeDir = (uint64_t) 1 << 13;
+    for (int file = 7; file >= 0; file --, wrapWest(weNoWeDir)){
         uint64_t wrappedDir = weNoWeDir;
         for (int rank = 0; rank < 7; rank ++, wrappedDir <<= 8)
             m_knightAttacks[rank * 8 + file] |= wrappedDir;
     }
 
     // North-West-North
-    uint64_t noWeNoDir = (uint64_t) 1 << 23;
-    for (int file = 8; file >= 0; file --, wrapWest(noWeNoDir)){
+    uint64_t noWeNoDir = (uint64_t) 1 << 22;
+    for (int file = 7; file >= 0; file --, wrapWest(noWeNoDir)){
         uint64_t wrappedDir = noWeNoDir;
         for (int rank = 0; rank < 6; rank ++, wrappedDir <<= 8)
             m_knightAttacks[rank * 8 + file] |= wrappedDir;
@@ -160,25 +160,21 @@ void Board::initKnightAttacks(){
             m_knightAttacks[rank * 8 + file] |= wrappedDir;
     }
 
-    // WARNING: SEGMENTATION-FAULT!
-    //
-    // something in this code needs to be fixed
-    //
-    // // West-South-West
-    // uint64_t weSoWeDir = (uint64_t) 1 << 54;
-    // for (int file = 8; file >= 0; file --, wrapWest(weSoWeDir)){
-    //     uint64_t wrappedDir = weSoWeDir;
-    //     for (int rank = 7; rank >= 1; rank --, wrappedDir >>= 8)
-    //         m_knightAttacks[rank * 8 + file] |= wrappedDir;
-    // }
+    // West-South-West
+    uint64_t weSoWeDir = (uint64_t) 1 << 55;
+    for (int file = 7; file >= 0; file --, wrapWest(weSoWeDir)){
+        uint64_t wrappedDir = weSoWeDir;
+        for (int rank = 7; rank >= 1; rank --, wrappedDir >>= 8)
+            m_knightAttacks[rank * 8 + file] |= wrappedDir;
+    }
 
-    // // South-West-South
-    // uint64_t soWeSoDir = (uint64_t) 1 << 47;
-    // for (int file = 8; file >= 0; file --, wrapWest(soWeSoDir)){
-    //     uint64_t wrappedDir = soWeSoDir;
-    //     for (int rank = 7; rank >= 2; rank --, wrappedDir >>= 8)
-    //         m_knightAttacks[rank * 8 + file] |= wrappedDir;
-    // }
+    // South-West-South
+    uint64_t soWeSoDir = (uint64_t) 1 << 46;
+    for (int file = 7; file >= 0; file --, wrapWest(soWeSoDir)){
+        uint64_t wrappedDir = soWeSoDir;
+        for (int rank = 7; rank >= 2; rank --, wrappedDir >>= 8)
+            m_knightAttacks[rank * 8 + file] |= wrappedDir;
+    }
 }
 
 void Board::wrapEast(uint64_t &t_bitBoard){
