@@ -118,17 +118,35 @@ void initKnightAttacks(uint64_t *m_knightAttacks){
     }
 }
 
+uint64_t cpyWrapEast(uint64_t t_bitBoard){
+    wrapEast(t_bitBoard);
+    return t_bitBoard;
+}
+
+uint64_t cpyWrapWest(uint64_t t_bitBoard){
+    wrapWest(t_bitBoard);
+    return t_bitBoard;
+}
+
+void initKingAttacks(){
+    uint64_t m_kingAttacks[64];
+    uint64_t kingPosition = (uint64_t) 1;
+    for (int sq = 0; sq < 64; sq ++, kingPosition <<= 1){
+        m_kingAttacks[sq] = kingPosition << 8 | kingPosition >> 8;
+        uint64_t eastDir = cpyWrapEast(kingPosition);
+        m_kingAttacks[sq] |= eastDir | eastDir << 8 | eastDir >> 8;
+        uint64_t westDir = cpyWrapWest(kingPosition);
+        m_kingAttacks[sq] |= westDir | westDir << 8 | westDir >> 8;
+        std::bitset<64> rep(m_kingAttacks[sq]);
+        std::cout  << sq << ") " << rep << std::endl;
+    }
+}
 
 int main(){
     Board cBoard;
     uint64_t knightAttacks[64];
 
-    initKnightAttacks(knightAttacks);
-
-    for (int i = 0; i<63;i++){
-        std::bitset<64> rep(knightAttacks[i]);
-        std::cout << i << ") " << rep << std::endl;
-        }
+    initKingAttacks();
 
     std::cout << "loop-end" << std::endl;
 

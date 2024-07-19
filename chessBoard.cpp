@@ -29,6 +29,7 @@ Board::Board(){
     initBoard();
     initRayAttacks();
     initKnightAttacks();
+    initKingAttacks();
 }
 
 void Board::initBoard(){
@@ -177,16 +178,37 @@ void Board::initKnightAttacks(){
     }
 }
 
+void Board::initKingAttacks(){
+    uint64_t kingPosition = (uint64_t) 1;
+    for (int sq = 0; sq < 64; sq ++, kingPosition <<= 1){
+        m_kingAttacks[sq] = kingPosition << 8 | kingPosition >> 8;
+        uint64_t eastDir = cpyWrapEast(kingPosition);
+        m_kingAttacks[sq] |= eastDir | eastDir << 8 | eastDir >> 8;
+        uint64_t westDir = cpyWrapWest(kingPosition);
+        m_kingAttacks[sq] |= westDir | westDir << 8 | westDir >> 8;
+    }
+}
+
 void Board::wrapEast(uint64_t &t_bitBoard){
     uint64_t mask = (uint64_t) 0x7f7f7f7f7f7f7f7f;
     t_bitBoard &= mask;
     t_bitBoard <<= 1;
 }
 
+uint64_t Board::cpyWrapEast(uint64_t t_bitBoard){
+    wrapEast(t_bitBoard);
+    return t_bitBoard;
+}
+
 void Board::wrapWest(uint64_t &t_bitBoard){
     uint64_t mask = (uint64_t) 0xfefefefefefefefe;
     t_bitBoard &= mask;
     t_bitBoard >>= 1;
+}
+
+uint64_t Board::cpyWrapWest(uint64_t t_bitBoard){
+    wrapWest(t_bitBoard);
+    return t_bitBoard;
 }
 
 // Finds position of Least Significant 1 Bit
@@ -247,6 +269,16 @@ uint64_t Board::bishopAttacks(uint64_t t_occupied, int t_square){
 
 uint64_t Board::queenAttacks(uint64_t t_occupied, int t_square){
     return bishopAttacks(t_occupied, t_square) | rookAttacks(t_occupied, t_square);
+}
+
+uint64_t Board::knightAttacks(int t_square)
+{
+    return m_knightAttacks[t_square];
+}
+
+uint64_t Board::kingAttacks(int t_square)
+{
+    return m_kingAttacks[t_square];
 }
 
 void Board::generateMoves(){
