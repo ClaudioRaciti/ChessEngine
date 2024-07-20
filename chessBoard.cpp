@@ -1,8 +1,6 @@
 #include "chessBoard.h"
 
 #include <cassert>
-#include <cstdint>
-#include <sys/types.h>
 
 enum rayDirections {
     soWe, sout, soEa, west, east, noWe, nort, noEa
@@ -25,11 +23,16 @@ enum pieceType {
     empty
 };
 
+enum pieceColor {
+    white, black
+};
+
 Board::Board(){
     initBoard();
     initRayAttacks();
     initKnightAttacks();
     initKingAttacks();
+    initPawnAttacks();
 }
 
 void Board::initBoard(){
@@ -137,6 +140,23 @@ void Board::initKingAttacks(){
     }
 }
 
+void Board::initPawnAttacks(){
+    uint64_t pawnPosition = (uint64_t) 1;
+    for (int sq = 0; sq < 64; sq ++ , pawnPosition <<= 1){
+        if (sq < 8 || sq > 55){
+            m_pawnAttacks[sq][white] = (uint64_t) 0;
+            m_pawnAttacks[sq][black] = (uint64_t) 0;
+        }
+        else {
+            uint64_t nortDir = pawnPosition << 8;
+            uint64_t soutDir = pawnPosition >> 8;
+
+            m_pawnAttacks[sq][white] = cpyWrapEast(nortDir) | cpyWrapWest(nortDir);
+            m_pawnAttacks[sq][black] = cpyWrapEast(soutDir) | cpyWrapWest(soutDir);
+        }
+    }    
+}
+
 void Board::wrapEast(uint64_t &t_bitBoard){
     uint64_t mask = (uint64_t) 0x7f7f7f7f7f7f7f7f;
     t_bitBoard &= mask;
@@ -227,6 +247,60 @@ uint64_t Board::knightAttacks(int t_square)
 uint64_t Board::kingAttacks(int t_square)
 {
     return m_kingAttacks[t_square];
+}
+
+uint64_t Board::wPawnAttacks(int t_square)
+{
+    return m_pawnAttacks[t_square][white];
+}
+
+uint64_t Board::bPawnAttacks(int t_square)
+{
+    return m_pawnAttacks[t_square][black];
+}
+
+uint64_t Board::wPawnsCapturingEast(uint64_t t_wPawns, uint64_t t_bPieces)
+{
+    return (cpyWrapWest(t_bPieces) >> 8) & t_wPawns;
+}
+
+uint64_t Board::wPawnsCapturingWest(uint64_t t_wPawns, uint64_t t_bPieces)
+{
+    return (cpyWrapEast(t_bPieces) >> 8) & t_wPawns;
+}
+
+uint64_t Board::bPawnsCapturingEast(uint64_t t_bPawns, uint64_t t_wPieces)
+{
+    return (cpyWrapWest(t_wPieces) << 8) & t_bPawns;
+}
+
+uint64_t Board::bPawnsCapturingWest(uint64_t t_bPawns, uint64_t t_wPieces)
+{
+    return (cpyWrapEast(t_wPieces) << 8) & t_bPawns;
+}
+
+uint64_t Board::wPushablePawns(uint64_t t_wPawns, uint64_t t_empty)
+{
+    return (t_empty >> 8) & t_wPawns;
+}
+
+uint64_t Board::wDoublePushablePawns(uint64_t t_wPawns, uint64_t t_empty)
+{
+    const uint64_t rank4 = (uint64_t) 0x00000000FF000000;
+    uint64_t emptyRow3 = ((t_empty & rank4) >> 8) & t_empty;
+    return wPushablePawns(t_wPawns, emptyRow3);
+}
+
+uint64_t Board::bPushablePawns(uint64_t t_bPawns, uint64_t t_empty)
+{
+    return (t_empty << 8) & t_bPawns;
+}
+
+uint64_t Board::bDoublePushablePawns(uint64_t t_bPawns, uint64_t t_empty)
+{
+    const uint64_t rank5 = (uint64_t) 0x000000FF00000000;
+    uint64_t emptyRow6 = ((t_empty & rank5) << 8) & t_empty;
+    return bPushablePawns(t_bPawns, emptyRow6);
 }
 
 void Board::generateMoves(){
