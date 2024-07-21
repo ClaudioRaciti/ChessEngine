@@ -1,6 +1,8 @@
 #include "chessBoard.h"
 
 #include <cassert>
+#include <bitset>
+#include <iostream>
 
 enum rayDirections {
     soWe, sout, soEa, west, east, noWe, nort, noEa
@@ -18,45 +20,35 @@ enum enumSquare {
 };
 
 enum pieceType {
-    wPcs, wPawns, wKnights, wBishops, wRooks, wQueens, wKing,
-    bPcs, bPawns, bKnights, bBishops, bRooks, bQueens, bKing,
-    empty
+    white, black, pawns, knights, bishops, rooks, queens, kings
 };
 
-enum pieceColor {
-    white, black
+enum moveType {
+    quiet, doublePush, kingCastle, queenCastle, capture, enPassant, 
+    knightPromo = 8, bishopPromo, rookPromo, queenPromo, 
+    knightPromoCapture,  bishopPromoCapture, rookPromoCapture, queenPromoCapture
 };
 
-Board::Board(){
+Board::Board()
+{
     initBoard();
     initRayAttacks();
     initKnightAttacks();
     initKingAttacks();
     initPawnAttacks();
+    m_sideToMove = white;
+    generateMoveList();
 }
 
 void Board::initBoard(){
-    m_bitBoard[wPawns] = (((uint64_t) 1 << 8) - 1) << 8;
-    m_bitBoard[wKnights] = ((uint64_t) 1 << 1) | ((uint64_t) 1 << 6);
-    m_bitBoard[wBishops] = ((uint64_t) 1 << 2) | ((uint64_t) 1 << 5);
-    m_bitBoard[wRooks] = ((uint64_t) 1 << 0) | ((uint64_t) 1 << 7);
-    m_bitBoard[wQueens] = ((uint64_t) 1 << 3);
-    m_bitBoard[wKing] = ((uint64_t) 1 << 4);
-
-    m_bitBoard[wPcs] = m_bitBoard[wPawns] | m_bitBoard[wKnights] | m_bitBoard[wBishops] | m_bitBoard[wRooks]
-        | m_bitBoard[wQueens] | m_bitBoard[wKing];
-
-    m_bitBoard[bPawns] = (((uint64_t) 1 << 8) - 1) << 48;
-    m_bitBoard[bKnights] = ((uint64_t) 1 << 57) | ((uint64_t) 1 << 62);
-    m_bitBoard[bBishops] = ((uint64_t) 1 << 58) | ((uint64_t) 1 << 61);
-    m_bitBoard[bRooks] = ((uint64_t) 1 << 56) | ((uint64_t) 1 << 63);
-    m_bitBoard[bQueens] = ((uint64_t) 1 << 59);
-    m_bitBoard[bKing] = ((uint64_t) 1 << 60);
-
-    m_bitBoard[bPcs] = m_bitBoard[bPawns] | m_bitBoard[bKnights] | m_bitBoard[bBishops] | m_bitBoard[bRooks]
-        | m_bitBoard[bQueens] | m_bitBoard[bKing];
-
-    m_bitBoard[empty] = ~ (m_bitBoard[wPcs] | m_bitBoard[bPcs]);
+    m_bitBoard[white]    = (uint64_t) 0x000000000000ffff;
+    m_bitBoard[black]    = (uint64_t) 0xffff000000000000;
+    m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
+    m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
+    m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
+    m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
+    m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
+    m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
 }
 
 void Board::initRayAttacks(){
@@ -157,6 +149,124 @@ void Board::initPawnAttacks(){
     }    
 }
 
+void Board::toggleSideToMove()
+{
+    m_sideToMove = 1 - m_sideToMove;
+}
+
+void Board::generateMoveList()
+{
+    uint64_t enemyPcs = m_bitBoard[1 - m_sideToMove];
+
+    generatePawnMoves();
+
+    generatePiecesMoves(enemyPcs, knights);
+    generatePiecesMoves(enemyPcs, bishops);
+    generatePiecesMoves(enemyPcs, rooks);
+    generatePiecesMoves(enemyPcs, queens);
+    generatePiecesMoves(enemyPcs, kings);
+}
+
+void Board::generatePawnMoves()
+{
+    uint64_t pawnSet = m_bitBoard[pawns] & m_bitBoard[m_sideToMove];
+    uint64_t empty = ~(m_bitBoard[white] | m_bitBoard[black]);
+    uint64_t blackPcs = m_bitBoard[black];
+    uint64_t whitePcs = m_bitBoard[white];
+    
+    uint64_t pushSet, promoSet, doublePushSet, westCapturesSet, 
+        eastCapturesSet, westPromoCapture, eastPromoCapture;
+    
+    switch (m_sideToMove)
+    {
+    case white:
+        pushSet         = wPushablePawns(pawnSet, empty) & (uint64_t) 0x0000ffffffffff00;
+        promoSet        = wPushablePawns(pawnSet, empty) & (uint64_t) 0x00ff000000000000;
+        doublePushSet   = wDoublePushablePawns(pawnSet, empty);
+        westCapturesSet = wPawnsCapturingWest(pawnSet, blackPcs) & (uint64_t) 0x0000ffffffffff00;
+        westPromoCapture= wPawnsCapturingWest(pawnSet, blackPcs) & (uint64_t) 0x00ff000000000000;
+        eastCapturesSet = wPawnsCapturingEast(pawnSet, blackPcs) & (uint64_t) 0x0000ffffffffff00;
+        eastPromoCapture= wPawnsCapturingEast(pawnSet, blackPcs) & (uint64_t) 0x00ff000000000000;
+        break;
+    case black:
+        pushSet         = wPushablePawns(pawnSet, empty) & (uint64_t) 0x00ffffffffff0000;
+        promoSet        = wPushablePawns(pawnSet, empty) & (uint64_t) 0x000000000000ff00;
+        doublePushSet   = wDoublePushablePawns(pawnSet, empty);
+        westCapturesSet = wPawnsCapturingWest(pawnSet, whitePcs) & (uint64_t) 0x00ffffffffff0000;
+        westPromoCapture= wPawnsCapturingWest(pawnSet, whitePcs) & (uint64_t) 0x000000000000ff00;
+        eastCapturesSet = wPawnsCapturingEast(pawnSet, whitePcs) & (uint64_t) 0x00ffffffffff0000;
+        eastPromoCapture= wPawnsCapturingEast(pawnSet, whitePcs) & (uint64_t) 0x000000000000ff00;
+        break;
+    default:
+        pushSet         = 0;
+        promoSet        = 0;
+        doublePushSet   = 0;
+        westCapturesSet = 0;
+        westPromoCapture= 0;
+        eastCapturesSet = 0;
+        eastPromoCapture= 0;
+        break;
+    }
+    
+    serializePawnMoves(doublePushSet, 16, doublePush);
+    serializePawnMoves(pushSet, 8, quiet);
+    serializePawnMoves(promoSet, 8, knightPromo);
+    serializePawnMoves(promoSet, 8, bishopPromo);
+    serializePawnMoves(promoSet, 8, rookPromo);
+    serializePawnMoves(promoSet, 8, queenPromo);
+    serializePawnMoves(westCapturesSet, 7, capture);
+    serializePawnMoves(westPromoCapture, 7, knightPromoCapture);
+    serializePawnMoves(westPromoCapture, 7, bishopPromoCapture);
+    serializePawnMoves(westPromoCapture, 7, rookPromoCapture);
+    serializePawnMoves(westPromoCapture, 7, queenPromoCapture);
+    serializePawnMoves(eastCapturesSet, 9, capture);
+    serializePawnMoves(eastPromoCapture, 9, knightPromoCapture);
+    serializePawnMoves(eastPromoCapture, 9, bishopPromoCapture);
+    serializePawnMoves(eastPromoCapture, 9, rookPromoCapture);
+    serializePawnMoves(eastPromoCapture, 9, queenPromoCapture);
+}
+
+void Board::generatePiecesMoves(uint64_t t_enemyPcs, int t_pieceType)
+{
+    uint64_t pieceSet = m_bitBoard[t_pieceType] & (~t_enemyPcs);
+    uint64_t occupied = m_bitBoard[white] | m_bitBoard[black];
+    uint64_t empty = ~occupied;
+
+    if (pieceSet) do {
+        int startingSquare = bitScanForward(pieceSet);
+        uint64_t attackSet;
+
+        switch (t_pieceType)
+        {
+        case knights: attackSet = knightAttacks(startingSquare); break;
+        case bishops: attackSet = bishopAttacks(occupied, startingSquare); break;
+        case rooks  : attackSet = rookAttacks(occupied, startingSquare); break;
+        case queens : attackSet = queenAttacks(occupied, startingSquare); break;
+        case kings  : attackSet = kingAttacks(startingSquare); break;
+        default     : attackSet = 0; break;
+        }
+
+        serializeMoves(attackSet & t_enemyPcs, startingSquare, capture);
+        serializeMoves(attackSet & empty     , startingSquare, quiet);
+    } while (pieceSet &= (pieceSet -1));
+}
+
+void Board::serializePawnMoves(uint64_t t_pawns, int t_offset, int t_moveType)
+{
+    if(t_pawns) do {
+        int startingSquare = bitScanForward(t_pawns);
+        m_moveList.push_back(startingSquare << 10|(startingSquare + t_offset) << 4|t_moveType);
+    } while (t_pawns &= (t_pawns - 1));
+}
+
+void Board::serializeMoves(uint64_t t_moves, int t_startingSquare, int t_moveType)
+{
+    if(t_moves) do {
+        int endSquare = bitScanForward(t_moves);
+        m_moveList.push_back(t_startingSquare << 10|endSquare << 4|t_moveType);
+    } while (t_moves &= (t_moves - 1));
+}
+
 void Board::wrapEast(uint64_t &t_bitBoard){
     uint64_t mask = (uint64_t) 0x7f7f7f7f7f7f7f7f;
     t_bitBoard &= mask;
@@ -180,11 +290,22 @@ uint64_t Board::cpyWrapWest(uint64_t t_bitBoard){
 }
 
 // Finds position of Least Significant 1 Bit
-// int Board::bitScanForward(uint64_t t_bitBoard){
-//     const uint64_t deBrujin64 = (uint64_t) 0x03f79d71b4cb0a89;
-//     assert (t_bitBoard != 0);
-//     return index64[((t_bitBoard ^ (t_bitBoard-1)) * deBrujin64) >> 58];
-// }
+int Board::bitScanForward(uint64_t t_bitBoard){
+    //Reference table for bitscans
+    const int index64[64] = {
+         0, 47,  1, 56, 48, 27,  2, 60,
+        57, 49, 41, 37, 28, 16,  3, 61,
+        54, 58, 35, 52, 50, 42, 21, 44,
+        38, 32, 29, 23, 17, 11,  4, 62,
+        46, 55, 26, 59, 40, 36, 15, 53,
+        34, 51, 20, 43, 31, 22, 10, 45,
+        25, 39, 14, 33, 19, 30,  9, 24,
+        13, 18,  8, 12,  7,  6,  5, 63
+    };
+    const uint64_t deBrujin64 = (uint64_t) 0x03f79d71b4cb0a89;
+    assert (t_bitBoard != 0);
+    return index64[((t_bitBoard ^ (t_bitBoard-1)) * deBrujin64) >> 58];
+}
 
 // Finds position of Most Significant 1 Bit
 int Board::bitScanReverse(uint64_t t_bitBoard){
@@ -220,9 +341,10 @@ uint64_t Board::getRayAttacks(uint64_t t_occupied, int t_direction, int t_square
         0x8000000000000000,0x8000000000000000,0x8000000000000000,0x8000000000000000
     };
     uint64_t attacks    = m_rayAttacks[t_square][t_direction];
-    uint64_t blocker    = t_occupied & attacks;
+    uint64_t blocker    = (t_occupied & attacks) | bitDir[t_direction];
     blocker &= (-blocker) | mask[t_direction];
-    return attacks ^ m_rayAttacks[bitScanReverse(blocker | bitDir[t_direction])][t_direction];
+    int blockerSq = bitScanReverse(blocker);
+    return (attacks ^ m_rayAttacks[blockerSq][t_direction]);
 }
 
 uint64_t Board::rookAttacks(uint64_t t_occupied, int t_square){
@@ -301,8 +423,4 @@ uint64_t Board::bDoublePushablePawns(uint64_t t_bPawns, uint64_t t_empty)
     const uint64_t rank5 = (uint64_t) 0x000000FF00000000;
     uint64_t emptyRow6 = ((t_empty & rank5) << 8) & t_empty;
     return bPushablePawns(t_bPawns, emptyRow6);
-}
-
-void Board::generateMoves(){
-    return;
 }

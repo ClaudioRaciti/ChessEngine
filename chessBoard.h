@@ -17,13 +17,20 @@ private:
     void initKnightAttacks();
     void initKingAttacks();
     void initPawnAttacks();
-    void generateMoves();
+    void toggleSideToMove();
+    void generateMoveList();
+    
+    void generatePawnMoves();
+    void generatePiecesMoves(uint64_t t_enemyPcs, int t_pieceType);
+    void serializePawnMoves(uint64_t t_pawns, int t_offset, int t_moveType);
+    void serializeMoves(uint64_t t_moves, int t_startingSquare, int t_moveType);
 
     void wrapEast(uint64_t &t_bitBoard);
     void wrapWest(uint64_t &t_bitBoard);
     uint64_t cpyWrapEast(uint64_t t_bitBoard);
     uint64_t cpyWrapWest(uint64_t t_bitBoard);
     int bitScanReverse(uint64_t t_bitBoard);
+    int bitScanForward(uint64_t t_bitBoard);
 
     uint64_t getRayAttacks(uint64_t t_occupied, int t_direction, int t_square);
     uint64_t rookAttacks(uint64_t t_occupied, int t_square);
@@ -45,10 +52,12 @@ private:
 
 
 private:
-    uint64_t m_bitBoard[15];
+    uint64_t m_bitBoard[8];
     uint64_t m_rayAttacks[64][8]; 
     uint64_t m_knightAttacks[64];
     uint64_t m_kingAttacks[64];
     uint64_t m_pawnAttacks[64][2];
+    int m_sideToMove;
+    bool m_whiteToMove;
     std::vector<uint16_t> m_moveList;
 };
