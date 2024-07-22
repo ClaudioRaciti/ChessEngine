@@ -23,6 +23,7 @@ private:
     void generatePawnMoves();
     void generatePiecesMoves(uint64_t t_enemyPcs, int t_pieceType);
     void serializePawnMoves(uint64_t t_pawns, int t_offset, int t_moveType);
+    void serializePawnPromo(uint64_t t_pawns, int t_offset, bool t_isCapture);
     void serializeMoves(uint64_t t_moves, int t_startingSquare, int t_moveType);
 
     void wrapEast(uint64_t &t_bitBoard);

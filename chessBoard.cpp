@@ -169,61 +169,39 @@ void Board::generateMoveList()
 
 void Board::generatePawnMoves()
 {
-    uint64_t pawnSet = m_bitBoard[pawns] & m_bitBoard[m_sideToMove];
-    uint64_t empty = ~(m_bitBoard[white] | m_bitBoard[black]);
-    uint64_t blackPcs = m_bitBoard[black];
-    uint64_t whitePcs = m_bitBoard[white];
-    
-    uint64_t pushSet, promoSet, doublePushSet, westCapturesSet, 
-        eastCapturesSet, westPromoCapture, eastPromoCapture;
-    
-    switch (m_sideToMove)
-    {
+    uint64_t promoMask[2] = {0x00ff000000000000, 0x000000000000ff00};
+
+    uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[m_sideToMove];
+    uint64_t promoSet = pawnsSet & promoMask[m_sideToMove];
+    uint64_t enemySet = m_bitBoard[1 - m_sideToMove];
+    uint64_t emptySet = ~ (m_bitBoard[white] | m_bitBoard[black]);
+
+    pawnsSet &= ~promoSet;
+
+    switch (m_sideToMove){
     case white:
-        pushSet         = wPushablePawns(pawnSet, empty) & (uint64_t) 0x0000ffffffffff00;
-        promoSet        = wPushablePawns(pawnSet, empty) & (uint64_t) 0x00ff000000000000;
-        doublePushSet   = wDoublePushablePawns(pawnSet, empty);
-        westCapturesSet = wPawnsCapturingWest(pawnSet, blackPcs) & (uint64_t) 0x0000ffffffffff00;
-        westPromoCapture= wPawnsCapturingWest(pawnSet, blackPcs) & (uint64_t) 0x00ff000000000000;
-        eastCapturesSet = wPawnsCapturingEast(pawnSet, blackPcs) & (uint64_t) 0x0000ffffffffff00;
-        eastPromoCapture= wPawnsCapturingEast(pawnSet, blackPcs) & (uint64_t) 0x00ff000000000000;
+        serializePawnMoves(wDoublePushablePawns(pawnsSet, emptySet), 16, doublePush);
+
+        serializePawnMoves(wPushablePawns(pawnsSet, emptySet), 8, quiet);
+        serializePawnMoves(wPawnsCapturingEast(pawnsSet, enemySet), 9, capture);
+        serializePawnMoves(wPawnsCapturingWest(pawnsSet, enemySet), 7, capture);
+
+        serializePawnPromo(wPushablePawns(promoSet, emptySet), 8, false);
+        serializePawnPromo(wPawnsCapturingEast(promoSet, enemySet), 9, true);
+        serializePawnPromo(wPawnsCapturingWest(promoSet, enemySet), 7, true);
         break;
     case black:
-        pushSet         = wPushablePawns(pawnSet, empty) & (uint64_t) 0x00ffffffffff0000;
-        promoSet        = wPushablePawns(pawnSet, empty) & (uint64_t) 0x000000000000ff00;
-        doublePushSet   = wDoublePushablePawns(pawnSet, empty);
-        westCapturesSet = wPawnsCapturingWest(pawnSet, whitePcs) & (uint64_t) 0x00ffffffffff0000;
-        westPromoCapture= wPawnsCapturingWest(pawnSet, whitePcs) & (uint64_t) 0x000000000000ff00;
-        eastCapturesSet = wPawnsCapturingEast(pawnSet, whitePcs) & (uint64_t) 0x00ffffffffff0000;
-        eastPromoCapture= wPawnsCapturingEast(pawnSet, whitePcs) & (uint64_t) 0x000000000000ff00;
-        break;
-    default:
-        pushSet         = 0;
-        promoSet        = 0;
-        doublePushSet   = 0;
-        westCapturesSet = 0;
-        westPromoCapture= 0;
-        eastCapturesSet = 0;
-        eastPromoCapture= 0;
+        serializePawnMoves(bDoublePushablePawns(pawnsSet, emptySet), -16, doublePush);
+
+        serializePawnMoves(bPushablePawns(pawnsSet, emptySet), -8, quiet);
+        serializePawnMoves(bPawnsCapturingEast(pawnsSet, enemySet), -7, capture);
+        serializePawnMoves(bPawnsCapturingWest(pawnsSet, enemySet), -9, capture);
+
+        serializePawnPromo(bPushablePawns(promoSet, emptySet), -8, false);
+        serializePawnPromo(bPawnsCapturingEast(promoSet, enemySet), -7, true);
+        serializePawnPromo(bPawnsCapturingWest(promoSet, enemySet), -9, true);
         break;
     }
-    
-    serializePawnMoves(doublePushSet, 16, doublePush);
-    serializePawnMoves(pushSet, 8, quiet);
-    serializePawnMoves(promoSet, 8, knightPromo);
-    serializePawnMoves(promoSet, 8, bishopPromo);
-    serializePawnMoves(promoSet, 8, rookPromo);
-    serializePawnMoves(promoSet, 8, queenPromo);
-    serializePawnMoves(westCapturesSet, 7, capture);
-    serializePawnMoves(westPromoCapture, 7, knightPromoCapture);
-    serializePawnMoves(westPromoCapture, 7, bishopPromoCapture);
-    serializePawnMoves(westPromoCapture, 7, rookPromoCapture);
-    serializePawnMoves(westPromoCapture, 7, queenPromoCapture);
-    serializePawnMoves(eastCapturesSet, 9, capture);
-    serializePawnMoves(eastPromoCapture, 9, knightPromoCapture);
-    serializePawnMoves(eastPromoCapture, 9, bishopPromoCapture);
-    serializePawnMoves(eastPromoCapture, 9, rookPromoCapture);
-    serializePawnMoves(eastPromoCapture, 9, queenPromoCapture);
 }
 
 void Board::generatePiecesMoves(uint64_t t_enemyPcs, int t_pieceType)
@@ -256,6 +234,25 @@ void Board::serializePawnMoves(uint64_t t_pawns, int t_offset, int t_moveType)
     if(t_pawns) do {
         int startingSquare = bitScanForward(t_pawns);
         m_moveList.push_back(startingSquare << 10|(startingSquare + t_offset) << 4|t_moveType);
+    } while (t_pawns &= (t_pawns - 1));
+}
+
+void Board::serializePawnPromo(uint64_t t_pawns, int t_offset, bool t_isCapture)
+{
+    if (t_pawns) do {
+        int startingSquare = bitScanForward(t_pawns);
+        if (t_isCapture){
+            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|knightPromoCapture);
+            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|bishopPromoCapture);
+            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|rookPromoCapture);
+            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|queenPromoCapture);
+        }
+        else {
+            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|knightPromo);
+            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|bishopPromo);
+            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|rookPromo);
+            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|queenPromo);
+        }
     } while (t_pawns &= (t_pawns - 1));
 }
 
