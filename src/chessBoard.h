@@ -13,6 +13,12 @@ public:
     Board &operator=(const Board &) = default;
     Board &operator=(Board &&) = default;
 
+public:
+    void makeMove(CMove move);
+    void unmakeMove();
+    void getMoveList();
+    void getBoardState();
+
 private:
     void initBoard();
     void initRayAttacks();
@@ -60,7 +66,10 @@ private:
     uint64_t m_knightAttacks[64];
     uint64_t m_kingAttacks[64];
     uint64_t m_pawnAttacks[64][2];
-    int m_sideToMove;
-    bool m_whiteToMove;
+    uint64_t m_enPassantSquare = 0;
+
+    uint8_t m_sideToMove = 0;
+    uint8_t m_castlingRights = 0x0f;
+    
     std::vector<CMove> m_moveList;
 };

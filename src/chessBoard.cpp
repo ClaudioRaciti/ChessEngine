@@ -170,9 +170,11 @@ void Board::generateMoveList()
 void Board::generatePawnMoves()
 {
     uint64_t promoMask[2] = {0x00ff000000000000, 0x000000000000ff00};
+    uint64_t enPassantMask[2] = {0x0000000000000001, 0x8000000000000000};
 
     uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[m_sideToMove];
     uint64_t promoSet = pawnsSet & promoMask[m_sideToMove];
+    uint64_t enPassantSet = m_enPassantSquare | enPassantMask[m_sideToMove];
     uint64_t enemySet = m_bitBoard[1 - m_sideToMove];
     uint64_t emptySet = ~ (m_bitBoard[white] | m_bitBoard[black]);
 
@@ -186,6 +188,9 @@ void Board::generatePawnMoves()
         serializePawnMoves(wPawnsCapturingEast(pawnsSet, enemySet), 9, capture);
         serializePawnMoves(wPawnsCapturingWest(pawnsSet, enemySet), 7, capture);
 
+        serializePawnMoves(wPawnsCapturingEast(pawnsSet, enPassantSet), 9, enPassant);
+        serializePawnMoves(wPawnsCapturingWest(pawnsSet, enPassantSet), 7, enPassant);
+
         serializePawnPromo(wPushablePawns(promoSet, emptySet), 8, false);
         serializePawnPromo(wPawnsCapturingEast(promoSet, enemySet), 9, true);
         serializePawnPromo(wPawnsCapturingWest(promoSet, enemySet), 7, true);
@@ -196,6 +201,9 @@ void Board::generatePawnMoves()
         serializePawnMoves(bPushablePawns(pawnsSet, emptySet), -8, quiet);
         serializePawnMoves(bPawnsCapturingEast(pawnsSet, enemySet), -7, capture);
         serializePawnMoves(bPawnsCapturingWest(pawnsSet, enemySet), -9, capture);
+        
+        serializePawnMoves(bPawnsCapturingEast(pawnsSet, enPassantSet), -7, enPassant);
+        serializePawnMoves(bPawnsCapturingWest(pawnsSet, enPassantSet), -9, enPassant);
 
         serializePawnPromo(bPushablePawns(promoSet, emptySet), -8, false);
         serializePawnPromo(bPawnsCapturingEast(promoSet, enemySet), -7, true);
