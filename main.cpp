@@ -1,7 +1,7 @@
 #include <bitset>
 #include <iostream>
 
-#include "chessBoard.h"
+#include "src/chessBoard.h"
 
 
 int main(){

@@ -1,8 +1,10 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/ChessEngine.dir/chessBoard.cpp.o"
-  "CMakeFiles/ChessEngine.dir/chessBoard.cpp.o.d"
   "CMakeFiles/ChessEngine.dir/main.cpp.o"
   "CMakeFiles/ChessEngine.dir/main.cpp.o.d"
+  "CMakeFiles/ChessEngine.dir/src/cMove.cpp.o"
+  "CMakeFiles/ChessEngine.dir/src/cMove.cpp.o.d"
+  "CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.o"
+  "CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.o.d"
   "ChessEngine"
   "ChessEngine.pdb"
 )

@@ -129,30 +129,6 @@ ChessEngine/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/build
 .PHONY : ChessEngine/fast
 
-chessBoard.o: chessBoard.cpp.o
-.PHONY : chessBoard.o
-
-# target to build an object file
-chessBoard.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/chessBoard.cpp.o
-.PHONY : chessBoard.cpp.o
-
-chessBoard.i: chessBoard.cpp.i
-.PHONY : chessBoard.i
-
-# target to preprocess a source file
-chessBoard.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/chessBoard.cpp.i
-.PHONY : chessBoard.cpp.i
-
-chessBoard.s: chessBoard.cpp.s
-.PHONY : chessBoard.s
-
-# target to generate assembly for a file
-chessBoard.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/chessBoard.cpp.s
-.PHONY : chessBoard.cpp.s
-
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -177,6 +153,54 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/cMove.o: src/cMove.cpp.o
+.PHONY : src/cMove.o
+
+# target to build an object file
+src/cMove.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/cMove.cpp.o
+.PHONY : src/cMove.cpp.o
+
+src/cMove.i: src/cMove.cpp.i
+.PHONY : src/cMove.i
+
+# target to preprocess a source file
+src/cMove.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/cMove.cpp.i
+.PHONY : src/cMove.cpp.i
+
+src/cMove.s: src/cMove.cpp.s
+.PHONY : src/cMove.s
+
+# target to generate assembly for a file
+src/cMove.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/cMove.cpp.s
+.PHONY : src/cMove.cpp.s
+
+src/chessBoard.o: src/chessBoard.cpp.o
+.PHONY : src/chessBoard.o
+
+# target to build an object file
+src/chessBoard.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.o
+.PHONY : src/chessBoard.cpp.o
+
+src/chessBoard.i: src/chessBoard.cpp.i
+.PHONY : src/chessBoard.i
+
+# target to preprocess a source file
+src/chessBoard.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.i
+.PHONY : src/chessBoard.cpp.i
+
+src/chessBoard.s: src/chessBoard.cpp.s
+.PHONY : src/chessBoard.s
+
+# target to generate assembly for a file
+src/chessBoard.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.s
+.PHONY : src/chessBoard.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -186,12 +210,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ChessEngine"
-	@echo "... chessBoard.o"
-	@echo "... chessBoard.i"
-	@echo "... chessBoard.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/cMove.o"
+	@echo "... src/cMove.i"
+	@echo "... src/cMove.s"
+	@echo "... src/chessBoard.o"
+	@echo "... src/chessBoard.i"
+	@echo "... src/chessBoard.s"
 .PHONY : help
 
 

@@ -1,7 +1,7 @@
-CMakeFiles/ChessEngine.dir/chessBoard.cpp.o: \
- /home/claudio/Documenti/Code/ChessEngine/chessBoard.cpp \
+CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.o: \
+ /home/claudio/Documenti/Code/ChessEngine/src/chessBoard.cpp \
  /usr/include/stdc-predef.h \
- /home/claudio/Documenti/Code/ChessEngine/chessBoard.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/chessBoard.h \
  /usr/include/c++/12/cstdint \
  /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
@@ -56,7 +56,7 @@ CMakeFiles/ChessEngine.dir/chessBoard.cpp.o: \
  /usr/include/c++/12/backward/binders.h \
  /usr/include/c++/12/bits/range_access.h \
  /usr/include/c++/12/bits/vector.tcc \
- /home/claudio/Documenti/Code/ChessEngine/cMove.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/cMove.h \
  /usr/include/c++/12/cassert /usr/include/assert.h \
  /usr/include/c++/12/bitset /usr/include/c++/12/string \
  /usr/include/c++/12/bits/stringfwd.h \

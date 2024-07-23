@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <vector>
 
+#include "cMove.h"
+
 class Board{
 public:
     Board();
@@ -60,5 +62,5 @@ private:
     uint64_t m_pawnAttacks[64][2];
     int m_sideToMove;
     bool m_whiteToMove;
-    std::vector<uint16_t> m_moveList;
+    std::vector<CMove> m_moveList;
 };

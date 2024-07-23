@@ -233,7 +233,9 @@ void Board::serializePawnMoves(uint64_t t_pawns, int t_offset, int t_moveType)
 {
     if(t_pawns) do {
         int startingSquare = bitScanForward(t_pawns);
-        m_moveList.push_back(startingSquare << 10|(startingSquare + t_offset) << 4|t_moveType);
+        m_moveList.push_back(
+            CMove(startingSquare, startingSquare + t_offset, t_moveType)
+            );
     } while (t_pawns &= (t_pawns - 1));
 }
 
@@ -242,16 +244,20 @@ void Board::serializePawnPromo(uint64_t t_pawns, int t_offset, bool t_isCapture)
     if (t_pawns) do {
         int startingSquare = bitScanForward(t_pawns);
         if (t_isCapture){
-            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|knightPromoCapture);
-            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|bishopPromoCapture);
-            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|rookPromoCapture);
-            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|queenPromoCapture);
+            m_moveList.insert (m_moveList.end(), {
+                    CMove(startingSquare, startingSquare + t_offset, knightPromoCapture),
+                    CMove(startingSquare, startingSquare + t_offset, bishopPromoCapture),
+                    CMove(startingSquare, startingSquare + t_offset, rookPromoCapture),
+                    CMove(startingSquare, startingSquare + t_offset, queenPromoCapture)
+                });
         }
         else {
-            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|knightPromo);
-            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|bishopPromo);
-            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|rookPromo);
-            m_moveList.push_back(startingSquare << 10| (startingSquare + t_offset) << 4|queenPromo);
+            m_moveList.insert (m_moveList.end(), {
+                    CMove(startingSquare, startingSquare + t_offset, knightPromo),
+                    CMove(startingSquare, startingSquare + t_offset, bishopPromo),
+                    CMove(startingSquare, startingSquare + t_offset, rookPromo),
+                    CMove(startingSquare, startingSquare + t_offset, queenPromo)
+                });
         }
     } while (t_pawns &= (t_pawns - 1));
 }
@@ -260,7 +266,9 @@ void Board::serializeMoves(uint64_t t_moves, int t_startingSquare, int t_moveTyp
 {
     if(t_moves) do {
         int endSquare = bitScanForward(t_moves);
-        m_moveList.push_back(t_startingSquare << 10|endSquare << 4|t_moveType);
+        m_moveList.push_back(
+            CMove(t_startingSquare, endSquare, t_moveType)
+            );
     } while (t_moves &= (t_moves - 1));
 }
 
