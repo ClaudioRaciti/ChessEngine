@@ -40,6 +40,11 @@ Board::Board()
     generateMoveList();
 }
 
+bool Board::isPositionLegal()
+{
+    return !(isCheck(m_sideToMove));
+}
+
 void Board::initBoard(){
     m_bitBoard[white]    = (uint64_t) 0x000000000000ffff;
     m_bitBoard[black]    = (uint64_t) 0xffff000000000000;
@@ -392,6 +397,35 @@ uint64_t Board::wPawnAttacks(int t_square)
 uint64_t Board::bPawnAttacks(int t_square)
 {
     return m_pawnAttacks[t_square][black];
+}
+
+bool Board::isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide)
+{
+    uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[t_attackingSide];
+    if ((m_pawnAttacks[t_square][1 - t_attackingSide] & pawnsSet) != 0) return true;
+
+    uint64_t knightsSet = m_bitBoard[knights] & m_bitBoard[t_attackingSide];
+    if ((m_knightAttacks[t_square] & knightsSet) != 0) return true;
+
+    uint64_t kingSet = m_bitBoard[kings] & m_bitBoard[t_attackingSide];
+    if ((m_kingAttacks[t_square] & kingSet) != 0) return true;
+
+    uint64_t rooksQueensSet = (m_bitBoard[queens] | m_bitBoard[rooks]) & m_bitBoard[t_attackingSide];
+    if ((rookAttacks(t_occupied, t_square) & rooksQueensSet) != 0) return true;
+
+    uint64_t bishopsQueensSet = (m_bitBoard[queens] | m_bitBoard[bishops]) & m_bitBoard[t_attackingSide];
+    if ((bishopAttacks(t_occupied, t_square) & bishopsQueensSet) != 0) return true;  
+
+    return false;
+}
+
+bool Board::isCheck(int t_attackingSide)
+{
+    uint64_t kingSet = m_bitBoard[kings] & m_bitBoard[1 - t_attackingSide];
+    uint64_t occupied = m_bitBoard[white] | m_bitBoard[black];
+    int kingSquare = bitScanForward(kingSet);
+
+    return isSquareAttacked(occupied, kingSquare, t_attackingSide);
 }
 
 uint64_t Board::wPawnsCapturingEast(uint64_t t_wPawns, uint64_t t_bPieces)

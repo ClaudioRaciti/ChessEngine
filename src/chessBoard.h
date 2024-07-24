@@ -14,6 +14,8 @@ public:
     Board &operator=(Board &&) = default;
 
 public:
+    bool isPositionLegal();
+
     void makeMove(CMove move);
     void unmakeMove();
     void getMoveList();
@@ -49,6 +51,8 @@ private:
     uint64_t kingAttacks(int t_square);
     uint64_t wPawnAttacks(int t_square);
     uint64_t bPawnAttacks(int t_square);
+    bool isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide);
+    bool isCheck(int t_attackingSide);
 
     uint64_t wPawnsCapturingEast(uint64_t t_wPawns, uint64_t t_bPieces);
     uint64_t wPawnsCapturingWest(uint64_t t_wPawns, uint64_t t_bPieces);
