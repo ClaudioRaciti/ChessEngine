@@ -14,12 +14,11 @@ public:
     Board &operator=(Board &&) = default;
 
 public:
-    bool isPositionLegal();
+    bool isIllegal();
+    std::vector<CMove> getMoveList();
+    std::vector<uint64_t> getBitBoards();
 
     void makeMove(CMove move);
-    void unmakeMove();
-    void getMoveList();
-    void getBoardState();
 
 private:
     void initBoard();
@@ -34,7 +33,7 @@ private:
     void generatePiecesMoves(uint64_t t_enemyPcs, int t_pieceType);
     void serializePawnMoves(uint64_t t_pawns, int t_offset, int t_moveType);
     void serializePawnPromo(uint64_t t_pawns, int t_offset, bool t_isCapture);
-    void serializeMoves(uint64_t t_moves, int t_startingSquare, int t_moveType);
+    void serializeMoves(uint64_t t_moves, int t_pieceType, int t_startingSquare, int t_moveType);
 
     void wrapEast(uint64_t &t_bitBoard);
     void wrapWest(uint64_t &t_bitBoard);
@@ -51,6 +50,7 @@ private:
     uint64_t kingAttacks(int t_square);
     uint64_t wPawnAttacks(int t_square);
     uint64_t bPawnAttacks(int t_square);
+    uint32_t takenPiece(int t_square);
     bool isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide);
     bool isCheck(int t_attackingSide);
 
@@ -76,4 +76,5 @@ private:
     uint8_t m_castlingRights = 0x0f;
     
     std::vector<CMove> m_moveList;
+    std::vector<CMove> m_moveHist;
 };

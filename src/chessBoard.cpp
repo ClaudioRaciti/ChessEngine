@@ -40,14 +40,108 @@ Board::Board()
     generateMoveList();
 }
 
-bool Board::isPositionLegal()
+bool Board::isIllegal()
 {
-    return !(isCheck(m_sideToMove));
+    return isCheck(m_sideToMove);
+}
+
+std::vector<CMove> Board::getMoveList()
+{
+    return m_moveList;
+}
+
+std::vector<uint64_t> Board::getBitBoards()
+{
+    return std::vector<uint64_t>(m_bitBoard, m_bitBoard + 8);
+}
+
+void Board::makeMove(CMove t_move)
+{
+    uint32_t fromIdx = t_move.getStartingSquare();
+    uint32_t toIdx = t_move.getEndSquare();
+    uint64_t fromBB = (uint64_t) 1 << fromIdx;
+    uint64_t toBB = (uint64_t) 1 << toIdx;
+    uint64_t fromToBB = fromBB ^ toBB;
+    uint32_t piece = t_move.getPiece();
+    
+    
+    if (t_move.isCapture()){
+        if (t_move.isEnPassant()){
+            uint32_t taken = pawns;
+
+            t_move.setTaken(taken);
+            if (m_sideToMove == white){
+                m_bitBoard[1-m_sideToMove] ^= toBB >> 8;
+                m_bitBoard[taken] ^= toBB >> 8;
+            }
+            else {
+                m_bitBoard[1-m_sideToMove] ^= toBB << 8;
+                m_bitBoard[taken] ^= toBB << 8;
+            }
+        }
+        else {
+            uint32_t taken = takenPiece(toIdx);
+
+            // Taken piece must be valid
+            assert(taken >= 2 && taken <=6);
+
+            t_move.setTaken(taken);
+            m_bitBoard[1-m_sideToMove] ^= toBB;
+            m_bitBoard[taken] ^= toBB;
+        }    
+    }
+    
+    if (t_move.isDoublePush()){
+        // Update en passant
+        if (m_sideToMove == white){
+                m_enPassantSquare = fromBB << 8;
+            }
+            else {
+                m_enPassantSquare = fromBB >> 8;
+            }
+    }   
+
+    if (t_move.isPromo()){
+        // Manage promotion
+        m_bitBoard[m_sideToMove] ^= fromToBB;
+        m_bitBoard[piece] ^= fromBB;
+
+        switch (t_move.getFlags())
+        {
+        case knightPromo:
+        case knightPromoCapture:
+            m_bitBoard[knights] ^= toBB;
+            break;
+        case bishopPromo:
+        case bishopPromoCapture:
+            m_bitBoard[bishops] ^= toBB;
+            break;
+        case rookPromo:
+        case rookPromoCapture:
+            m_bitBoard[rooks] ^= toBB;
+            break;
+        case queenPromo:
+        case queenPromoCapture:
+            m_bitBoard[queens] ^= toBB;
+            break;
+        default:
+            break;
+        }
+    }
+    else {
+        // Update bitboards
+        m_bitBoard[m_sideToMove] ^= fromToBB;
+        m_bitBoard[piece] ^= fromToBB;
+    }
+    
+    m_moveHist.push_back(t_move);
+    toggleSideToMove();
+    generateMoveList();
 }
 
 void Board::initBoard(){
-    m_bitBoard[white]    = (uint64_t) 0x000000000000ffff;
-    m_bitBoard[black]    = (uint64_t) 0xffff000000000000;
+    m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
+    m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
     m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
     m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
     m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
@@ -161,6 +255,7 @@ void Board::toggleSideToMove()
 
 void Board::generateMoveList()
 {
+    m_moveList.clear();
     uint64_t enemyPcs = m_bitBoard[1 - m_sideToMove];
 
     generatePawnMoves();
@@ -237,8 +332,8 @@ void Board::generatePiecesMoves(uint64_t t_enemyPcs, int t_pieceType)
         default     : attackSet = 0; break;
         }
 
-        serializeMoves(attackSet & t_enemyPcs, startingSquare, capture);
-        serializeMoves(attackSet & empty     , startingSquare, quiet);
+        serializeMoves(attackSet & t_enemyPcs, t_pieceType, startingSquare, capture);
+        serializeMoves(attackSet & empty     , t_pieceType, startingSquare, quiet);
     } while (pieceSet &= (pieceSet -1));
 }
 
@@ -247,7 +342,7 @@ void Board::serializePawnMoves(uint64_t t_pawns, int t_offset, int t_moveType)
     if(t_pawns) do {
         int startingSquare = bitScanForward(t_pawns);
         m_moveList.push_back(
-            CMove(startingSquare, startingSquare + t_offset, t_moveType)
+            CMove(pawns, startingSquare, startingSquare + t_offset, t_moveType)
             );
     } while (t_pawns &= (t_pawns - 1));
 }
@@ -258,29 +353,29 @@ void Board::serializePawnPromo(uint64_t t_pawns, int t_offset, bool t_isCapture)
         int startingSquare = bitScanForward(t_pawns);
         if (t_isCapture){
             m_moveList.insert (m_moveList.end(), {
-                    CMove(startingSquare, startingSquare + t_offset, knightPromoCapture),
-                    CMove(startingSquare, startingSquare + t_offset, bishopPromoCapture),
-                    CMove(startingSquare, startingSquare + t_offset, rookPromoCapture),
-                    CMove(startingSquare, startingSquare + t_offset, queenPromoCapture)
+                    CMove(pawns, startingSquare, startingSquare + t_offset, knightPromoCapture),
+                    CMove(pawns, startingSquare, startingSquare + t_offset, bishopPromoCapture),
+                    CMove(pawns, startingSquare, startingSquare + t_offset, rookPromoCapture),
+                    CMove(pawns, startingSquare, startingSquare + t_offset, queenPromoCapture)
                 });
         }
         else {
             m_moveList.insert (m_moveList.end(), {
-                    CMove(startingSquare, startingSquare + t_offset, knightPromo),
-                    CMove(startingSquare, startingSquare + t_offset, bishopPromo),
-                    CMove(startingSquare, startingSquare + t_offset, rookPromo),
-                    CMove(startingSquare, startingSquare + t_offset, queenPromo)
+                    CMove(pawns, startingSquare, startingSquare + t_offset, knightPromo),
+                    CMove(pawns, startingSquare, startingSquare + t_offset, bishopPromo),
+                    CMove(pawns, startingSquare, startingSquare + t_offset, rookPromo),
+                    CMove(pawns, startingSquare, startingSquare + t_offset, queenPromo)
                 });
         }
     } while (t_pawns &= (t_pawns - 1));
 }
 
-void Board::serializeMoves(uint64_t t_moves, int t_startingSquare, int t_moveType)
+void Board::serializeMoves(uint64_t t_moves, int t_pieceType, int t_startingSquare, int t_moveType)
 {
     if(t_moves) do {
         int endSquare = bitScanForward(t_moves);
         m_moveList.push_back(
-            CMove(t_startingSquare, endSquare, t_moveType)
+            CMove(t_pieceType, t_startingSquare, endSquare, t_moveType)
             );
     } while (t_moves &= (t_moves - 1));
 }
@@ -397,6 +492,20 @@ uint64_t Board::wPawnAttacks(int t_square)
 uint64_t Board::bPawnAttacks(int t_square)
 {
     return m_pawnAttacks[t_square][black];
+}
+
+uint32_t Board::takenPiece(int t_square)
+{
+    uint32_t taken = 8;
+    uint64_t mask = (uint64_t) 1 << t_square;
+
+    if ((m_bitBoard[pawns] & mask) != 0) taken = pawns;
+    if ((m_bitBoard[knights] & mask) != 0) taken = knights;
+    if ((m_bitBoard[bishops] & mask) != 0) taken = bishops;
+    if ((m_bitBoard[rooks] & mask) != 0) taken = rooks;
+    if ((m_bitBoard[queens] & mask) != 0) taken = queens;        
+    
+    return taken;
 }
 
 bool Board::isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide)
