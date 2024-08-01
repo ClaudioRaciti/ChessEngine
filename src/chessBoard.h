@@ -27,13 +27,6 @@ private:
     void initKingAttacks();
     void initPawnAttacks();
     void toggleSideToMove();
-    void generateMoveList();
-    
-    void generatePawnMoves();
-    void generatePiecesMoves(uint64_t t_enemyPcs, int t_pieceType);
-    void serializePawnMoves(uint64_t t_pawns, int t_offset, int t_moveType);
-    void serializePawnPromo(uint64_t t_pawns, int t_offset, bool t_isCapture);
-    void serializeMoves(uint64_t t_moves, int t_pieceType, int t_startingSquare, int t_moveType);
 
     void wrapEast(uint64_t &t_bitBoard);
     void wrapWest(uint64_t &t_bitBoard);
@@ -48,21 +41,14 @@ private:
     uint64_t queenAttacks(uint64_t t_occupied, int t_square);
     uint64_t knightAttacks(int t_square);
     uint64_t kingAttacks(int t_square);
-    uint64_t wPawnAttacks(int t_square);
-    uint64_t bPawnAttacks(int t_square);
-    uint32_t takenPiece(int t_square);
+    uint64_t getAttackSet(int t_pieceType, uint64_t t_occupied, int t_square);
+    uint32_t capturedPiece(int t_square);
+
+    void Board::generatePieceMoves(int pieceType, std::vector<CMove>& moveList);
+    void Board::generatePawnsMoves(std::vector<CMove>& moveList);
+    
     bool isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide);
     bool isCheck(int t_attackingSide);
-
-    uint64_t wPawnsCapturingEast(uint64_t t_wPawns, uint64_t t_bPieces);
-    uint64_t wPawnsCapturingWest(uint64_t t_wPawns, uint64_t t_bPieces);
-    uint64_t bPawnsCapturingEast(uint64_t t_bPawns, uint64_t t_wPieces);
-    uint64_t bPawnsCapturingWest(uint64_t t_bPawns, uint64_t t_wPieces);    
-    uint64_t wPushablePawns(uint64_t t_wPawns, uint64_t t_empty);
-    uint64_t wDoublePushablePawns(uint64_t t_wPawns, uint64_t t_empty);
-    uint64_t bPushablePawns(uint64_t t_bPawns, uint64_t t_empty);
-    uint64_t bDoublePushablePawns(uint64_t t_bPawns, uint64_t t_empty);
-
 
 private:
     uint64_t m_bitBoard[8];
@@ -70,11 +56,9 @@ private:
     uint64_t m_knightAttacks[64];
     uint64_t m_kingAttacks[64];
     uint64_t m_pawnAttacks[64][2];
-    uint64_t m_enPassantSquare = 0;
+    uint64_t m_pawnPushes[64][2];
 
+    uint64_t m_enPassantSquare = 0;
     uint8_t m_sideToMove = 0;
     uint8_t m_castlingRights = 0x0f;
-    
-    std::vector<CMove> m_moveList;
-    std::vector<CMove> m_moveHist;
 };

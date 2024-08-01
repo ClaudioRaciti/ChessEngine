@@ -10,6 +10,13 @@ CMove::CMove(uint32_t t_piece, uint32_t t_from, uint32_t t_to, uint32_t t_flag)
 {
     m_Move = ((t_piece & 0x0f) << 16|(t_flag & 0x0f) << 12|(t_from & 0x3f) << 6 |(t_to & 0x3f));
 }
+
+CMove::CMove(uint32_t t_piece, uint32_t t_from, uint32_t t_to, uint32_t t_flag, uint32_t t_captured)
+{
+    m_Move = ((t_captured & 0x0f) << 20|(t_piece & 0x0f) << 16|(t_flag & 0x0f) << 12|
+        (t_from & 0x3f) << 6 |(t_to & 0x3f));
+}
+
 void CMove::operator= (CMove otherObj) 
 {
     m_Move = otherObj.m_Move;
@@ -45,7 +52,7 @@ uint32_t CMove::getFlags()
     return (m_Move >> 12) & 0x0f;
 }
 
-uint32_t CMove::getTaken()
+uint32_t CMove::getCaptured()
 {
     return (m_Move >> 20) & 0x0f;
 }
@@ -75,7 +82,7 @@ void CMove::setFlags(uint32_t t_flag)
     m_Move |= (t_flag & 0x0f) << 12;
 }
 
-void CMove::setTaken(uint32_t t_taken)
+void CMove::setCaptured(uint32_t t_taken)
 {
     m_Move &= 0xf00000;
     m_Move |= (t_taken & 0x0f) << 20;
