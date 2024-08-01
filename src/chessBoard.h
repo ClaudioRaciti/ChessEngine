@@ -44,8 +44,11 @@ private:
     uint64_t getAttackSet(int t_pieceType, uint64_t t_occupied, int t_square);
     uint32_t capturedPiece(int t_square);
 
-    void Board::generatePieceMoves(int pieceType, std::vector<CMove>& moveList);
-    void Board::generatePawnsMoves(std::vector<CMove>& moveList);
+    void generatePieceMoves(int pieceType, std::vector<CMove>& t_moveList);
+    void generatePawnsMoves(std::vector<CMove>& t_moveList);
+    void generatePawnsCaptures(std::vector<CMove>& t_moveList, int t_startingSquare, uint64_t t_enemyPieces);
+    void generatePawnsPushes(std::vector<CMove>& t_moveList, int t_startingSquare, uint64_t t_emptySet);
+    void generateDoublePushes(std::vector<CMove>& t_moveList, uint64_t t_pawnSet, uint64_t t_emptySet);
     
     bool isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide);
     bool isCheck(int t_attackingSide);

@@ -54,6 +54,8 @@ std::vector<CMove> Board::getMoveList()
     generatePieceMoves(kings  , moveList);
     generatePawnsMoves(moveList);    
 
+    // TODO castling (here) and en-passant (in generatePawnMoves)
+
     return moveList;
 }
 
@@ -88,86 +90,97 @@ void Board::generatePieceMoves(int t_pieceType, std::vector<CMove>& t_moveList)
     } while (pieceSet &= (pieceSet - 1));
 }
 
-void Board::generatePawnsMoves(std::vector<CMove> &moveList)
+void Board::generatePawnsMoves(std::vector<CMove> &t_moveList)
 {
-    // generate pawn moves
     uint64_t pawnSet = m_bitBoard[pawns] & m_bitBoard[m_sideToMove];
     uint64_t enemyPieces = m_bitBoard[1 - m_sideToMove];
     uint64_t occupiedSquares = m_bitBoard[black] | m_bitBoard[white];
     uint64_t emptySquares = ~occupiedSquares;
-    uint64_t promoSquares = (uint64_t) 0xff000000000000ff;
-    uint64_t nonPromoSquares = (uint64_t) 0x00ffffffffffff00;
-    uint64_t rank4 = (uint64_t) 0x00000000ff000000;
-    uint64_t rank5 = (uint64_t) 0x00000000ff000000;
 
-    // loop over all pawns
     if (pawnSet) do {
         int startingSquare = bitScanForward(pawnSet);
+        generatePawnsCaptures(t_moveList, startingSquare, enemyPieces);
+        generatePawnsPushes(t_moveList, startingSquare, emptySquares);
+    } while (pawnSet &= (pawnSet - 1));
 
-        //serialize pawn captures
-        uint64_t pawnCaptures = m_pawnAttacks[startingSquare][m_sideToMove] & enemyPieces & nonPromoSquares;
-        if (pawnCaptures) do {
-            int endSquare = bitScanForward(pawnCaptures);
-            moveList.push_back(CMove(pawns, startingSquare, endSquare, capture, capturedPiece(endSquare)));
-        } while (pawnCaptures &= (pawnCaptures - 1));
+    generateDoublePushes(t_moveList, pawnSet, emptySquares);
 
-        //serialize pawn pushes
-        uint64_t pawnMoves = m_pawnPushes[startingSquare][m_sideToMove] & emptySquares & nonPromoSquares;
-        if (pawnMoves) do {
-            int endSquare = bitScanForward(pawnMoves);
-            moveList.push_back(CMove(pawns, startingSquare, endSquare, quiet));
-        } while (pawnMoves &= (pawnMoves - 1));
+    // TODO generate en-passant
+}
 
-        //serialize pawn captures with promotion
-        uint64_t promoCaptures = m_pawnAttacks[startingSquare][m_sideToMove] & enemyPieces & promoSquares;
-        if (promoCaptures) do {
-            int endSquare = bitScanForward(promoCaptures);
-            moveList.insert(
-                moveList.end(), 
-                {   CMove(pawns, startingSquare, endSquare, knightPromoCapture, capturedPiece(endSquare)),
-                    CMove(pawns, startingSquare, endSquare, bishopPromoCapture, capturedPiece(endSquare)),
-                    CMove(pawns, startingSquare, endSquare, rookPromoCapture, capturedPiece(endSquare)),
-                    CMove(pawns, startingSquare, endSquare, queenPromoCapture, capturedPiece(endSquare))    }
-            );
-        } while (promoCaptures &= (promoCaptures - 1));
+void Board::generatePawnsCaptures(std::vector<CMove> &t_moveList, int t_startingSquare, uint64_t t_enemyPieces)
+{
+    const uint64_t promoSquares       = (uint64_t) 0xff000000000000ff;
+    const uint64_t nonPromoSquares    = (uint64_t) 0x00ffffffffffff00;
 
-        //serialize pawn promotions
-        uint64_t pawnPromo = m_pawnPushes[startingSquare][m_sideToMove] & emptySquares & promoSquares;
-        if (pawnPromo) do {
-            int endSquare = bitScanForward(pawnPromo);
-            moveList.insert(
-                moveList.end(), 
-                {   CMove(pawns, startingSquare, endSquare, knightPromo),
-                    CMove(pawns, startingSquare, endSquare, bishopPromo),
-                    CMove(pawns, startingSquare, endSquare, rookPromo),
-                    CMove(pawns, startingSquare, endSquare, queenPromo)    }
-            );
-        } while (pawnPromo &= (pawnPromo - 1));
+    uint64_t pawnCaptures = m_pawnAttacks[t_startingSquare][m_sideToMove] & t_enemyPieces & nonPromoSquares;
+    if (pawnCaptures) do {
+        int endSquare = bitScanForward(pawnCaptures);
+        t_moveList.push_back(CMove(pawns, t_startingSquare, endSquare, capture, capturedPiece(endSquare)));
+    } while (pawnCaptures &= (pawnCaptures - 1));
 
-        uint64_t pawnDoublePush;
-        if (m_sideToMove == white) {
-            pawnDoublePush = m_pawnPushes[startingSquare][m_sideToMove] & emptySquares;
-            pawnDoublePush <<= 8;
-            pawnDoublePush &= (emptySquares & rank4);
-        }
-        else {
-            pawnDoublePush = m_pawnPushes[startingSquare][m_sideToMove] & emptySquares;
-            pawnDoublePush >>= 8;
-            pawnDoublePush &= (emptySquares & rank5);
-        }
+    uint64_t promoCaptures = m_pawnAttacks[t_startingSquare][m_sideToMove] & t_enemyPieces & promoSquares;
+    if (promoCaptures) do {
+        int endSquare = bitScanForward(promoCaptures);
+        t_moveList.insert(
+            t_moveList.end(), 
+            {   CMove(pawns, t_startingSquare, endSquare, knightPromoCapture, capturedPiece(endSquare)),
+                CMove(pawns, t_startingSquare, endSquare, bishopPromoCapture, capturedPiece(endSquare)),
+                CMove(pawns, t_startingSquare, endSquare, rookPromoCapture, capturedPiece(endSquare)),
+                CMove(pawns, t_startingSquare, endSquare, queenPromoCapture, capturedPiece(endSquare))    }
+        );
+    } while (promoCaptures &= (promoCaptures - 1));
+}
+
+void Board::generatePawnsPushes(std::vector<CMove> &t_moveList, int t_startingSquare, uint64_t t_emptySquares)
+{
+    const uint64_t promoSquares       = (uint64_t) 0xff000000000000ff;
+    const uint64_t nonPromoSquares    = (uint64_t) 0x00ffffffffffff00;
+
+    uint64_t pawnMoves = m_pawnPushes[t_startingSquare][m_sideToMove] & t_emptySquares & nonPromoSquares;
+    if (pawnMoves) do {
+        int endSquare = bitScanForward(pawnMoves);
+        t_moveList.push_back(CMove(pawns, t_startingSquare, endSquare, quiet));
+    } while (pawnMoves &= (pawnMoves - 1));
+
+    uint64_t pawnPromo = m_pawnPushes[t_startingSquare][m_sideToMove] & t_emptySquares & promoSquares;
+    if (pawnPromo) do {
+        int endSquare = bitScanForward(pawnPromo);
+        t_moveList.insert(
+            t_moveList.end(), 
+            {   CMove(pawns, t_startingSquare, endSquare, knightPromo),
+                CMove(pawns, t_startingSquare, endSquare, bishopPromo),
+                CMove(pawns, t_startingSquare, endSquare, rookPromo),
+                CMove(pawns, t_startingSquare, endSquare, queenPromo)    }
+        );
+    } while (pawnPromo &= (pawnPromo - 1));
+}
+
+void Board::generateDoublePushes(std::vector<CMove> &t_moveList, uint64_t t_pawnSet, uint64_t t_emptySquares)
+{
+    const uint64_t rank4 = (uint64_t) 0x00000000ff000000;
+    const uint64_t rank5 = (uint64_t) 0x00000000ff000000;
+
+    if (m_sideToMove == white) {
+        uint64_t pawnDoublePush = (t_pawnSet << 8) & t_emptySquares;
+        pawnDoublePush = (pawnDoublePush << 8) & t_emptySquares & rank4;
+
         if (pawnDoublePush) do {
             int endSquare = bitScanForward(pawnDoublePush);
-            moveList.push_back(CMove(pawns, startingSquare, endSquare, doublePush));
+            int startingSquare = endSquare - 16;
+            t_moveList.push_back(CMove(pawns, startingSquare, endSquare, doublePush));
         } while (pawnDoublePush  &= (pawnDoublePush - 1));
+    }
+    else {
+        uint64_t pawnDoublePush = (t_pawnSet >> 8) & t_emptySquares;
+        pawnDoublePush = (pawnDoublePush >> 8) & t_emptySquares & rank5;
 
-        //TO-DO: manage en passant
-        //
-        //
-        //
-        //
-        //
-
-    } while (pawnSet &= (pawnSet - 1));
+        if (pawnDoublePush) do {
+            int endSquare = bitScanForward(pawnDoublePush);
+            int startingSquare = endSquare + 16;
+            t_moveList.push_back(CMove(pawns, startingSquare, endSquare, doublePush));
+        } while (pawnDoublePush  &= (pawnDoublePush - 1));
+    }
 }
 
 std::vector<uint64_t> Board::getBitBoards()
@@ -349,7 +362,7 @@ void Board::toggleSideToMove()
 }
 
 void Board::wrapEast(uint64_t &t_bitBoard){
-    uint64_t mask = (uint64_t) 0x7f7f7f7f7f7f7f7f;
+    const uint64_t mask = (uint64_t) 0x7f7f7f7f7f7f7f7f;
     t_bitBoard &= mask;
     t_bitBoard <<= 1;
 }
@@ -360,7 +373,7 @@ uint64_t Board::cpyWrapEast(uint64_t t_bitBoard){
 }
 
 void Board::wrapWest(uint64_t &t_bitBoard){
-    uint64_t mask = (uint64_t) 0xfefefefefefefefe;
+    const uint64_t mask = (uint64_t) 0xfefefefefefefefe;
     t_bitBoard &= mask;
     t_bitBoard >>= 1;
 }
