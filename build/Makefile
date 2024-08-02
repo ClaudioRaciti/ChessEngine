@@ -153,6 +153,54 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/ChessBoard.o: src/ChessBoard.cpp.o
+.PHONY : src/ChessBoard.o
+
+# target to build an object file
+src/ChessBoard.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o
+.PHONY : src/ChessBoard.cpp.o
+
+src/ChessBoard.i: src/ChessBoard.cpp.i
+.PHONY : src/ChessBoard.i
+
+# target to preprocess a source file
+src/ChessBoard.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.i
+.PHONY : src/ChessBoard.cpp.i
+
+src/ChessBoard.s: src/ChessBoard.cpp.s
+.PHONY : src/ChessBoard.s
+
+# target to generate assembly for a file
+src/ChessBoard.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.s
+.PHONY : src/ChessBoard.cpp.s
+
+src/LookupTables.o: src/LookupTables.cpp.o
+.PHONY : src/LookupTables.o
+
+# target to build an object file
+src/LookupTables.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o
+.PHONY : src/LookupTables.cpp.o
+
+src/LookupTables.i: src/LookupTables.cpp.i
+.PHONY : src/LookupTables.i
+
+# target to preprocess a source file
+src/LookupTables.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.i
+.PHONY : src/LookupTables.cpp.i
+
+src/LookupTables.s: src/LookupTables.cpp.s
+.PHONY : src/LookupTables.s
+
+# target to generate assembly for a file
+src/LookupTables.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.s
+.PHONY : src/LookupTables.cpp.s
+
 src/cMove.o: src/cMove.cpp.o
 .PHONY : src/cMove.o
 
@@ -177,29 +225,29 @@ src/cMove.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/cMove.cpp.s
 .PHONY : src/cMove.cpp.s
 
-src/chessBoard.o: src/chessBoard.cpp.o
-.PHONY : src/chessBoard.o
+src/utils.o: src/utils.cpp.o
+.PHONY : src/utils.o
 
 # target to build an object file
-src/chessBoard.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.o
-.PHONY : src/chessBoard.cpp.o
+src/utils.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/utils.cpp.o
+.PHONY : src/utils.cpp.o
 
-src/chessBoard.i: src/chessBoard.cpp.i
-.PHONY : src/chessBoard.i
+src/utils.i: src/utils.cpp.i
+.PHONY : src/utils.i
 
 # target to preprocess a source file
-src/chessBoard.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.i
-.PHONY : src/chessBoard.cpp.i
+src/utils.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/utils.cpp.i
+.PHONY : src/utils.cpp.i
 
-src/chessBoard.s: src/chessBoard.cpp.s
-.PHONY : src/chessBoard.s
+src/utils.s: src/utils.cpp.s
+.PHONY : src/utils.s
 
 # target to generate assembly for a file
-src/chessBoard.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.s
-.PHONY : src/chessBoard.cpp.s
+src/utils.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/utils.cpp.s
+.PHONY : src/utils.cpp.s
 
 # Help Target
 help:
@@ -213,12 +261,18 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/ChessBoard.o"
+	@echo "... src/ChessBoard.i"
+	@echo "... src/ChessBoard.s"
+	@echo "... src/LookupTables.o"
+	@echo "... src/LookupTables.i"
+	@echo "... src/LookupTables.s"
 	@echo "... src/cMove.o"
 	@echo "... src/cMove.i"
 	@echo "... src/cMove.s"
-	@echo "... src/chessBoard.o"
-	@echo "... src/chessBoard.i"
-	@echo "... src/chessBoard.s"
+	@echo "... src/utils.o"
+	@echo "... src/utils.i"
+	@echo "... src/utils.s"
 .PHONY : help
 
 

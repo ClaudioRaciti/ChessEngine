@@ -7,14 +7,26 @@
 },
 {
   "directory": "/home/claudio/Documenti/Code/ChessEngine/build",
-  "command": "/usr/bin/g++   -g -o CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.o -c /home/claudio/Documenti/Code/ChessEngine/src/chessBoard.cpp",
-  "file": "/home/claudio/Documenti/Code/ChessEngine/src/chessBoard.cpp",
-  "output": "CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.o"
+  "command": "/usr/bin/g++   -g -o CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o -c /home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.cpp",
+  "file": "/home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.cpp",
+  "output": "CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o"
 },
 {
   "directory": "/home/claudio/Documenti/Code/ChessEngine/build",
   "command": "/usr/bin/g++   -g -o CMakeFiles/ChessEngine.dir/src/cMove.cpp.o -c /home/claudio/Documenti/Code/ChessEngine/src/cMove.cpp",
   "file": "/home/claudio/Documenti/Code/ChessEngine/src/cMove.cpp",
   "output": "CMakeFiles/ChessEngine.dir/src/cMove.cpp.o"
+},
+{
+  "directory": "/home/claudio/Documenti/Code/ChessEngine/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/ChessEngine.dir/src/utils.cpp.o -c /home/claudio/Documenti/Code/ChessEngine/src/utils.cpp",
+  "file": "/home/claudio/Documenti/Code/ChessEngine/src/utils.cpp",
+  "output": "CMakeFiles/ChessEngine.dir/src/utils.cpp.o"
+},
+{
+  "directory": "/home/claudio/Documenti/Code/ChessEngine/build",
+  "command": "/usr/bin/g++   -g -o CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o -c /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.cpp",
+  "file": "/home/claudio/Documenti/Code/ChessEngine/src/LookupTables.cpp",
+  "output": "CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o"
 }
 ]

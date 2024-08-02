@@ -3,8 +3,10 @@
 
 CMakeFiles/ChessEngine.dir/main.cpp.o
  /home/claudio/Documenti/Code/ChessEngine/main.cpp
+ /home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.h
+ /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h
  /home/claudio/Documenti/Code/ChessEngine/src/cMove.h
- /home/claudio/Documenti/Code/ChessEngine/src/chessBoard.h
+ /home/claudio/Documenti/Code/ChessEngine/src/utils.h
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
  /usr/include/asm-generic/errno.h
@@ -194,37 +196,12 @@ CMakeFiles/ChessEngine.dir/main.cpp.o
  /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h
  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
 
-CMakeFiles/ChessEngine.dir/src/cMove.cpp.o
- /home/claudio/Documenti/Code/ChessEngine/src/cMove.cpp
+CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o
+ /home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.cpp
+ /home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.h
+ /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h
  /home/claudio/Documenti/Code/ChessEngine/src/cMove.h
- /usr/include/c++/12/cstdint
- /usr/include/c++/12/pstl/pstl_config.h
- /usr/include/features-time64.h
- /usr/include/features.h
- /usr/include/stdc-predef.h
- /usr/include/stdint.h
- /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
- /usr/include/x86_64-linux-gnu/bits/long-double.h
- /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
- /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h
- /usr/include/x86_64-linux-gnu/bits/time64.h
- /usr/include/x86_64-linux-gnu/bits/timesize.h
- /usr/include/x86_64-linux-gnu/bits/types.h
- /usr/include/x86_64-linux-gnu/bits/typesizes.h
- /usr/include/x86_64-linux-gnu/bits/wchar.h
- /usr/include/x86_64-linux-gnu/bits/wordsize.h
- /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h
- /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h
- /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h
- /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
- /usr/include/x86_64-linux-gnu/gnu/stubs.h
- /usr/include/x86_64-linux-gnu/sys/cdefs.h
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
-
-CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.o
- /home/claudio/Documenti/Code/ChessEngine/src/chessBoard.cpp
- /home/claudio/Documenti/Code/ChessEngine/src/cMove.h
- /home/claudio/Documenti/Code/ChessEngine/src/chessBoard.h
+ /home/claudio/Documenti/Code/ChessEngine/src/utils.h
  /usr/include/alloca.h
  /usr/include/assert.h
  /usr/include/c++/12/algorithm
@@ -331,5 +308,89 @@ CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.o
  /usr/include/x86_64-linux-gnu/sys/select.h
  /usr/include/x86_64-linux-gnu/sys/types.h
  /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
+
+CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o
+ /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.cpp
+ /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h
+ /home/claudio/Documenti/Code/ChessEngine/src/utils.h
+ /usr/include/c++/12/cstdint
+ /usr/include/c++/12/pstl/pstl_config.h
+ /usr/include/features-time64.h
+ /usr/include/features.h
+ /usr/include/stdc-predef.h
+ /usr/include/stdint.h
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+ /usr/include/x86_64-linux-gnu/bits/long-double.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h
+ /usr/include/x86_64-linux-gnu/bits/time64.h
+ /usr/include/x86_64-linux-gnu/bits/timesize.h
+ /usr/include/x86_64-linux-gnu/bits/types.h
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h
+ /usr/include/x86_64-linux-gnu/bits/wchar.h
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
+
+CMakeFiles/ChessEngine.dir/src/cMove.cpp.o
+ /home/claudio/Documenti/Code/ChessEngine/src/cMove.cpp
+ /home/claudio/Documenti/Code/ChessEngine/src/cMove.h
+ /usr/include/c++/12/cstdint
+ /usr/include/c++/12/pstl/pstl_config.h
+ /usr/include/features-time64.h
+ /usr/include/features.h
+ /usr/include/stdc-predef.h
+ /usr/include/stdint.h
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+ /usr/include/x86_64-linux-gnu/bits/long-double.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h
+ /usr/include/x86_64-linux-gnu/bits/time64.h
+ /usr/include/x86_64-linux-gnu/bits/timesize.h
+ /usr/include/x86_64-linux-gnu/bits/types.h
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h
+ /usr/include/x86_64-linux-gnu/bits/wchar.h
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
+
+CMakeFiles/ChessEngine.dir/src/utils.cpp.o
+ /home/claudio/Documenti/Code/ChessEngine/src/utils.cpp
+ /home/claudio/Documenti/Code/ChessEngine/src/utils.h
+ /usr/include/assert.h
+ /usr/include/c++/12/cassert
+ /usr/include/c++/12/cstdint
+ /usr/include/c++/12/pstl/pstl_config.h
+ /usr/include/features-time64.h
+ /usr/include/features.h
+ /usr/include/stdc-predef.h
+ /usr/include/stdint.h
+ /usr/include/x86_64-linux-gnu/bits/libc-header-start.h
+ /usr/include/x86_64-linux-gnu/bits/long-double.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-intn.h
+ /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h
+ /usr/include/x86_64-linux-gnu/bits/time64.h
+ /usr/include/x86_64-linux-gnu/bits/timesize.h
+ /usr/include/x86_64-linux-gnu/bits/types.h
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h
+ /usr/include/x86_64-linux-gnu/bits/wchar.h
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h
+ /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h
+ /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h
+ /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h
  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
 

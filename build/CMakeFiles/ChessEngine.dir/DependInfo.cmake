@@ -9,8 +9,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/claudio/Documenti/Code/ChessEngine/main.cpp" "CMakeFiles/ChessEngine.dir/main.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/main.cpp.o.d"
+  "/home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.cpp" "CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o.d"
+  "/home/claudio/Documenti/Code/ChessEngine/src/LookupTables.cpp" "CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o.d"
   "/home/claudio/Documenti/Code/ChessEngine/src/cMove.cpp" "CMakeFiles/ChessEngine.dir/src/cMove.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/cMove.cpp.o.d"
-  "/home/claudio/Documenti/Code/ChessEngine/src/chessBoard.cpp" "CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/chessBoard.cpp.o.d"
+  "/home/claudio/Documenti/Code/ChessEngine/src/utils.cpp" "CMakeFiles/ChessEngine.dir/src/utils.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/utils.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -1,9 +1,9 @@
 #include <bitset>
 #include <iostream>
 
-#include "src/chessBoard.h"
+#include "src/ChessBoard.h"
 
-// uint64_t perft(int depth, Board& chessPosition){
+// uint64_t perft(int depth, ChessBoard& chessPosition){
 //     std::vector<CMove> move_list = chessPosition.getMoveList();
 //     int n_moves = move_list.size();
 //     uint64_t nodes = 0;
@@ -21,7 +21,7 @@
 // }
 
 int main(){
-    Board cBoard;
+    ChessBoard cBoard;
 
     std::vector<CMove> moveList = cBoard.getMoveList();
     cBoard.makeMove(moveList[18]);
