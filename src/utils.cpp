@@ -2,6 +2,16 @@
 
 #include <cassert>
 
+void btw::wrapNort(uint64_t &bitBoard)
+{
+    bitBoard <<= 8;
+}
+
+void btw::wrapSout(uint64_t &bitBoard)
+{
+    bitBoard >>= 8;
+}
+
 void btw::wrapEast(uint64_t & bitBoard)
 {
     const uint64_t mask = (uint64_t) 0x7f7f7f7f7f7f7f7f;
@@ -16,6 +26,15 @@ void btw::wrapWest(uint64_t &bitBoard)
     bitBoard >>= 1;
 }
 
+uint64_t btw::cpyWrapNort(uint64_t bitBoard){
+    wrapNort(bitBoard);
+    return bitBoard;
+}
+
+uint64_t btw::cpyWrapSout(uint64_t bitBoard){
+    wrapSout(bitBoard);
+    return bitBoard;
+}
 
 uint64_t btw::cpyWrapEast(uint64_t bitBoard){
     wrapEast(bitBoard);

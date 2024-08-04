@@ -56,9 +56,10 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: \
  /usr/include/c++/12/backward/binders.h \
  /usr/include/c++/12/bits/range_access.h \
  /usr/include/c++/12/bits/vector.tcc \
- /home/claudio/Documenti/Code/ChessEngine/src/cMove.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h \
  /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \
  /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h \
  /usr/include/c++/12/cassert /usr/include/assert.h \
  /usr/include/c++/12/algorithm /usr/include/c++/12/bits/stl_algo.h \
  /usr/include/c++/12/bits/algorithmfwd.h \

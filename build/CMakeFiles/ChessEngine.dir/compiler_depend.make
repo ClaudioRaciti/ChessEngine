@@ -3,8 +3,9 @@
 
 CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/main.cpp \
   /home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.h \
+  /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h \
   /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \
-  /home/claudio/Documenti/Code/ChessEngine/src/cMove.h \
+  /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h \
   /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -197,8 +198,9 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/
 
 CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: /home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.cpp \
   /home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.h \
+  /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h \
   /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \
-  /home/claudio/Documenti/Code/ChessEngine/src/cMove.h \
+  /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h \
   /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
   /usr/include/alloca.h \
   /usr/include/assert.h \
@@ -335,32 +337,6 @@ CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o: /home/claudio/Documenti/Code/
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
 
-CMakeFiles/ChessEngine.dir/src/cMove.cpp.o: /home/claudio/Documenti/Code/ChessEngine/src/cMove.cpp \
-  /home/claudio/Documenti/Code/ChessEngine/src/cMove.h \
-  /usr/include/c++/12/cstdint \
-  /usr/include/c++/12/pstl/pstl_config.h \
-  /usr/include/features-time64.h \
-  /usr/include/features.h \
-  /usr/include/stdc-predef.h \
-  /usr/include/stdint.h \
-  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
-  /usr/include/x86_64-linux-gnu/bits/long-double.h \
-  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
-  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
-  /usr/include/x86_64-linux-gnu/bits/time64.h \
-  /usr/include/x86_64-linux-gnu/bits/timesize.h \
-  /usr/include/x86_64-linux-gnu/bits/types.h \
-  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
-  /usr/include/x86_64-linux-gnu/bits/wchar.h \
-  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
-  /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
-  /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
-  /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
-  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
-  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
-  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
-  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
-
 CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEngine/src/utils.cpp \
   /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
   /usr/include/assert.h \
@@ -389,8 +365,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
 
-
-/home/claudio/Documenti/Code/ChessEngine/src/cMove.cpp:
 
 /usr/include/c++/12/pstl/glue_algorithm_defs.h:
 
@@ -506,6 +480,8 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/x86_64-linux-gnu/bits/setjmp.h:
 
+/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
+
 /usr/include/c++/12/bits/streambuf.tcc:
 
 /usr/include/c++/12/bits/stl_uninitialized.h:
@@ -542,23 +518,9 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/12/bits/exception_defines.h:
 
-/usr/include/c++/12/bits/basic_ios.tcc:
+/usr/include/c++/12/bits/stl_pair.h:
 
-/usr/include/c++/12/pstl/execution_defs.h:
-
-/usr/include/c++/12/bits/basic_ios.h:
-
-/usr/include/c++/12/bits/ostream.tcc:
-
-/usr/include/c++/12/bits/locale_facets.h:
-
-/usr/include/c++/12/bits/stl_algobase.h:
-
-/usr/include/ctype.h:
-
-/home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.h:
-
-/usr/include/c++/12/iosfwd:
+/usr/include/c++/12/bits/ios_base.h:
 
 /usr/include/c++/12/bits/alloc_traits.h:
 
@@ -570,49 +532,13 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/stdint.h:
 
-/usr/include/c++/12/bits/stl_pair.h:
-
-/usr/include/c++/12/bits/ios_base.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h:
-
-/usr/include/asm-generic/errno-base.h:
-
-/usr/include/asm-generic/errno.h:
-
 /usr/include/x86_64-linux-gnu/bits/sched.h:
 
 /usr/include/c++/12/bits/locale_facets.tcc:
 
 /home/claudio/Documenti/Code/ChessEngine/src/utils.h:
 
-/usr/include/c++/12/bits/basic_string.tcc:
-
-/usr/include/endian.h:
-
-/usr/include/c++/12/bits/charconv.h:
-
-/home/claudio/Documenti/Code/ChessEngine/src/cMove.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
-
-/usr/include/x86_64-linux-gnu/bits/floatn.h:
-
-/usr/include/alloca.h:
-
-/usr/include/c++/12/bits/stl_function.h:
-
-/usr/include/x86_64-linux-gnu/c++/12/bits/ctype_base.h:
-
-/usr/include/c++/12/bits/stl_iterator_base_types.h:
-
-/usr/include/c++/12/bits/cxxabi_forced.h:
-
-/usr/include/c++/12/bits/allocator.h:
-
-/usr/include/x86_64-linux-gnu/bits/wordsize.h:
-
-/usr/include/c++/12/bits/cpp_type_traits.h:
+/home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h:
 
 /usr/include/c++/12/bits/algorithmfwd.h:
 
@@ -627,6 +553,58 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
 /usr/include/c++/12/clocale:
+
+/usr/include/c++/12/bits/basic_string.tcc:
+
+/usr/include/endian.h:
+
+/usr/include/c++/12/bits/charconv.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn.h:
+
+/usr/include/alloca.h:
+
+/usr/include/c++/12/bits/stl_function.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/asm-generic/errno.h:
+
+/home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h:
+
+/usr/include/c++/12/bits/ostream.tcc:
+
+/usr/include/c++/12/bits/locale_facets.h:
+
+/usr/include/c++/12/bits/stl_algobase.h:
+
+/usr/include/ctype.h:
+
+/home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.h:
+
+/usr/include/c++/12/iosfwd:
+
+/usr/include/c++/12/bits/basic_ios.tcc:
+
+/usr/include/c++/12/pstl/execution_defs.h:
+
+/usr/include/c++/12/bits/basic_ios.h:
+
+/usr/include/x86_64-linux-gnu/c++/12/bits/ctype_base.h:
+
+/usr/include/c++/12/bits/stl_iterator_base_types.h:
+
+/usr/include/c++/12/bits/cxxabi_forced.h:
+
+/usr/include/c++/12/bits/allocator.h:
+
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/c++/12/bits/cpp_type_traits.h:
 
 /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h:
 
@@ -801,5 +779,3 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/c++/12/bits/localefwd.h:
 
 /usr/include/x86_64-linux-gnu/bits/locale.h:
-
-/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:

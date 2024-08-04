@@ -20,7 +20,6 @@ public:
     uint64_t kingAttacks(int t_square);
     uint64_t pawnPushes(int t_square, int t_sideToMove);
     uint64_t pawnAttacks(int t_square, int t_sideToMove);
-    uint64_t getAttackSet(int t_pieceType, uint64_t t_occupied, int t_square);
 
 private:
     LookupTables();

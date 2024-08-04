@@ -156,6 +156,7 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: \
  /usr/include/c++/12/bits/stl_vector.h \
  /usr/include/c++/12/bits/stl_bvector.h \
  /usr/include/c++/12/bits/vector.tcc \
- /home/claudio/Documenti/Code/ChessEngine/src/cMove.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h \
  /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \
- /home/claudio/Documenti/Code/ChessEngine/src/utils.h
+ /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h

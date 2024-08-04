@@ -2,14 +2,14 @@
 
 #include <cstdint>
 
-class CMove{
+class ChessMove{
 public:
-    CMove(uint32_t t_piece, uint32_t t_from, uint32_t t_to, uint32_t t_flag);
-    CMove(uint32_t t_piece, uint32_t t_from, uint32_t t_to, uint32_t t_flag, uint32_t t_captured);
+    ChessMove(uint32_t t_piece, uint32_t t_from, uint32_t t_to, uint32_t t_flag);
+    ChessMove(uint32_t t_piece, uint32_t t_from, uint32_t t_to, uint32_t t_flag, uint32_t t_captured);
 
-    void operator= (CMove otherObj);
-    friend bool operator== (const CMove& thisObj, const CMove& otherObj);
-    friend bool operator!= (const CMove& thisObj, const CMove& otherObj);
+    void operator= (ChessMove otherObj);
+    friend bool operator== (const ChessMove& thisObj, const ChessMove& otherObj);
+    friend bool operator!= (const ChessMove& thisObj, const ChessMove& otherObj);
 
 
     uint32_t getPiece();

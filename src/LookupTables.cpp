@@ -175,16 +175,3 @@ uint64_t LookupTables::pawnAttacks(int t_square, int t_sideToMove)
     return m_pawnAttacks[t_square][t_sideToMove];
 }
 
-uint64_t LookupTables::getAttackSet(int t_pieceType, uint64_t t_occupied, int t_square)
-{
-    uint64_t attackSet;
-    switch (t_pieceType) {
-        case knights: attackSet = knightAttacks(t_square); break;
-        case bishops: attackSet = bishopAttacks(t_occupied, t_square);break;
-        case rooks: attackSet = rookAttacks(t_occupied, t_square);break;
-        case queens: attackSet = queenAttacks(t_occupied, t_square);break;
-        case kings: attackSet = kingAttacks(t_square);break;
-        default: attackSet = 0;
-    }
-    return attackSet;
-}

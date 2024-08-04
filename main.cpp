@@ -4,7 +4,7 @@
 #include "src/ChessBoard.h"
 
 // uint64_t perft(int depth, ChessBoard& chessPosition){
-//     std::vector<CMove> move_list = chessPosition.getMoveList();
+//     std::vector<ChessMove> move_list = chessPosition.getMoveList();
 //     int n_moves = move_list.size();
 //     uint64_t nodes = 0;
 
@@ -23,7 +23,6 @@
 int main(){
     ChessBoard cBoard;
 
-    std::vector<CMove> moveList = cBoard.getMoveList();
-    cBoard.makeMove(moveList[18]);
+    std::vector<ChessMove> moveList = cBoard.getMoveList();
     return 0;
 }
