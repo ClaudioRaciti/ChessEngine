@@ -21,8 +21,8 @@ public:
     std::vector<ChessMove> getMoveList();
     std::vector<uint64_t> getBitBoards();
 
-    void makeMove(ChessMove move);
-    void undoMove();
+    void makeMove(ChessMove t_move);
+    void undoMove(ChessMove t_move);
 
 private:
     void initBoard();
@@ -36,7 +36,7 @@ private:
     void generateEpCaptures(std::vector<ChessMove>& t_moveList, uint64_t t_pawnsSet, int t_epSquare);
     void generateCastles(std::vector<ChessMove>& t_moveList);
 
-    uint32_t capturedPiece(int t_square);
+    int capturedPiece(int t_square);
     uint64_t getAttackSet(int t_pieceType, uint64_t t_occupied, int t_square);
 
     

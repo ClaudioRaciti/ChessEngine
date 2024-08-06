@@ -241,22 +241,16 @@ void ChessBoard::generateDoublePushes(std::vector<ChessMove> &t_moveList,
 
 void ChessBoard::generateEpCaptures(std::vector<ChessMove> &t_moveList, uint64_t t_pawnsSet, int t_epSquare)
 {
-    int lPawnSquare, rPawnSquare;
+    int endSquare;
 
-    if (m_sideToMove == white) {
-        lPawnSquare = t_epSquare - 9;
-        rPawnSquare = t_epSquare - 7;        
-    }
-    else {
-        rPawnSquare = t_epSquare + 9;
-        lPawnSquare = t_epSquare + 7; 
-    }
+    if (m_sideToMove == white) endSquare = t_epSquare + 8;     
+    else endSquare = t_epSquare - 8;
 
-    if(((uint64_t) 1 << lPawnSquare) & t_pawnsSet)
-        t_moveList.push_back(ChessMove(pawns, lPawnSquare, t_epSquare, enPassant, pawns));
+    if(((uint64_t) 1 << t_epSquare + 1) & t_pawnsSet)
+        t_moveList.push_back(ChessMove(pawns, t_epSquare + 1, endSquare, enPassant, pawns));
 
-    if(((uint64_t) 1 << rPawnSquare) & t_pawnsSet)
-        t_moveList.push_back(ChessMove(pawns, rPawnSquare, t_epSquare, enPassant, pawns));
+    if(((uint64_t) 1 << t_epSquare - 1) & t_pawnsSet)
+        t_moveList.push_back(ChessMove(pawns, t_epSquare - 1, endSquare, enPassant, pawns));
 }
 
 void ChessBoard::generateCastles(std::vector<ChessMove> &t_moveList)
@@ -307,68 +301,111 @@ std::vector<uint64_t> ChessBoard::getBitBoards()
     return std::vector<uint64_t>(m_bitBoard, m_bitBoard + 8);
 }
 
-// void ChessBoard::makeMove(ChessMove t_move)
-// {
-//     uint32_t fromIdx = t_move.getStartingSquare();
-//     uint32_t toIdx = t_move.getEndSquare();
-//     uint64_t fromBB = (uint64_t) 1 << fromIdx;
-//     uint64_t toBB = (uint64_t) 1 << toIdx;
-//     uint64_t fromToBB = fromBB ^ toBB;
-//     uint32_t piece = t_move.getPiece();
-    
+void ChessBoard::makeMove(ChessMove t_move){
+    PosInfo newPosInfo(m_posHistory.back());
+    newPosInfo.incrementHalfmoveClock();
+    newPosInfo.setEpState(false);
 
-//     uint32_t moveFlag = t_move.getFlags();
-    
-//     if (t_move.isCapture()){
-//             uint32_t capturedPiece = t_move.getCaptured();
-//             m_bitBoard[1-m_sideToMove] ^= toBB;
-//             m_bitBoard[capturedPiece] ^= toBB;
-//     }
-    
-//     if (t_move.isDoublePush()){
-//         // Update en passant
-//         if (m_sideToMove == white){
-//                 m_enPassantSquare = fromBB << 8;
-//             }
-//             else {
-//                 m_enPassantSquare = fromBB >> 8;
-//             }
-//     }   
+    // pawns dedicated logic
+    if (t_move.getPiece() == pawns) {
+        newPosInfo.resetHalfmoveClock();
+        // Pawns CAPTURES
+        if(t_move.isCapture()){
+            // EN PASSANTS
+            if(t_move.isEnPassant()){
+                uint64_t capturedMask;
+                uint64_t moveMask = (uint64_t) 1 << t_move.getStartingSquare();
+                moveMask |= (uint64_t) 1 << t_move.getEndSquare();
 
-//     if (t_move.isPromo()){
-//         // Manage promotion
-//         m_bitBoard[m_sideToMove] ^= fromToBB;
-//         m_bitBoard[piece] ^= fromBB;
+                if(m_sideToMove == white) capturedMask = (uint64_t) 1 << t_move.getEndSquare() - 8;
+                else capturedMask = (uint64_t) 1 << t_move.getEndSquare() + 8;
 
-//         switch (t_move.getFlags())
-//         {
-//         case knightPromo:
-//         case knightPromoCapture:
-//             m_bitBoard[knights] ^= toBB;
-//             break;
-//         case bishopPromo:
-//         case bishopPromoCapture:
-//             m_bitBoard[bishops] ^= toBB;
-//             break;
-//         case rookPromo:
-//         case rookPromoCapture:
-//             m_bitBoard[rooks] ^= toBB;
-//             break;
-//         case queenPromo:
-//         case queenPromoCapture:
-//             m_bitBoard[queens] ^= toBB;
-//             break;
-//         default:
-//             break;
-//         }
-//     }
-//     else {
-//         //Update bitboards
-//         m_bitBoard[m_sideToMove] ^= fromToBB;
-//         m_bitBoard[piece] ^= fromToBB;
-//     }
-//     toggleSideToMove();
-// }
+                m_bitBoard[pawns] ^= capturedMask;
+                m_bitBoard[pawns] ^= moveMask;
+                m_bitBoard[m_sideToMove - 1] ^= capturedMask;
+                m_bitBoard[m_sideToMove] ^= moveMask;
+            }
+            // CAPTURES WITH PROMOTION
+            else if(t_move.isPromo()){
+                uint64_t capturedMask = (uint64_t) 1 << t_move.getEndSquare();
+                uint64_t moveMask = (uint64_t) 1 << t_move.getStartingSquare();
+                uint64_t promoMask= (uint64_t) 1 << t_move.getEndSquare();
+
+                m_bitBoard[t_move.getCaptured()] ^= capturedMask;
+                m_bitBoard[pawns] ^= moveMask;
+                m_bitBoard[t_move.getPromoPiece()] ^= promoMask;
+                m_bitBoard[m_sideToMove - 1] ^= capturedMask;
+                m_bitBoard[m_sideToMove] ^= moveMask | promoMask;
+            }
+            // CAPTURES WITHOUT PROMOTION
+            else {
+                uint64_t captureMask = (uint64_t) 1 << t_move.getEndSquare();
+                uint64_t moveMask = (uint64_t) 1 << t_move.getStartingSquare();
+                moveMask |= (uint64_t) 1 << t_move.getEndSquare();
+                
+                m_bitBoard[pawns] ^= moveMask;
+                m_bitBoard[t_move.getCaptured()] ^= captureMask;
+                m_bitBoard[m_sideToMove] ^= moveMask;
+                m_bitBoard[m_sideToMove - 1] ^= captureMask;
+            }
+        }
+        // NON CAPTURES
+        // PROMOTIONS
+        else if (t_move.isPromo()){
+            uint64_t moveMask = (uint64_t) 1 << t_move.getStartingSquare();
+            uint64_t promoMask= (uint64_t) 1 << t_move.getEndSquare();
+
+            m_bitBoard[pawns] ^= moveMask;
+            m_bitBoard[t_move.getPromoPiece()] ^= promoMask;
+            m_bitBoard[m_sideToMove] ^= moveMask | promoMask;
+        }
+        // PUSHES
+        else{
+            // SET STATE FOR DOUBLE PUSHES
+            if(t_move.isDoublePush()){
+                newPosInfo.setEpState(true);
+                newPosInfo.setEpSquare(t_move.getEndSquare());
+            }
+            uint64_t moveMask = (uint64_t) 1 << t_move.getStartingSquare();
+            moveMask |= (uint64_t) 1 << t_move.getEndSquare();
+            
+            m_bitBoard[pawns] ^= moveMask;
+            m_bitBoard[m_sideToMove] ^= moveMask;
+        }
+    }
+    // all the other pieces (easier)
+    else {
+        // CAPTURES
+        if (t_move.isCapture()){
+            newPosInfo.resetHalfmoveClock();
+            uint64_t captureMask = (uint64_t) 1 << t_move.getEndSquare();
+            uint64_t moveMask = (uint64_t) 1 << t_move.getStartingSquare();
+            moveMask |= (uint64_t) 1 << t_move.getEndSquare();
+            
+            m_bitBoard[t_move.getPiece()] ^= moveMask;
+            m_bitBoard[t_move.getCaptured()] ^= captureMask;
+            m_bitBoard[m_sideToMove] ^= moveMask;
+            m_bitBoard[m_sideToMove - 1] ^= captureMask;
+        }
+        else if (t_move.getFlags() == kingCastle){
+
+        }
+        else if (t_move.getFlags() == queenCastle){
+
+        }
+        // QUIET MOVES
+        else {
+            uint64_t moveMask = (uint64_t) 1 << t_move.getStartingSquare();
+            moveMask |= (uint64_t) 1 << t_move.getEndSquare();
+            
+            m_bitBoard[t_move.getPiece()] ^= moveMask;
+            m_bitBoard[m_sideToMove] ^= moveMask;
+        }
+    }
+
+    m_posHistory.push_back(newPosInfo);
+    toggleSideToMove();
+}
 
 void ChessBoard::initBoard(){
     m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
@@ -387,9 +424,9 @@ void ChessBoard::toggleSideToMove()
     m_sideToMove = 1 - m_sideToMove;
 }
 
-uint32_t ChessBoard::capturedPiece(int t_square)
+int ChessBoard::capturedPiece(int t_square)
 {
-    uint32_t taken = 8;
+    int taken = 8;
     uint64_t mask = (uint64_t) 1 << t_square;
 
     if ((m_bitBoard[pawns] & mask) != 0) taken = pawns;

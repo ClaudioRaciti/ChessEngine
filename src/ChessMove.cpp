@@ -6,6 +6,10 @@ enum moveType {
     knightPromoCapture,  bishopPromoCapture, rookPromoCapture, queenPromoCapture
 };
 
+enum pieceType {
+    white, black, pawns, knights, bishops, rooks, queens, kings
+};
+
 ChessMove::ChessMove(uint32_t t_piece, uint32_t t_from, uint32_t t_to, uint32_t t_flag)
 {
     m_Move = ((t_piece & 0x0f) << 16|(t_flag & 0x0f) << 12|(t_from & 0x3f) << 6 |(t_to & 0x3f));
@@ -55,6 +59,33 @@ uint32_t ChessMove::getFlags()
 uint32_t ChessMove::getCaptured()
 {
     return (m_Move >> 20) & 0x0f;
+}
+
+uint32_t ChessMove::getPromoPiece()
+{
+    uint32_t promoPiece;
+
+    switch (getFlags())
+    {
+    case knightPromo:
+    case knightPromoCapture:
+        promoPiece = knights;
+        break;
+    case bishopPromo:
+    case bishopPromoCapture:
+        promoPiece = bishops;
+        break;
+    case rookPromo:
+    case rookPromoCapture:
+        promoPiece = rooks;
+        break;
+    case queenPromo:
+    case queenPromoCapture:
+        promoPiece = queens;
+        break;
+    }
+
+    return promoPiece;
 }
 
 void ChessMove::setPiece(uint32_t t_piece)

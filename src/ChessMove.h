@@ -17,6 +17,7 @@ public:
     uint32_t getStartingSquare();
     uint32_t getFlags();
     uint32_t getCaptured();
+    uint32_t getPromoPiece();
 
     void setPiece(uint32_t t_piece);
     void setEndSquare(uint32_t t_to);
