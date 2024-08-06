@@ -6,7 +6,6 @@
 #include "ChessMove.h"
 #include "LookupTables.h"
 #include "PosInfo.h"
-#include "utils.h"
 
 class ChessBoard{
 public:
@@ -34,12 +33,14 @@ private:
     void generatePawnsCaptures(std::vector<ChessMove>& t_moveList, uint64_t t_pawnsSet, uint64_t t_enemyPcs);
     void generatePawnsPushes(std::vector<ChessMove>& t_moveList, uint64_t t_pawnsSet, uint64_t t_emptySet);
     void generateDoublePushes(std::vector<ChessMove>& t_moveList, uint64_t t_pawnSet, uint64_t t_emptySet);
+    void generateEpCaptures(std::vector<ChessMove>& t_moveList, uint64_t t_pawnsSet, int t_epSquare);
+    void generateCastles(std::vector<ChessMove>& t_moveList);
 
     uint32_t capturedPiece(int t_square);
     uint64_t getAttackSet(int t_pieceType, uint64_t t_occupied, int t_square);
 
     
-    // bool isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide);
+    bool isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide);
     // bool isCheck(int t_attackingSide);
 
 private:

@@ -4,22 +4,22 @@ enum pieceType {
     white, black
 };
 
-bool PosInfo::getEnPassantState()
+bool PosInfo::isEpPossible()
 {
     return m_enPassantState;
 }
 
-void PosInfo::setEnPassantState(bool t_state)
+void PosInfo::setEpState(bool t_state)
 {
     m_enPassantState = t_state;
 }
 
-int PosInfo::getEnPassantSq()
+int PosInfo::getEpSquare()
 {
     return m_enPassantSq;
 }
 
-void PosInfo::setEnPassantSq(int t_square)
+void PosInfo::setEpSquare(int t_square)
 {
     m_enPassantSq = t_square;
 }

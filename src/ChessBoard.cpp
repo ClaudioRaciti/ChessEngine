@@ -3,8 +3,21 @@
 #include <cassert>
 #include <algorithm>
 
+#include "utils.h"
+
 enum pieceType {
     white, black, pawns, knights, bishops, rooks, queens, kings
+};
+
+enum algebraicNotation{
+    a1, b1, c1, d1, e1, f1, g1, h1,
+    a2, b2, c2, d2, e2, f2, g2, h2,
+    a3, b3, c3, d3, e3, f3, g3, h3,
+    a4, b4, c4, d4, e4, f4, g4, h4,
+    a5, b5, c5, d5, e5, f5, g5, h5,
+    a6, b6, c6, d6, e6, f6, g6, h6,
+    a7, b7, c7, d7, e7, f7, g7, h7,
+    a8, b8, c8, d8, e8, f8, g8, h8
 };
 
 enum moveType {
@@ -34,9 +47,9 @@ std::vector<ChessMove> ChessBoard::getMoveList()
     generatePieceMoves(queens , moveList);
     generatePieceMoves(kings  , moveList);
     generatePawnsMoves(moveList);    
+    generateCastles(moveList);
 
-    // TODO castling (here) and en-passant (in generatePawnMoves)
-    // TODO debug double pushes
+    // TODO castling (here) 
     return moveList;
 }
 
@@ -80,10 +93,13 @@ void ChessBoard::generatePawnsMoves(std::vector<ChessMove> &t_moveList)
     generatePawnsPushes(t_moveList, pawnsSet, emptySet);
     generatePawnsCaptures(t_moveList, pawnsSet, enemyPcs);
     generateDoublePushes(t_moveList, pawnsSet, emptySet);
-    // other en passant logic
+
+    if(m_posHistory.back().isEpPossible())
+        generateEpCaptures(t_moveList, pawnsSet, m_posHistory.back().getEpSquare());
 }
 
-void ChessBoard::generatePawnsPushes(std::vector<ChessMove> &t_moveList, uint64_t t_pawnsSet, uint64_t t_emptySet)
+void ChessBoard::generatePawnsPushes(std::vector<ChessMove> &t_moveList, 
+    uint64_t t_pawnsSet, uint64_t t_emptySet)
 {
     const uint64_t row8 = (uint64_t) 0xff00000000000000;
     const uint64_t row1 = (uint64_t) 0x00000000000000ff;
@@ -122,7 +138,8 @@ void ChessBoard::generatePawnsPushes(std::vector<ChessMove> &t_moveList, uint64_
     } while (promoSet &= (promoSet - 1));
 }
 
-void ChessBoard::generatePawnsCaptures(std::vector<ChessMove> &t_moveList, uint64_t t_pawnsSet, uint64_t t_enemyPcs)
+void ChessBoard::generatePawnsCaptures(std::vector<ChessMove> &t_moveList,
+    uint64_t t_pawnsSet, uint64_t t_enemyPcs)
 {
     const uint64_t row8 = (uint64_t) 0xff00000000000000;
     const uint64_t row1 = (uint64_t) 0x00000000000000ff;
@@ -194,7 +211,8 @@ void ChessBoard::generatePawnsCaptures(std::vector<ChessMove> &t_moveList, uint6
 }
 
 
-void ChessBoard::generateDoublePushes(std::vector<ChessMove> &t_moveList, uint64_t t_pawnSet, uint64_t t_emptySquares)
+void ChessBoard::generateDoublePushes(std::vector<ChessMove> &t_moveList, 
+    uint64_t t_pawnSet, uint64_t t_emptySquares)
 {
     const uint64_t rank4 = (uint64_t) 0x00000000ff000000;
     const uint64_t rank5 = (uint64_t) 0x00000000ff000000;
@@ -218,6 +236,69 @@ void ChessBoard::generateDoublePushes(std::vector<ChessMove> &t_moveList, uint64
             int startingSquare = endSquare + 16;
             t_moveList.push_back(ChessMove(pawns, startingSquare, endSquare, doublePush));
         } while (pawnDoublePush  &= (pawnDoublePush - 1));
+    }
+}
+
+void ChessBoard::generateEpCaptures(std::vector<ChessMove> &t_moveList, uint64_t t_pawnsSet, int t_epSquare)
+{
+    int lPawnSquare, rPawnSquare;
+
+    if (m_sideToMove == white) {
+        lPawnSquare = t_epSquare - 9;
+        rPawnSquare = t_epSquare - 7;        
+    }
+    else {
+        rPawnSquare = t_epSquare + 9;
+        lPawnSquare = t_epSquare + 7; 
+    }
+
+    if(((uint64_t) 1 << lPawnSquare) & t_pawnsSet)
+        t_moveList.push_back(ChessMove(pawns, lPawnSquare, t_epSquare, enPassant, pawns));
+
+    if(((uint64_t) 1 << rPawnSquare) & t_pawnsSet)
+        t_moveList.push_back(ChessMove(pawns, rPawnSquare, t_epSquare, enPassant, pawns));
+}
+
+void ChessBoard::generateCastles(std::vector<ChessMove> &t_moveList)
+{
+    uint64_t occupied = (m_bitBoard[black] | m_bitBoard[white]);
+    uint64_t emptySet = ~occupied;
+
+    if (m_sideToMove == white){
+        const uint64_t longCastleSquares = (uint64_t) 0x000000000000000e;
+        const uint64_t shortCastleSquares = (uint64_t) 0x0000000000000060;
+        if(
+            m_posHistory.back().getLongCastlingRights(white) &&
+            (longCastleSquares & emptySet) &&
+            ! isSquareAttacked(occupied, c1, black) &&
+            ! isSquareAttacked(occupied, d1, black) &&
+            ! isSquareAttacked(occupied, e1, black)
+        ) t_moveList.push_back(ChessMove(kings, e1, c1, queenCastle));
+        if(
+            m_posHistory.back().getShortCastlingRights(white) &&
+            (shortCastleSquares & emptySet) &&
+            ! isSquareAttacked(occupied, e1, black) &&
+            ! isSquareAttacked(occupied, f1, black) &&
+            ! isSquareAttacked(occupied, g1, black)
+        ) t_moveList.push_back(ChessMove(kings, e1, g1, kingCastle));
+    }
+    else{
+        const uint64_t longCastleSquares = (uint64_t) 0x0e00000000000000;
+        const uint64_t shortCastleSquares = (uint64_t) 0x6000000000000000;
+        if(
+            m_posHistory.back().getLongCastlingRights(black) &&
+            (longCastleSquares & emptySet) &&
+            ! isSquareAttacked(occupied, c8, white) &&
+            ! isSquareAttacked(occupied, d8, white) &&
+            ! isSquareAttacked(occupied, e8, white)
+        ) t_moveList.push_back(ChessMove(kings, e8, c8, queenCastle));
+        if(
+            m_posHistory.back().getShortCastlingRights(black) &&
+            (shortCastleSquares & emptySet) &&
+            ! isSquareAttacked(occupied, e8, white) &&
+            ! isSquareAttacked(occupied, f8, white) &&
+            ! isSquareAttacked(occupied, g8, white)
+        ) t_moveList.push_back(ChessMove(kings, e8, g8, kingCastle));
     }
 }
 
@@ -334,25 +415,25 @@ uint64_t ChessBoard::getAttackSet(int t_pieceType, uint64_t t_occupied, int t_sq
     return attackSet;
 }
 
-// bool ChessBoard::isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide)
-// {
-//     uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[t_attackingSide];
-//     if ((m_Lookup.pawnAttacks(t_square, 1-t_attackingSide) & pawnsSet) != 0) return true;
+bool ChessBoard::isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide)
+{
+    uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[t_attackingSide];
+    if ((m_lookup.pawnAttacks(t_square, 1-t_attackingSide) & pawnsSet) != 0) return true;
 
-//     uint64_t knightsSet = m_bitBoard[knights] & m_bitBoard[t_attackingSide];
-//     if ((m_Lookup.knightAttacks(t_square) & knightsSet) != 0) return true;
+    uint64_t knightsSet = m_bitBoard[knights] & m_bitBoard[t_attackingSide];
+    if ((m_lookup.knightAttacks(t_square) & knightsSet) != 0) return true;
 
-//     uint64_t kingSet = m_bitBoard[kings] & m_bitBoard[t_attackingSide];
-//     if ((m_Lookup.kingAttacks(t_square) & kingSet) != 0) return true;
+    uint64_t kingSet = m_bitBoard[kings] & m_bitBoard[t_attackingSide];
+    if ((m_lookup.kingAttacks(t_square) & kingSet) != 0) return true;
 
-//     uint64_t rooksQueensSet = (m_bitBoard[queens] | m_bitBoard[rooks]) & m_bitBoard[t_attackingSide];
-//     if ((m_Lookup.rookAttacks(t_occupied, t_square) & rooksQueensSet) != 0) return true;
+    uint64_t rooksQueensSet = (m_bitBoard[queens] | m_bitBoard[rooks]) & m_bitBoard[t_attackingSide];
+    if ((m_lookup.rookAttacks(t_occupied, t_square) & rooksQueensSet) != 0) return true;
 
-//     uint64_t bishopsQueensSet = (m_bitBoard[queens] | m_bitBoard[bishops]) & m_bitBoard[t_attackingSide];
-//     if ((m_Lookup.bishopAttacks(t_occupied, t_square) & bishopsQueensSet) != 0) return true;  
+    uint64_t bishopsQueensSet = (m_bitBoard[queens] | m_bitBoard[bishops]) & m_bitBoard[t_attackingSide];
+    if ((m_lookup.bishopAttacks(t_occupied, t_square) & bishopsQueensSet) != 0) return true;  
 
-//     return false;
-// }
+    return false;
+}
 
 // bool ChessBoard::isCheck(int t_attackingSide)
 // {

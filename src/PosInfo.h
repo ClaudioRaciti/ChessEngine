@@ -19,10 +19,10 @@ public:
     PosInfo& operator=(const PosInfo&)    = default;
 
 public:
-    bool getEnPassantState();
-    void setEnPassantState(bool t_state);
-    int getEnPassantSq();
-    void setEnPassantSq(int t_square);
+    bool isEpPossible();
+    void setEpState(bool t_state);
+    int getEpSquare();
+    void setEpSquare(int t_square);
 
     bool getLongCastlingRights(int t_sideToMove);
     bool getShortCastlingRights(int t_sideToMove);
