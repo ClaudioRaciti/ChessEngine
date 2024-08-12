@@ -16,7 +16,7 @@ public:
     ChessBoard &operator=(ChessBoard &&) = default;
 
 public:
-    //bool isIllegal();
+    bool isIllegal();
 
     std::vector<ChessMove> getMoveList();
     std::vector<uint64_t> getBitBoards();
@@ -24,9 +24,12 @@ public:
     void makeMove(ChessMove t_move);
     void undoMove(ChessMove t_move);
 
+    bool isCheck();
+
 private:
     void initBoard();
     void toggleSideToMove();
+    void updateBitBoards(ChessMove t_move, PosInfo& t_state);
 
     void generatePieceMoves(int pieceType, std::vector<ChessMove>& t_moveList);
     void generatePawnsMoves(std::vector<ChessMove>& t_moveList);
@@ -41,7 +44,7 @@ private:
 
     
     bool isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide);
-    // bool isCheck(int t_attackingSide);
+    bool isCheck(int t_attackingSide);
 
 private:
     int m_sideToMove;

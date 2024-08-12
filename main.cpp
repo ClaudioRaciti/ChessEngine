@@ -15,7 +15,7 @@
 //         chessPosition.makeMove(move_list[i]);
 //         if (!chessPosition.isIllegal())
 //             nodes += perft(depth - 1, chessPosition);
-//         chessPosition.unmakeLastMove();
+//         chessPosition.undoMove(move_list[i]);
 //     }
 //   return nodes;
 // }
@@ -23,6 +23,7 @@
 int main(){
     ChessBoard cBoard;
 
-    std::vector<ChessMove> moveList = cBoard.getMoveList();
+    std::vector<ChessMove> d0MoveList = cBoard.getMoveList();
+    
     return 0;
 }

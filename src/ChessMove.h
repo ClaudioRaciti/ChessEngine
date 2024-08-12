@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+#include <iostream>
 
 class ChessMove{
 public:
@@ -10,14 +11,15 @@ public:
     void operator= (ChessMove otherObj);
     friend bool operator== (const ChessMove& thisObj, const ChessMove& otherObj);
     friend bool operator!= (const ChessMove& thisObj, const ChessMove& otherObj);
+    friend std::ostream& operator<< (std::ostream& os, const ChessMove& cm);
 
-
-    uint32_t getPiece();
-    uint32_t getEndSquare();
-    uint32_t getStartingSquare();
-    uint32_t getFlags();
-    uint32_t getCaptured();
-    uint32_t getPromoPiece();
+public:
+    uint32_t getPiece() const;
+    uint32_t getEndSquare() const;
+    uint32_t getStartingSquare() const;
+    uint32_t getFlags() const;
+    uint32_t getCaptured() const;
+    uint32_t getPromoPiece() const;
 
     void setPiece(uint32_t t_piece);
     void setEndSquare(uint32_t t_to);
