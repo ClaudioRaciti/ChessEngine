@@ -3,27 +3,27 @@
 
 #include "src/ChessBoard.h"
 
-// uint64_t perft(int depth, ChessBoard& chessPosition){
-//     std::vector<ChessMove> move_list = chessPosition.getMoveList();
-//     int n_moves = move_list.size();
-//     uint64_t nodes = 0;
+uint64_t perft(uint64_t depth, ChessBoard& chessPosition){
+    std::vector<ChessMove> move_list = chessPosition.getMoveList();
+    int n_moves = move_list.size();
+    uint64_t nodes = 0;
 
-//     if (depth == 0) 
-//         return 1UL;
+    if (depth == 0) 
+        return 1UL;
 
-//     for (int i = 0; i < n_moves; i++) {
-//         chessPosition.makeMove(move_list[i]);
-//         if (!chessPosition.isIllegal())
-//             nodes += perft(depth - 1, chessPosition);
-//         chessPosition.undoMove(move_list[i]);
-//     }
-//   return nodes;
-// }
+    for (int i = 0; i < n_moves; i++) {
+        chessPosition.makeMove(move_list[i]);
+        if (!chessPosition.isIllegal())
+            nodes += perft(depth - 1, chessPosition);
+        chessPosition.undoMove(move_list[i]);
+    }
+  return nodes;
+}
 
 int main(){
     ChessBoard cBoard;
 
-    std::vector<ChessMove> d0MoveList = cBoard.getMoveList();
+    std::cout <<  perft(1, cBoard) << std::endl;
     
     return 0;
 }

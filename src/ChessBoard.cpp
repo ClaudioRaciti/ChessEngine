@@ -419,19 +419,125 @@ void ChessBoard::makeMove(ChessMove t_move){
     }
 }
 
+void ChessBoard::undoMove(ChessMove t_move)
+{
+    toggleSideToMove();
+
+    uint64_t moveMask, promoMask, captureMask;
+    switch (t_move.getFlags())
+    {
+    case quiet:
+        moveMask  = (uint64_t) 1 << t_move.getStartingSquare();
+        moveMask |= (uint64_t) 1 << t_move.getEndSquare();
+
+        m_bitBoard[t_move.getPiece()] ^= moveMask;
+        m_bitBoard[m_sideToMove] ^= moveMask;
+        break;
+    case capture:
+        captureMask = (uint64_t) 1 << t_move.getEndSquare();
+        moveMask = captureMask | (uint64_t) 1 << t_move.getStartingSquare();
+        
+        m_bitBoard[t_move.getPiece()] ^= moveMask;
+        m_bitBoard[m_sideToMove] ^= moveMask;
+
+        m_bitBoard[t_move.getCaptured()] ^= captureMask;
+        m_bitBoard[1 - m_sideToMove] ^= captureMask;        
+        break;
+    case queenCastle: 
+        if(m_sideToMove == white){
+            m_bitBoard[white] ^= 0x000000000000001d;
+            m_bitBoard[kings] ^= 0x0000000000000014;
+            m_bitBoard[rooks] ^= 0x0000000000000009;
+        }
+        else {
+            m_bitBoard[white] ^= 0x1d00000000000000;
+            m_bitBoard[kings] ^= 0x1400000000000000;
+            m_bitBoard[rooks] ^= 0x0900000000000000;
+        }
+        break;
+    case kingCastle:
+        if(m_sideToMove == white){
+            m_bitBoard[white] ^= 0x00000000000000f0;
+            m_bitBoard[kings] ^= 0x0000000000000050;
+            m_bitBoard[rooks] ^= 0x00000000000000a0;
+        }
+        else {
+            m_bitBoard[white] ^= 0xf000000000000000;
+            m_bitBoard[kings] ^= 0x5000000000000000;
+            m_bitBoard[rooks] ^= 0xa000000000000000;
+        }
+        break;
+    case enPassant:
+        moveMask = (uint64_t) 1 << t_move.getStartingSquare();
+        moveMask |= (uint64_t) 1 << t_move.getEndSquare();
+
+        if(m_sideToMove == white) captureMask = (uint64_t) 1 << (t_move.getEndSquare() - 8);
+        else captureMask = (uint64_t) 1 << (t_move.getEndSquare() + 8);
+
+        m_bitBoard[pawns] ^= captureMask;
+        m_bitBoard[pawns] ^= moveMask;
+        m_bitBoard[1 - m_sideToMove] ^= captureMask;
+        m_bitBoard[m_sideToMove] ^= moveMask;
+        break;
+    case knightPromoCapture:
+    case bishopPromoCapture:
+    case rookPromoCapture:
+    case queenPromoCapture:
+        captureMask = (uint64_t) 1 << t_move.getEndSquare();
+        moveMask = (uint64_t) 1 << t_move.getStartingSquare();
+        promoMask= (uint64_t) 1 << t_move.getEndSquare();
+
+        m_bitBoard[t_move.getCaptured()] ^= captureMask;
+        m_bitBoard[pawns] ^= moveMask;
+        m_bitBoard[t_move.getPromoPiece()] ^= promoMask;
+        m_bitBoard[1 - m_sideToMove] ^= captureMask;
+        m_bitBoard[m_sideToMove] ^= moveMask | promoMask;
+        break;
+    case knightPromo:
+    case bishopPromo:
+    case rookPromo:
+    case queenPromo:
+        moveMask = (uint64_t) 1 << t_move.getStartingSquare();
+        promoMask= (uint64_t) 1 << t_move.getEndSquare();
+
+        m_bitBoard[pawns] ^= moveMask;
+        m_bitBoard[t_move.getPromoPiece()] ^= promoMask;
+        m_bitBoard[m_sideToMove] ^= moveMask | promoMask;
+        break;
+    case doublePush:
+        moveMask  = (uint64_t) 1 << t_move.getStartingSquare();
+        moveMask |= (uint64_t) 1 << t_move.getEndSquare();
+
+        m_bitBoard[t_move.getPiece()] ^= moveMask;
+        m_bitBoard[m_sideToMove] ^= moveMask;
+        break;
+    }
+
+    m_posHistory.pop_back();
+}
+
 bool ChessBoard::isCheck()
 {
     return isCheck(1 - m_sideToMove);
 }
 
 void ChessBoard::initBoard(){
-    m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
-    m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
-    m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
-    m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
-    m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
+    // m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
+    // m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
+    // m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
+    // m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
+    // m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
+    // m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
+    // m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
+    // m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
+
+    m_bitBoard[white]   = (uint64_t) 0x000000181024ff91;
+    m_bitBoard[black]   = (uint64_t) 0x917d730002800000;
+    m_bitBoard[pawns]   = (uint64_t) 0x002d50081280e700;
+    m_bitBoard[knights] = (uint64_t) 0x0000221000040000;
+    m_bitBoard[bishops] = (uint64_t) 0x0040010000001800;
     m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
-    m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
+    m_bitBoard[queens]  = (uint64_t) 0x0010000000200000;
     m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
 }
 
@@ -496,4 +602,68 @@ bool ChessBoard::isCheck(int t_attackingSide)
     int kingSquare = btw::bitScanForward(kingSet);
 
     return isSquareAttacked(occupied, kingSquare, t_attackingSide);
+}
+
+std::ostream &operator<<(std::ostream &os, const ChessBoard &cb)
+{   
+    for (int rank = 7; rank >= 0; rank --){
+        int emptySquares = 0;
+        for (int file = 0; file < 8; file ++){
+            uint64_t squareMask = (uint64_t) 1 << (rank * 8 + file);
+
+            if (squareMask & cb.m_bitBoard[pawns]){
+                if(emptySquares) os << emptySquares;
+                emptySquares = 0;
+                if (squareMask & cb.m_bitBoard[white]) os << "P";
+                else if (squareMask & cb.m_bitBoard[black]) os << "p";
+            }
+            else if(squareMask & cb.m_bitBoard[knights]){
+                if(emptySquares) os << emptySquares;
+                emptySquares = 0;
+                if (squareMask & cb.m_bitBoard[white]) os << "N";
+                else if (squareMask & cb.m_bitBoard[black]) os << "n";
+            }
+            else if(squareMask & cb.m_bitBoard[bishops]){
+                if(emptySquares) os << emptySquares;
+                emptySquares = 0;
+                if (squareMask & cb.m_bitBoard[white]) os << "B";
+                else if (squareMask & cb.m_bitBoard[black]) os << "b";
+            }
+            else if(squareMask & cb.m_bitBoard[rooks]){
+                if(emptySquares) os << emptySquares;
+                emptySquares = 0;
+                if (squareMask & cb.m_bitBoard[white]) os << "R";
+                else if (squareMask & cb.m_bitBoard[black]) os << "r";
+            }
+            else if(squareMask & cb.m_bitBoard[queens]){
+                if(emptySquares) os << emptySquares;
+                emptySquares = 0;
+                if (squareMask & cb.m_bitBoard[white]) os << "Q";
+                else if (squareMask & cb.m_bitBoard[black]) os << "q";
+            }
+            else if(squareMask & cb.m_bitBoard[kings]){
+                if(emptySquares) os << emptySquares;
+                emptySquares = 0;
+                if (squareMask & cb.m_bitBoard[white]) os << "K";
+                else if (squareMask & cb.m_bitBoard[black]) os << "k";
+            }
+            else emptySquares ++;
+        }
+        if (emptySquares) os << emptySquares;
+        if (rank != 0) os << "/";
+    }
+
+    if (cb.m_sideToMove == white) os << " w ";
+    else os << " b ";
+
+    PosInfo info(cb.m_posHistory.back());
+    if(info.getShortCastlingRights(white)) os << "K";
+    if(info.getLongCastlingRights(white)) os << "Q";
+    if(info.getShortCastlingRights(black)) os << "k";
+    if(info.getLongCastlingRights(black)) os << "q";
+
+    if(info.isEpPossible()) os << " " << info.getEpSquare() << " ";
+    else os << " - ";
+
+    return os;
 }

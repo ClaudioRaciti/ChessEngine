@@ -4,7 +4,7 @@ enum pieceType {
     white, black
 };
 
-bool PosInfo::isEpPossible()
+bool PosInfo::isEpPossible() const
 {
     return m_enPassantState;
 }
@@ -14,7 +14,7 @@ void PosInfo::setEpState(bool t_state)
     m_enPassantState = t_state;
 }
 
-int PosInfo::getEpSquare()
+int PosInfo::getEpSquare() const
 {
     return m_enPassantSq;
 }
@@ -24,7 +24,7 @@ void PosInfo::setEpSquare(int t_square)
     m_enPassantSq = t_square;
 }
 
-bool PosInfo::getLongCastlingRights(int t_sideToMove)
+bool PosInfo::getLongCastlingRights(int t_sideToMove) const
 {
     bool longCastlingRights;
     
@@ -38,7 +38,7 @@ bool PosInfo::getLongCastlingRights(int t_sideToMove)
     return longCastlingRights;
 }
 
-bool PosInfo::getShortCastlingRights(int t_sideToMove)
+bool PosInfo::getShortCastlingRights(int t_sideToMove) const
 {
     bool shortCastlingRights;
 
@@ -52,7 +52,7 @@ bool PosInfo::getShortCastlingRights(int t_sideToMove)
     return shortCastlingRights;
 }
 
-void PosInfo::removeLongCastlingRights(int t_sideToMove)
+void PosInfo::removeLongCastlingRights(int t_sideToMove) 
 {
     if(t_sideToMove == white){
         m_wLongRights = false;
@@ -62,7 +62,7 @@ void PosInfo::removeLongCastlingRights(int t_sideToMove)
     }
 }
 
-void PosInfo::removeShortCastlingRights(int t_sideToMove)
+void PosInfo::removeShortCastlingRights(int t_sideToMove) 
 {
     if(t_sideToMove == white){
         m_wShortRights = false;
@@ -72,7 +72,7 @@ void PosInfo::removeShortCastlingRights(int t_sideToMove)
     }
 }
 
-int PosInfo::getHalfmoveClock()
+int PosInfo::getHalfmoveClock() const
 {
     return m_halfmoveClock;
 }

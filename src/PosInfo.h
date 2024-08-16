@@ -19,17 +19,17 @@ public:
     PosInfo& operator=(const PosInfo&)    = default;
 
 public:
-    bool isEpPossible();
+    bool isEpPossible() const;
     void setEpState(bool t_state);
-    int getEpSquare();
+    int getEpSquare() const;
     void setEpSquare(int t_square);
 
-    bool getLongCastlingRights(int t_sideToMove);
-    bool getShortCastlingRights(int t_sideToMove);
+    bool getLongCastlingRights(int t_sideToMove) const;
+    bool getShortCastlingRights(int t_sideToMove) const;
     void removeLongCastlingRights(int t_sideToMove);
     void removeShortCastlingRights(int t_sideToMove);
 
-    int getHalfmoveClock();
+    int getHalfmoveClock() const;
     void incrementHalfmoveClock();
     void resetHalfmoveClock();
 };

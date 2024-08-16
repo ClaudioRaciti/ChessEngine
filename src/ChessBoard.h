@@ -15,6 +15,8 @@ public:
     ChessBoard &operator=(const ChessBoard &) = default;
     ChessBoard &operator=(ChessBoard &&) = default;
 
+    friend std::ostream& operator<<(std::ostream& os,const ChessBoard& cb);
+
 public:
     bool isIllegal();
 
