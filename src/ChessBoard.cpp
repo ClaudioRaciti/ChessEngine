@@ -262,16 +262,19 @@ void ChessBoard::generateCastles(std::vector<ChessMove> &t_moveList)
     if (m_sideToMove == white){
         const uint64_t longCastleSquares = (uint64_t) 0x000000000000000e;
         const uint64_t shortCastleSquares = (uint64_t) 0x0000000000000060;
+        uint64_t intersection = longCastleSquares & emptySet;
         if(
             m_posHistory.back().getLongCastlingRights(white) &&
-            (longCastleSquares & emptySet == longCastleSquares) &&
+            (intersection == longCastleSquares) &&
             ! isSquareAttacked(occupied, c1, black) &&
             ! isSquareAttacked(occupied, d1, black) &&
             ! isSquareAttacked(occupied, e1, black)
         ) t_moveList.push_back(ChessMove(kings, e1, c1, queenCastle));
+        
+        intersection = shortCastleSquares & emptySet; 
         if(
             m_posHistory.back().getShortCastlingRights(white) &&
-            (shortCastleSquares & emptySet == shortCastleSquares) &&
+            (intersection == shortCastleSquares) &&
             ! isSquareAttacked(occupied, e1, black) &&
             ! isSquareAttacked(occupied, f1, black) &&
             ! isSquareAttacked(occupied, g1, black)
@@ -280,16 +283,19 @@ void ChessBoard::generateCastles(std::vector<ChessMove> &t_moveList)
     else{
         const uint64_t longCastleSquares = (uint64_t) 0x0e00000000000000;
         const uint64_t shortCastleSquares = (uint64_t) 0x6000000000000000;
+        uint64_t intersection = longCastleSquares & emptySet; 
         if(
             m_posHistory.back().getLongCastlingRights(black) &&
-            (longCastleSquares & emptySet == longCastleSquares) &&
+            (intersection == longCastleSquares) &&
             ! isSquareAttacked(occupied, c8, white) &&
             ! isSquareAttacked(occupied, d8, white) &&
             ! isSquareAttacked(occupied, e8, white)
         ) t_moveList.push_back(ChessMove(kings, e8, c8, queenCastle));
+
+        intersection = shortCastleSquares & emptySet;
         if(
             m_posHistory.back().getShortCastlingRights(black) &&
-            (shortCastleSquares & emptySet == shortCastleSquares) &&
+            (intersection == shortCastleSquares) &&
             ! isSquareAttacked(occupied, e8, white) &&
             ! isSquareAttacked(occupied, f8, white) &&
             ! isSquareAttacked(occupied, g8, white)
@@ -337,7 +343,7 @@ void ChessBoard::makeMove(ChessMove t_move){
             m_bitBoard[rooks] ^= 0x0000000000000009;
         }
         else {
-            m_bitBoard[white] ^= 0x1d00000000000000;
+            m_bitBoard[black] ^= 0x1d00000000000000;
             m_bitBoard[kings] ^= 0x1400000000000000;
             m_bitBoard[rooks] ^= 0x0900000000000000;
         }
@@ -349,7 +355,7 @@ void ChessBoard::makeMove(ChessMove t_move){
             m_bitBoard[rooks] ^= 0x00000000000000a0;
         }
         else {
-            m_bitBoard[white] ^= 0xf000000000000000;
+            m_bitBoard[black] ^= 0xf000000000000000;
             m_bitBoard[kings] ^= 0x5000000000000000;
             m_bitBoard[rooks] ^= 0xa000000000000000;
         }
@@ -412,9 +418,7 @@ void ChessBoard::makeMove(ChessMove t_move){
     if((m_bitBoard[m_sideToMove]& m_bitBoard[kings])==0 ||
     (m_bitBoard[1 - m_sideToMove]& m_bitBoard[kings])==0){
         std::cout << t_move << "\n";
-        for(int i = 0; i < 8; i ++){
-            std::cout << m_bitBoard[i] << "\n";
-        }
+        std::cout << *this << "\n";
         std::cout << std::endl;
     }
 }
@@ -450,7 +454,7 @@ void ChessBoard::undoMove(ChessMove t_move)
             m_bitBoard[rooks] ^= 0x0000000000000009;
         }
         else {
-            m_bitBoard[white] ^= 0x1d00000000000000;
+            m_bitBoard[black] ^= 0x1d00000000000000;
             m_bitBoard[kings] ^= 0x1400000000000000;
             m_bitBoard[rooks] ^= 0x0900000000000000;
         }
@@ -462,7 +466,7 @@ void ChessBoard::undoMove(ChessMove t_move)
             m_bitBoard[rooks] ^= 0x00000000000000a0;
         }
         else {
-            m_bitBoard[white] ^= 0xf000000000000000;
+            m_bitBoard[black] ^= 0xf000000000000000;
             m_bitBoard[kings] ^= 0x5000000000000000;
             m_bitBoard[rooks] ^= 0xa000000000000000;
         }
@@ -522,23 +526,23 @@ bool ChessBoard::isCheck()
 }
 
 void ChessBoard::initBoard(){
-    // m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
-    // m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
-    // m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
-    // m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
-    // m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
-    // m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
-    // m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
-    // m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
+    m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
+    m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
+    m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
+    m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
+    m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
+    m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
+    m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
+    m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
 
-    m_bitBoard[white]   = (uint64_t) 0x000000181024ff91;
+    /*m_bitBoard[white]   = (uint64_t) 0x000000181024ff91;
     m_bitBoard[black]   = (uint64_t) 0x917d730002800000;
     m_bitBoard[pawns]   = (uint64_t) 0x002d50081280e700;
     m_bitBoard[knights] = (uint64_t) 0x0000221000040000;
     m_bitBoard[bishops] = (uint64_t) 0x0040010000001800;
     m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
     m_bitBoard[queens]  = (uint64_t) 0x0010000000200000;
-    m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
+    m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;*/
 }
 
 
