@@ -56,4 +56,7 @@ private:
     std::vector<PosInfo> m_posHistory;
 
     LookupTables& m_lookup = LookupTables::getInstance();
+
+    //DEBUG PURPOSES: MUST BE DELETED
+    // std::vector<ChessMove> m_moveHistory;
 };

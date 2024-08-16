@@ -124,7 +124,7 @@ void ChessBoard::generatePawnsPushes(std::vector<ChessMove> &t_moveList,
     } while (pushSet &= (pushSet - 1));
 
     if (promoSet) do {
-        int endSq = btw::bitScanForward(pushSet);
+        int endSq = btw::bitScanForward(promoSet);
         int startSq = endSq + offset;
         t_moveList.insert(
             t_moveList.end(),
@@ -151,16 +151,16 @@ void ChessBoard::generatePawnsCaptures(std::vector<ChessMove> &t_moveList,
         westCaptures = (btw::cpyWrapWest(t_pawnsSet) << 8 & t_enemyPcs) & ~row8;
         eastPromoCaptures = (btw::cpyWrapEast(t_pawnsSet) << 8 & t_enemyPcs) & row8;
         westPromoCaptures = (btw::cpyWrapWest(t_pawnsSet) << 8 & t_enemyPcs) & row8;
-        eastOffset = -7;
-        westOffset = -9;
+        eastOffset = -9;
+        westOffset = -7;
     }
     else {
         eastCaptures = (btw::cpyWrapEast(t_pawnsSet) >> 8 & t_enemyPcs) & ~row1;
         westCaptures = (btw::cpyWrapWest(t_pawnsSet) >> 8 & t_enemyPcs) & ~row1;
         eastPromoCaptures = (btw::cpyWrapEast(t_pawnsSet) >> 8 & t_enemyPcs) & row1;
         westPromoCaptures = (btw::cpyWrapWest(t_pawnsSet) >> 8 & t_enemyPcs) & row1;
-        eastOffset = 9;
-        westOffset = 7;
+        eastOffset = 7;
+        westOffset = 9;
     }
 
     if (westCaptures) do {
@@ -313,7 +313,41 @@ void ChessBoard::makeMove(ChessMove t_move){
     newPosInfo.incrementHalfmoveClock();
     newPosInfo.setEpState(false);
 
+    // DEBUGGING PURPOSE VARIABLE
+    // int startingPcs = btw::popCount(m_bitBoard[white] | m_bitBoard[black]);
+
     uint64_t moveMask, promoMask, captureMask;
+
+    switch (t_move.getStartingSquare())
+    {
+    case a1: newPosInfo.removeLongCastlingRights(white); break;
+    case a8: newPosInfo.removeLongCastlingRights(black); break;
+    case h1: newPosInfo.removeShortCastlingRights(white); break;
+    case h8: newPosInfo.removeShortCastlingRights(black); break;
+    case e1: 
+        newPosInfo.removeShortCastlingRights(white);
+        newPosInfo.removeLongCastlingRights(white);
+         break;
+    case e8: 
+        newPosInfo.removeShortCastlingRights(black);
+        newPosInfo.removeLongCastlingRights(black); 
+        break;
+    }
+    switch (t_move.getEndSquare())
+    {
+    case a1: newPosInfo.removeLongCastlingRights(white); break;
+    case a8: newPosInfo.removeLongCastlingRights(black); break;
+    case h1: newPosInfo.removeShortCastlingRights(white); break;
+    case h8: newPosInfo.removeShortCastlingRights(black); break;
+    case e1: 
+        newPosInfo.removeShortCastlingRights(white);
+        newPosInfo.removeLongCastlingRights(white);
+         break;
+    case e8: 
+        newPosInfo.removeShortCastlingRights(black);
+        newPosInfo.removeLongCastlingRights(black); 
+        break;
+    }
 
     switch (t_move.getFlags())
     {
@@ -415,12 +449,17 @@ void ChessBoard::makeMove(ChessMove t_move){
     m_posHistory.push_back(newPosInfo);
     toggleSideToMove();
 
-    if((m_bitBoard[m_sideToMove]& m_bitBoard[kings])==0 ||
-    (m_bitBoard[1 - m_sideToMove]& m_bitBoard[kings])==0){
-        std::cout << t_move << "\n";
-        std::cout << *this << "\n";
-        std::cout << std::endl;
-    }
+    // DEBUG PARTS: MUST BE ERASED
+    // int endPcs = btw::popCount(m_bitBoard[white] | m_bitBoard[black]);
+    // m_moveHistory.push_back(t_move);
+    // bool isPcsNumConst = (t_move.isCapture() && endPcs == (startingPcs-1))||(endPcs==startingPcs);
+    // if(!isPcsNumConst){
+    //     std::cout << t_move << "\n";
+    //     std::cout << *this << "\n";
+    //     for (int i = 0; i < m_moveHistory.size(); i ++)
+    //         std::cout << m_moveHistory[i] << "\n";
+    //     std::cout << std::endl;
+    // }
 }
 
 void ChessBoard::undoMove(ChessMove t_move)
@@ -518,6 +557,9 @@ void ChessBoard::undoMove(ChessMove t_move)
     }
 
     m_posHistory.pop_back();
+
+    //DEBUG PURPOSES: MUST BE DELETED
+    //m_moveHistory.pop_back();
 }
 
 bool ChessBoard::isCheck()

@@ -15,4 +15,5 @@ namespace btw
     uint64_t cpyWrapWest(uint64_t bitBoard);
     int bitScanReverse(uint64_t bitBoard);
     int bitScanForward(uint64_t bitBoard);
+    int popCount(uint64_t bitBoard);
 }; // namespace btw

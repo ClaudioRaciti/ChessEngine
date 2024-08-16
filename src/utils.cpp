@@ -65,6 +65,15 @@ int btw::bitScanForward(uint64_t bitBoard){
     return index64[((bitBoard ^ (bitBoard-1)) * deBrujin64) >> 58];
 }
 
+int btw::popCount(uint64_t bitBoard){
+   int count = 0;
+   while (bitBoard) {
+       count++;
+       bitBoard &= bitBoard - 1; // reset LS1B
+   }
+   return count;
+}
+
 // Finds position of Most Significant 1 Bit
 int btw::bitScanReverse(uint64_t bitBoard){
     // Reference table for bitscans
