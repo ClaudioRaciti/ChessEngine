@@ -1,0 +1,1340 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 43.77     25.91    25.91 1121099796     0.00     0.00  btw::bitScanReverse(unsigned long)
+ 13.89     34.12     8.22 1121099796     0.00     0.00  LookupTables::getRayAttacks(unsigned long, int, int)
+  5.95     37.65     3.52 290654228     0.00     0.00  btw::bitScanForward(unsigned long)
+  1.98     38.81     1.17        1     1.17    58.45  perft(unsigned long, int&, ChessBoard&)
+  1.72     39.84     1.02 125049325     0.00     0.00  ChessBoard::isSquareAttacked(unsigned long, int, int)
+  1.62     40.80     0.96 125049325     0.00     0.00  ChessBoard::makeMove(ChessMove)
+  1.29     41.56     0.77 498363722     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::operator[](unsigned long)
+  1.27     42.31     0.75 125049325     0.00     0.00  ChessBoard::undoMove(ChessMove)
+  1.05     42.93     0.62 289337480     0.00     0.00  void std::allocator_traits<std::allocator<ChessMove> >::construct<ChessMove, ChessMove>(std::allocator<ChessMove>&, ChessMove*, ChessMove&&)
+  1.01     43.53     0.60 164288155     0.00     0.00  void std::__relocate_object_a<ChessMove, ChessMove, std::allocator<ChessMove> >(ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+  0.95     44.09     0.56 140146227     0.00     0.00  LookupTables::rookAttacks(unsigned long, int)
+  0.85     44.59     0.51 375147975     0.00     0.00  ChessMove::getStartingSquare() const
+  0.83     45.09     0.49 289337480     0.00     0.00  void std::__new_allocator<ChessMove>::construct<ChessMove, ChessMove>(ChessMove*, ChessMove&&)
+  0.83     45.58     0.49 25361065     0.00     0.00  ChessBoard::generatePieceMoves(int, std::vector<ChessMove, std::allocator<ChessMove> >&)
+  0.78     46.03     0.46 734377731     0.00     0.00  ChessMove&& std::forward<ChessMove>(std::remove_reference<ChessMove>::type&)
+  0.76     46.48     0.45 125049325     0.00     0.00  ChessBoard::isCheck(int)
+  0.68     46.89     0.41 498363722     0.00     0.00  ChessMove::getFlags() const
+  0.67     47.28     0.40 311405542     0.00     0.00  __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::__normal_iterator(ChessMove* const&)
+  0.65     47.67     0.39 140128722     0.00     0.00  LookupTables::bishopAttacks(unsigned long, int)
+  0.59     48.02     0.35 406066469     0.00     0.00  ChessMove::getEndSquare() const
+  0.57     48.36     0.34 283083486     0.00     0.00  __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::__normal_iterator(PosInfo* const&)
+  0.56     48.69     0.33 250098650     0.00     0.00  ChessBoard::toggleSideToMove()
+  0.54     49.01     0.32 122140907     0.00     0.00  ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int)
+  0.52     49.31     0.30 125049325     0.00     0.00  ChessMove& std::vector<ChessMove, std::allocator<ChessMove> >::emplace_back<ChessMove>(ChessMove&&)
+  0.49     49.60     0.29 341321063     0.00     0.00  ChessMove::getPiece() const
+  0.49     49.90     0.29 30653446     0.00     0.00  void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&)
+  0.48     50.18     0.28 155702771     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::end()
+  0.47     50.46     0.28 125049325     0.00     0.00  void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo const&>(PosInfo*, PosInfo const&)
+  0.46     50.73     0.28 125049325     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo const&)
+  0.46     51.01     0.27 141541739     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::back()
+  0.46     51.27     0.27 125049325     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::back()
+  0.44     51.53     0.26 250098653     0.00     0.00  PosInfo const& std::forward<PosInfo const&>(std::remove_reference<PosInfo const&>::type&)
+  0.44     51.80     0.26 125049325     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::pop_back()
+  0.41     52.03     0.24 141541739     0.00     0.00  __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator-(long) const
+  0.40     52.27     0.23 492864465     0.00     0.00  ChessMove* std::__addressof<ChessMove>(ChessMove&)
+  0.39     52.50     0.23 61306892     0.00     0.00  ChessMove* std::__relocate_a_1<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+  0.36     52.72     0.21 164288155     0.00     0.00  void std::allocator_traits<std::allocator<ChessMove> >::destroy<ChessMove>(std::allocator<ChessMove>&, ChessMove*)
+  0.36     52.93     0.21 125049325     0.00     0.00  __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator-(long) const
+  0.34     53.13     0.20 414386813     0.00     0.00  operator new(unsigned long, void*)
+  0.34     53.33     0.20 125049325     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::push_back(ChessMove&&)
+  0.32     53.52     0.19  5072213     0.00     0.00  ChessBoard::generatePawnsPushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long)
+  0.32     53.71     0.19  5072213     0.00     0.00  ChessBoard::generateDoublePushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long)
+  0.30     53.89     0.18 164288155     0.00     0.00  void std::__new_allocator<ChessMove>::destroy<ChessMove>(ChessMove*)
+  0.30     54.07     0.18 155956807     0.00     0.00  PosInfo::setEpState(bool)
+  0.30     54.25     0.18 125049325     0.00     0.00  void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo const&>(std::allocator<PosInfo>&, PosInfo*, PosInfo const&)
+  0.30     54.43     0.18                             btw::popCount(unsigned long)
+  0.30     54.60     0.17 127685997     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::size() const
+  0.30     54.78     0.17 125049325     0.00     0.00  PosInfo::incrementHalfmoveClock()
+  0.29     54.95     0.17 61306892     0.00     0.00  ChessMove* std::__relocate_a<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+  0.27     55.11     0.16 130003355     0.00     0.00  LookupTables::kingAttacks(int)
+  0.27     55.27     0.16 125049332     0.00     0.00  void std::allocator_traits<std::allocator<PosInfo> >::destroy<PosInfo>(std::allocator<PosInfo>&, PosInfo*)
+  0.26     55.42     0.15        1     0.15     0.16  LookupTables::LookupTables()
+  0.25     55.58     0.15 183920676     0.00     0.00  ChessMove* std::__niter_base<ChessMove*>(ChessMove*)
+  0.25     55.73     0.15 135180557     0.00     0.00  LookupTables::knightAttacks(int)
+  0.25     55.88     0.15 125049325     0.00     0.00  LookupTables::pawnAttacks(int, int)
+  0.24     56.02     0.14 141541743     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::end()
+  0.24     56.16     0.14 61306892     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::_S_relocate(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+  0.24     56.30     0.14 141541739     0.00     0.00  __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator*() const
+  0.23     56.44     0.14 30653446     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::begin()
+  0.22     56.57     0.13 289337480     0.00     0.00  std::remove_reference<ChessMove&>::type&& std::move<ChessMove&>(ChessMove&)
+  0.20     56.69     0.12 61306892     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::_S_max_size(std::allocator<ChessMove> const&)
+  0.19     56.80     0.12 91960338     0.00     0.00  std::__new_allocator<ChessMove>::_M_max_size() const
+  0.19     56.91     0.11 40561084     0.00     0.00  ChessBoard::getAttackSet(int, unsigned long, int)
+  0.19     57.02     0.11 30653446     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::_M_check_len(unsigned long, char const*) const
+  0.18     57.13     0.10 125049325     0.00     0.00  __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator*() const
+  0.18     57.23     0.10 122613784     0.00     0.00  __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::base() const
+  0.17     57.34     0.10 125049332     0.00     0.00  void std::__new_allocator<PosInfo>::destroy<PosInfo>(PosInfo*)
+  0.16     57.43     0.10 125049325     0.00     0.00  ChessBoard::isIllegal()
+  0.12     57.50     0.07  5072213     0.00     0.00  ChessBoard::generatePawnsCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long)
+  0.11     57.56     0.07 61306892     0.00     0.00  std::allocator_traits<std::allocator<ChessMove> >::max_size(std::allocator<ChessMove> const&)
+  0.11     57.63     0.07 35725659     0.00     0.00  std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_deallocate(ChessMove*, unsigned long)
+  0.11     57.70     0.07 11420544     0.00     0.00  btw::wrapWest(unsigned long&)
+  0.11     57.76     0.07        7     0.01     0.01  void std::__relocate_object_a<PosInfo, PosInfo, std::allocator<PosInfo> >(PosInfo*, PosInfo*, std::allocator<PosInfo>&)
+  0.10     57.82     0.06  5805824     0.00     0.00  ChessMove::getCaptured() const
+  0.10     57.88     0.06                             std::remove_reference<ChessMove*&>::type&& std::move<ChessMove*&>(ChessMove*&)
+  0.08     57.93     0.05 71997388     0.00     0.00  PosInfo::resetHalfmoveClock()
+  0.08     57.98     0.05 61306892     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::max_size() const
+  0.08     58.03     0.05 30653446     0.00     0.00  std::__new_allocator<ChessMove>::allocate(unsigned long, void const*)
+  0.08     58.08     0.05  2908418     0.00     0.00  ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int)
+  0.08     58.13     0.05                             std::move_iterator<ChessMove*> std::make_move_iterator<ChessMove*>(ChessMove*)
+  0.08     58.18     0.05                             main
+  0.08     58.23     0.04 30907482     0.00     0.00  PosInfo::setEpSquare(int)
+  0.08     58.27     0.04 30653446     0.00     0.00  std::allocator_traits<std::allocator<ChessMove> >::allocate(std::allocator<ChessMove>&, unsigned long)
+  0.08     58.31     0.04  5072213     0.00     0.00  ChessBoard::generatePawnsMoves(std::vector<ChessMove, std::allocator<ChessMove> >&)
+  0.08     58.36     0.04  5072213     0.00     0.00  void std::_Destroy<ChessMove*>(ChessMove*, ChessMove*)
+  0.08     58.41     0.04        1     0.04     0.04  std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_base()
+  0.08     58.45     0.04                             __gnu_cxx::__normal_iterator<ChessMove const*, std::vector<ChessMove, std::allocator<ChessMove> > >::__normal_iterator<ChessMove*, void>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&)
+  0.07     58.49     0.04 61306892     0.00     0.00  std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_get_Tp_allocator() const
+  0.07     58.53     0.04 61306892     0.00     0.00  std::__new_allocator<ChessMove>::max_size() const
+  0.07     58.57     0.04 30653450     0.00     0.00  unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&)
+  0.07     58.61     0.04 30653446     0.00     0.00  __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::difference_type __gnu_cxx::operator-<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&, __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&)
+  0.07     58.65     0.04 30653446     0.00     0.00  std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_allocate(unsigned long)
+  0.07     58.69     0.04  5072213     0.00     0.00  std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl_data::_Vector_impl_data()
+  0.06     58.73     0.04 61306900     0.00     0.00  unsigned long const& std::min<unsigned long>(unsigned long const&, unsigned long const&)
+  0.06     58.76     0.04  1275774     0.00     0.00  PosInfo::getEpSquare() const
+  0.05     58.79     0.03 11420520     0.00     0.00  btw::cpyWrapWest(unsigned long)
+  0.04     58.81     0.03 11420544     0.00     0.00  btw::wrapEast(unsigned long&)
+  0.04     58.84     0.03  5072213     0.00     0.00  ChessBoard::getMoveList()
+  0.04     58.87     0.03  5071197     0.00     0.00  LookupTables::queenAttacks(unsigned long, int)
+  0.04     58.89     0.03                             std::vector<ChessMove, std::allocator<ChessMove> >::cbegin() const
+  0.03     58.91     0.02 30653446     0.00     0.00  std::__new_allocator<ChessMove>::deallocate(ChessMove*, unsigned long)
+  0.03     58.93     0.02 11420520     0.00     0.00  btw::cpyWrapEast(unsigned long)
+  0.03     58.95     0.02  5072213     0.00     0.00  ChessBoard::generateCastles(std::vector<ChessMove, std::allocator<ChessMove> >&)
+  0.03     58.97     0.02  5072213     0.00     0.00  std::_Vector_base<ChessMove, std::allocator<ChessMove> >::~_Vector_base()
+  0.03     58.99     0.02                             _init
+  0.03     59.01     0.01  5072215     0.00     0.00  PosInfo::getLongCastlingRights(int) const
+  0.03     59.02     0.01        1     0.01     0.23  ChessBoard::ChessBoard()
+  0.03     59.03     0.01                             _GLOBAL__sub_I__ZN10ChessBoardC2Ev
+  0.03     59.05     0.01                             __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator+(long) const
+  0.03     59.06     0.01                             std::__new_allocator<unsigned long>::allocate(unsigned long, void const*)
+  0.02     59.08     0.01 66379105     0.00     0.00  std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_get_Tp_allocator()
+  0.02     59.09     0.01  5384584     0.00     0.00  PosInfo::removeShortCastlingRights(int)
+  0.02     59.09     0.01  5382429     0.00     0.00  PosInfo::removeLongCastlingRights(int)
+  0.02     59.10     0.01  5072213     0.00     0.00  std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_base()
+  0.02     59.12     0.01  5072213     0.00     0.00  std::__new_allocator<ChessMove>::~__new_allocator()
+  0.02     59.12     0.01  5072213     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::~vector()
+  0.02     59.13     0.01        8     0.00     0.01  PosInfo* std::__relocate_a<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&)
+  0.02     59.15     0.01        1     0.01     0.01  operator<<(std::ostream&, ChessBoard const&)
+  0.02     59.16     0.01                             ChessMove* std::__uninitialized_move_a<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+  0.01     59.16     0.01 30653446     0.00     0.00  std::allocator_traits<std::allocator<ChessMove> >::deallocate(std::allocator<ChessMove>&, ChessMove*, unsigned long)
+  0.01     59.16     0.01  5072215     0.00     0.00  PosInfo::getShortCastlingRights(int) const
+  0.01     59.17     0.01  5072213     0.00     0.00  std::allocator<ChessMove>::allocator()
+  0.01     59.17     0.01  5072213     0.00     0.00  void std::_Destroy_aux<true>::__destroy<ChessMove*>(ChessMove*, ChessMove*)
+  0.01     59.18     0.01                             PosInfo::getHalfmoveClock() const
+  0.01     59.19     0.01                             std::vector<unsigned long, std::allocator<unsigned long> >::vector<unsigned long*, void>(unsigned long*, unsigned long*, std::allocator<unsigned long> const&)
+  0.01     59.19     0.01                             ChessMove* std::uninitialized_copy<ChessMove const*, ChessMove*>(ChessMove const*, ChessMove const*, ChessMove*)
+  0.00     59.19     0.00  5072214     0.00     0.00  PosInfo::isEpPossible() const
+  0.00     59.19     0.00  5072213     0.00     0.00  std::allocator<ChessMove>::~allocator()
+  0.00     59.19     0.00  5072213     0.00     0.00  std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl::_Vector_impl()
+  0.00     59.19     0.00  5072213     0.00     0.00  std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl::~_Vector_impl()
+  0.00     59.19     0.00  5072213     0.00     0.00  std::__new_allocator<ChessMove>::__new_allocator()
+  0.00     59.19     0.00  5072213     0.00     0.00  std::vector<ChessMove, std::allocator<ChessMove> >::vector()
+  0.00     59.19     0.00  5072213     0.00     0.00  void std::_Destroy<ChessMove*, ChessMove>(ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+  0.00     59.19     0.00  2902912     0.00     0.00  ChessBoard::capturedPiece(int)
+  0.00     59.19     0.00  1275774     0.00     0.00  ChessBoard::generateEpCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, int)
+  0.00     59.19     0.00       24     0.00     0.00  PosInfo* std::__niter_base<PosInfo*>(PosInfo*)
+  0.00     59.19     0.00       21     0.00     0.00  PosInfo* std::__addressof<PosInfo>(PosInfo&)
+  0.00     59.19     0.00       18     0.00     0.00  PosInfo&& std::forward<PosInfo>(std::remove_reference<PosInfo>::type&)
+  0.00     59.19     0.00       16     0.00     0.00  __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::base() const
+  0.00     59.19     0.00       16     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::size() const
+  0.00     59.19     0.00       12     0.00     0.00  std::__new_allocator<PosInfo>::_M_max_size() const
+  0.00     59.19     0.00        9     0.00     0.00  std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_get_Tp_allocator()
+  0.00     59.19     0.00        8     0.00     0.00  std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_get_Tp_allocator() const
+  0.00     59.19     0.00        8     0.00     0.00  std::__new_allocator<PosInfo>::max_size() const
+  0.00     59.19     0.00        8     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::max_size() const
+  0.00     59.19     0.00        8     0.00     0.00  void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo>(PosInfo*, PosInfo&&)
+  0.00     59.19     0.00        8     0.00     0.00  std::allocator_traits<std::allocator<PosInfo> >::max_size(std::allocator<PosInfo> const&)
+  0.00     59.19     0.00        8     0.00     0.00  void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo>(std::allocator<PosInfo>&, PosInfo*, PosInfo&&)
+  0.00     59.19     0.00        8     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::_S_max_size(std::allocator<PosInfo> const&)
+  0.00     59.19     0.00        8     0.00     0.01  std::vector<PosInfo, std::allocator<PosInfo> >::_S_relocate(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&)
+  0.00     59.19     0.00        8     0.00     0.01  PosInfo* std::__relocate_a_1<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&)
+  0.00     59.19     0.00        8     0.00     0.00  std::remove_reference<PosInfo&>::type&& std::move<PosInfo&>(PosInfo&)
+  0.00     59.19     0.00        5     0.00     0.00  std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_deallocate(PosInfo*, unsigned long)
+  0.00     59.19     0.00        4     0.00     0.00  __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::difference_type __gnu_cxx::operator-<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&, __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&)
+  0.00     59.19     0.00        4     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::_M_check_len(unsigned long, char const*) const
+  0.00     59.19     0.00        4     0.00     0.00  std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_allocate(unsigned long)
+  0.00     59.19     0.00        4     0.00     0.00  std::__new_allocator<PosInfo>::deallocate(PosInfo*, unsigned long)
+  0.00     59.19     0.00        4     0.00     0.00  std::__new_allocator<PosInfo>::allocate(unsigned long, void const*)
+  0.00     59.19     0.00        4     0.00     0.00  std::allocator_traits<std::allocator<PosInfo> >::deallocate(std::allocator<PosInfo>&, PosInfo*, unsigned long)
+  0.00     59.19     0.00        4     0.00     0.00  std::allocator_traits<std::allocator<PosInfo> >::allocate(std::allocator<PosInfo>&, unsigned long)
+  0.00     59.19     0.00        4     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::begin()
+  0.00     59.19     0.00        3     0.00     0.02  void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&)
+  0.00     59.19     0.00        2     0.00     0.00  __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::__normal_iterator(PosInfo const* const&)
+  0.00     59.19     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00     59.19     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00     59.19     0.00        1     0.00     0.00  __static_initialization_and_destruction_0(int, int)
+  0.00     59.19     0.00        1     0.00     0.00  ChessBoard::initBoard()
+  0.00     59.19     0.00        1     0.00     0.00  ChessBoard::~ChessBoard()
+  0.00     59.19     0.00        1     0.00     0.16  LookupTables::getInstance()
+  0.00     59.19     0.00        1     0.00     0.00  LookupTables::initRayAttacks()
+  0.00     59.19     0.00        1     0.00     0.00  LookupTables::initKingAttacks()
+  0.00     59.19     0.00        1     0.00     0.00  LookupTables::initPawnAttacks()
+  0.00     59.19     0.00        1     0.00     0.00  LookupTables::initPopCount256()
+  0.00     59.19     0.00        1     0.00     0.00  LookupTables::initKnightAttacks()
+  0.00     59.19     0.00        1     0.00     0.00  PosInfo::PosInfo()
+  0.00     59.19     0.00        1     0.00     0.00  __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator*() const
+  0.00     59.19     0.00        1     0.00     0.00  __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator-(long) const
+  0.00     59.19     0.00        1     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::end() const
+  0.00     59.19     0.00        1     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::back() const
+  0.00     59.19     0.00        1     0.00     0.00  std::allocator<PosInfo>::allocator()
+  0.00     59.19     0.00        1     0.00     0.00  std::allocator<PosInfo>::~allocator()
+  0.00     59.19     0.00        1     0.00     0.00  void std::_Destroy_aux<true>::__destroy<PosInfo*>(PosInfo*, PosInfo*)
+  0.00     59.19     0.00        1     0.00     0.00  std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl::_Vector_impl()
+  0.00     59.19     0.00        1     0.00     0.00  std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl::~_Vector_impl()
+  0.00     59.19     0.00        1     0.00     0.00  std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl_data::_Vector_impl_data()
+  0.00     59.19     0.00        1     0.00     0.00  std::_Vector_base<PosInfo, std::allocator<PosInfo> >::~_Vector_base()
+  0.00     59.19     0.00        1     0.00     0.00  std::__new_allocator<PosInfo>::__new_allocator()
+  0.00     59.19     0.00        1     0.00     0.00  std::__new_allocator<PosInfo>::~__new_allocator()
+  0.00     59.19     0.00        1     0.00     0.02  PosInfo& std::vector<PosInfo, std::allocator<PosInfo> >::emplace_back<PosInfo>(PosInfo&&)
+  0.00     59.19     0.00        1     0.00     0.02  void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&)
+  0.00     59.19     0.00        1     0.00     0.02  std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo&&)
+  0.00     59.19     0.00        1     0.00     0.04  std::vector<PosInfo, std::allocator<PosInfo> >::vector()
+  0.00     59.19     0.00        1     0.00     0.00  std::vector<PosInfo, std::allocator<PosInfo> >::~vector()
+  0.00     59.19     0.00        1     0.00     0.00  void std::_Destroy<PosInfo*>(PosInfo*, PosInfo*)
+  0.00     59.19     0.00        1     0.00     0.00  void std::_Destroy<PosInfo*, PosInfo>(PosInfo*, PosInfo*, std::allocator<PosInfo>&)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.02% of 59.19 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     99.2    0.05   58.69                 main [1]
+                1.17   57.28       1/1           perft(unsigned long, int&, ChessBoard&) [2]
+                0.01    0.22       1/1           ChessBoard::ChessBoard() [57]
+                0.01    0.00       1/1           operator<<(std::ostream&, ChessBoard const&) [127]
+                0.00    0.00       1/1           ChessBoard::~ChessBoard() [183]
+-----------------------------------------------
+                             124132536             perft(unsigned long, int&, ChessBoard&) [2]
+                1.17   57.28       1/1           main [1]
+[2]     98.7    1.17   57.28       1+124132536 perft(unsigned long, int&, ChessBoard&) [2]
+                0.10   34.69 125049325/125049325     ChessBoard::isIllegal() [3]
+                0.03   14.84 5072213/5072213     ChessBoard::getMoveList() [10]
+                0.96    3.64 125049325/125049325     ChessBoard::makeMove(ChessMove) [16]
+                0.75    1.20 125049325/125049325     ChessBoard::undoMove(ChessMove) [25]
+                0.77    0.00 498363722/498363722     std::vector<ChessMove, std::allocator<ChessMove> >::operator[](unsigned long) [33]
+                0.20    0.00 248265072/498363722     ChessMove::getFlags() const [42]
+                0.01    0.09 5072213/5072213     std::vector<ChessMove, std::allocator<ChessMove> >::~vector() [81]
+                0.01    0.00 5072213/127685997     std::vector<ChessMove, std::allocator<ChessMove> >::size() const [63]
+                             124132536             perft(unsigned long, int&, ChessBoard&) [2]
+-----------------------------------------------
+                0.10   34.69 125049325/125049325     perft(unsigned long, int&, ChessBoard&) [2]
+[3]     58.8    0.10   34.69 125049325         ChessBoard::isIllegal() [3]
+                0.45   34.24 125049325/125049325     ChessBoard::isCheck(int) [4]
+-----------------------------------------------
+                0.45   34.24 125049325/125049325     ChessBoard::isIllegal() [3]
+[4]     58.6    0.45   34.24 125049325         ChessBoard::isCheck(int) [4]
+                1.02   31.71 125049325/125049325     ChessBoard::isSquareAttacked(unsigned long, int, int) [6]
+                1.51    0.00 125049325/290654228     btw::bitScanForward(unsigned long) [18]
+-----------------------------------------------
+                4.11   12.95 560514888/1121099796     LookupTables::bishopAttacks(unsigned long, int) [9]
+                4.11   12.95 560584908/1121099796     LookupTables::rookAttacks(unsigned long, int) [8]
+[5]     57.7    8.22   25.91 1121099796         LookupTables::getRayAttacks(unsigned long, int, int) [5]
+               25.91    0.00 1121099796/1121099796     btw::bitScanReverse(unsigned long) [7]
+-----------------------------------------------
+                1.02   31.71 125049325/125049325     ChessBoard::isCheck(int) [4]
+[6]     55.3    1.02   31.71 125049325         ChessBoard::isSquareAttacked(unsigned long, int, int) [6]
+                0.50   15.21 124931142/140146227     LookupTables::rookAttacks(unsigned long, int) [8]
+                0.34   15.21 124918113/140128722     LookupTables::bishopAttacks(unsigned long, int) [9]
+                0.15    0.00 124931142/130003355     LookupTables::kingAttacks(int) [67]
+                0.15    0.00 125049325/125049325     LookupTables::pawnAttacks(int, int) [72]
+                0.14    0.00 125046183/135180557     LookupTables::knightAttacks(int) [71]
+-----------------------------------------------
+               25.91    0.00 1121099796/1121099796     LookupTables::getRayAttacks(unsigned long, int, int) [5]
+[7]     43.8   25.91    0.00 1121099796         btw::bitScanReverse(unsigned long) [7]
+-----------------------------------------------
+                0.02    0.62 5071197/140146227     LookupTables::queenAttacks(unsigned long, int) [27]
+                0.04    1.24 10143888/140146227     ChessBoard::getAttackSet(int, unsigned long, int) [17]
+                0.50   15.21 124931142/140146227     ChessBoard::isSquareAttacked(unsigned long, int, int) [6]
+[8]     29.8    0.56   17.06 140146227         LookupTables::rookAttacks(unsigned long, int) [8]
+                4.11   12.95 560584908/1121099796     LookupTables::getRayAttacks(unsigned long, int, int) [5]
+-----------------------------------------------
+                0.01    0.62 5071197/140128722     LookupTables::queenAttacks(unsigned long, int) [27]
+                0.03    1.23 10139412/140128722     ChessBoard::getAttackSet(int, unsigned long, int) [17]
+                0.34   15.21 124918113/140128722     ChessBoard::isSquareAttacked(unsigned long, int, int) [6]
+[9]     29.5    0.39   17.06 140128722         LookupTables::bishopAttacks(unsigned long, int) [9]
+                4.11   12.95 560514888/1121099796     LookupTables::getRayAttacks(unsigned long, int, int) [5]
+-----------------------------------------------
+                0.03   14.84 5072213/5072213     perft(unsigned long, int&, ChessBoard&) [2]
+[10]    25.1    0.03   14.84 5072213         ChessBoard::getMoveList() [10]
+                0.49    8.40 25361065/25361065     ChessBoard::generatePieceMoves(int, std::vector<ChessMove, std::allocator<ChessMove> >&) [11]
+                0.04    5.72 5072213/5072213     ChessBoard::generatePawnsMoves(std::vector<ChessMove, std::allocator<ChessMove> >&) [14]
+                0.02    0.10 5072213/5072213     ChessBoard::generateCastles(std::vector<ChessMove, std::allocator<ChessMove> >&) [76]
+                0.00    0.06 5072213/5072213     std::vector<ChessMove, std::allocator<ChessMove> >::vector() [96]
+-----------------------------------------------
+                0.49    8.40 25361065/25361065     ChessBoard::getMoveList() [10]
+[11]    15.0    0.49    8.40 25361065         ChessBoard::generatePieceMoves(int, std::vector<ChessMove, std::allocator<ChessMove> >&) [11]
+                0.11    3.85 40561084/40561084     ChessBoard::getAttackSet(int, unsigned long, int) [17]
+                0.09    3.03 54842787/125049325     std::vector<ChessMove, std::allocator<ChessMove> >::push_back(ChessMove&&) [12]
+                1.16    0.00 95403871/290654228     btw::bitScanForward(unsigned long) [18]
+                0.14    0.00 53051937/122140907     ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int) [50]
+                0.03    0.00 1790850/2908418     ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [100]
+                0.00    0.00 1790850/2902912     ChessBoard::capturedPiece(int) [159]
+-----------------------------------------------
+                0.00    0.00    5506/125049325     ChessBoard::generateEpCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, int) [122]
+                0.00    0.06 1112062/125049325     ChessBoard::generatePawnsCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [52]
+                0.05    1.71 30907482/125049325     ChessBoard::generateDoublePushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [23]
+                0.06    2.11 38181488/125049325     ChessBoard::generatePawnsPushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [19]
+                0.09    3.03 54842787/125049325     ChessBoard::generatePieceMoves(int, std::vector<ChessMove, std::allocator<ChessMove> >&) [11]
+[12]    12.0    0.20    6.91 125049325         std::vector<ChessMove, std::allocator<ChessMove> >::push_back(ChessMove&&) [12]
+                0.30    6.55 125049325/125049325     ChessMove& std::vector<ChessMove, std::allocator<ChessMove> >::emplace_back<ChessMove>(ChessMove&&) [13]
+                0.06    0.00 125049325/289337480     std::remove_reference<ChessMove&>::type&& std::move<ChessMove&>(ChessMove&) [75]
+-----------------------------------------------
+                0.30    6.55 125049325/125049325     std::vector<ChessMove, std::allocator<ChessMove> >::push_back(ChessMove&&) [12]
+[13]    11.6    0.30    6.55 125049325         ChessMove& std::vector<ChessMove, std::allocator<ChessMove> >::emplace_back<ChessMove>(ChessMove&&) [13]
+                0.29    4.43 30653446/30653446     void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+                0.27    0.87 125049325/125049325     std::vector<ChessMove, std::allocator<ChessMove> >::back() [28]
+                0.20    0.32 94395879/289337480     void std::allocator_traits<std::allocator<ChessMove> >::construct<ChessMove, ChessMove>(std::allocator<ChessMove>&, ChessMove*, ChessMove&&) [26]
+                0.06    0.04 30653446/155702771     std::vector<ChessMove, std::allocator<ChessMove> >::end() [37]
+                0.08    0.00 125049325/734377731     ChessMove&& std::forward<ChessMove>(std::remove_reference<ChessMove>::type&) [39]
+-----------------------------------------------
+                0.04    5.72 5072213/5072213     ChessBoard::getMoveList() [10]
+[14]     9.7    0.04    5.72 5072213         ChessBoard::generatePawnsMoves(std::vector<ChessMove, std::allocator<ChessMove> >&) [14]
+                0.19    2.73 5072213/5072213     ChessBoard::generatePawnsPushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [19]
+                0.19    2.21 5072213/5072213     ChessBoard::generateDoublePushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [23]
+                0.07    0.22 5072213/5072213     ChessBoard::generatePawnsCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [52]
+                0.01    0.04 6347987/141541739     std::vector<PosInfo, std::allocator<PosInfo> >::back() [29]
+                0.04    0.00 1275774/1275774     PosInfo::getEpSquare() const [113]
+                0.00    0.02 1275774/1275774     ChessBoard::generateEpCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, int) [122]
+                0.00    0.00 5072213/5072214     PosInfo::isEpPossible() const [157]
+-----------------------------------------------
+                0.29    4.43 30653446/30653446     ChessMove& std::vector<ChessMove, std::allocator<ChessMove> >::emplace_back<ChessMove>(ChessMove&&) [13]
+[15]     8.0    0.29    4.43 30653446         void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+                0.14    2.77 61306892/61306892     std::vector<ChessMove, std::allocator<ChessMove> >::_S_relocate(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [20]
+                0.11    0.63 30653446/30653446     std::vector<ChessMove, std::allocator<ChessMove> >::_M_check_len(unsigned long, char const*) const [34]
+                0.14    0.04 30653446/30653446     std::vector<ChessMove, std::allocator<ChessMove> >::begin() [65]
+                0.04    0.13 30653446/30653446     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_allocate(unsigned long) [66]
+                0.07    0.11 30653446/289337480     void std::allocator_traits<std::allocator<ChessMove> >::construct<ChessMove, ChessMove>(std::allocator<ChessMove>&, ChessMove*, ChessMove&&) [26]
+                0.04    0.05 30653446/30653446     __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::difference_type __gnu_cxx::operator-<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&, __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&) [84]
+                0.06    0.02 30653446/35725659     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_deallocate(ChessMove*, unsigned long) [85]
+                0.05    0.00 61306892/122613784     __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::base() const [80]
+                0.02    0.00 30653446/734377731     ChessMove&& std::forward<ChessMove>(std::remove_reference<ChessMove>::type&) [39]
+                0.01    0.00 61306892/66379105     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_get_Tp_allocator() [128]
+-----------------------------------------------
+                0.96    3.64 125049325/125049325     perft(unsigned long, int&, ChessBoard&) [2]
+[16]     7.8    0.96    3.64 125049325         ChessBoard::makeMove(ChessMove) [16]
+                0.28    0.84 125049325/125049325     std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo const&) [30]
+                0.24    0.76 125049325/141541739     std::vector<PosInfo, std::allocator<PosInfo> >::back() [29]
+                0.34    0.00 250098650/375147975     ChessMove::getStartingSquare() const [36]
+                0.24    0.00 281011638/406066469     ChessMove::getEndSquare() const [46]
+                0.18    0.00 216277244/341321063     ChessMove::getPiece() const [53]
+                0.18    0.00 155956807/155956807     PosInfo::setEpState(bool) [61]
+                0.17    0.00 125049325/125049325     PosInfo::incrementHalfmoveClock() [64]
+                0.17    0.00 125049325/250098650     ChessBoard::toggleSideToMove() [49]
+                0.10    0.00 125049325/498363722     ChessMove::getFlags() const [42]
+                0.05    0.00 71997388/71997388     PosInfo::resetHalfmoveClock() [97]
+                0.04    0.00 30907482/30907482     PosInfo::setEpSquare(int) [102]
+                0.03    0.00 2902912/5805824     ChessMove::getCaptured() const [92]
+                0.01    0.00 5384584/5384584     PosInfo::removeShortCastlingRights(int) [129]
+                0.01    0.00 5382429/5382429     PosInfo::removeLongCastlingRights(int) [130]
+-----------------------------------------------
+                0.11    3.85 40561084/40561084     ChessBoard::generatePieceMoves(int, std::vector<ChessMove, std::allocator<ChessMove> >&) [11]
+[17]     6.7    0.11    3.85 40561084         ChessBoard::getAttackSet(int, unsigned long, int) [17]
+                0.03    1.27 5071197/5071197     LookupTables::queenAttacks(unsigned long, int) [27]
+                0.04    1.24 10143888/140146227     LookupTables::rookAttacks(unsigned long, int) [8]
+                0.03    1.23 10139412/140128722     LookupTables::bishopAttacks(unsigned long, int) [9]
+                0.01    0.00 10134374/135180557     LookupTables::knightAttacks(int) [71]
+                0.01    0.00 5072213/130003355     LookupTables::kingAttacks(int) [67]
+-----------------------------------------------
+                0.01    0.00 1112062/290654228     ChessBoard::generatePawnsCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [52]
+                0.37    0.00 30907482/290654228     ChessBoard::generateDoublePushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [23]
+                0.46    0.00 38181488/290654228     ChessBoard::generatePawnsPushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [19]
+                1.16    0.00 95403871/290654228     ChessBoard::generatePieceMoves(int, std::vector<ChessMove, std::allocator<ChessMove> >&) [11]
+                1.51    0.00 125049325/290654228     ChessBoard::isCheck(int) [4]
+[18]     5.9    3.52    0.00 290654228         btw::bitScanForward(unsigned long) [18]
+-----------------------------------------------
+                0.19    2.73 5072213/5072213     ChessBoard::generatePawnsMoves(std::vector<ChessMove, std::allocator<ChessMove> >&) [14]
+[19]     4.9    0.19    2.73 5072213         ChessBoard::generatePawnsPushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [19]
+                0.06    2.11 38181488/125049325     std::vector<ChessMove, std::allocator<ChessMove> >::push_back(ChessMove&&) [12]
+                0.46    0.00 38181488/290654228     btw::bitScanForward(unsigned long) [18]
+                0.10    0.00 38181488/122140907     ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int) [50]
+-----------------------------------------------
+                0.14    2.77 61306892/61306892     void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+[20]     4.9    0.14    2.77 61306892         std::vector<ChessMove, std::allocator<ChessMove> >::_S_relocate(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [20]
+                0.17    2.60 61306892/61306892     ChessMove* std::__relocate_a<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [21]
+-----------------------------------------------
+                0.17    2.60 61306892/61306892     std::vector<ChessMove, std::allocator<ChessMove> >::_S_relocate(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [20]
+[21]     4.7    0.17    2.60 61306892         ChessMove* std::__relocate_a<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [21]
+                0.23    2.22 61306892/61306892     ChessMove* std::__relocate_a_1<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [22]
+                0.15    0.00 183920676/183920676     ChessMove* std::__niter_base<ChessMove*>(ChessMove*) [70]
+-----------------------------------------------
+                0.23    2.22 61306892/61306892     ChessMove* std::__relocate_a<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [21]
+[22]     4.1    0.23    2.22 61306892         ChessMove* std::__relocate_a_1<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [22]
+                0.60    1.46 164288155/164288155     void std::__relocate_object_a<ChessMove, ChessMove, std::allocator<ChessMove> >(ChessMove*, ChessMove*, std::allocator<ChessMove>&) [24]
+                0.16    0.00 328576310/492864465     ChessMove* std::__addressof<ChessMove>(ChessMove&) [56]
+-----------------------------------------------
+                0.19    2.21 5072213/5072213     ChessBoard::generatePawnsMoves(std::vector<ChessMove, std::allocator<ChessMove> >&) [14]
+[23]     4.1    0.19    2.21 5072213         ChessBoard::generateDoublePushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [23]
+                0.05    1.71 30907482/125049325     std::vector<ChessMove, std::allocator<ChessMove> >::push_back(ChessMove&&) [12]
+                0.37    0.00 30907482/290654228     btw::bitScanForward(unsigned long) [18]
+                0.08    0.00 30907482/122140907     ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int) [50]
+-----------------------------------------------
+                0.60    1.46 164288155/164288155     ChessMove* std::__relocate_a_1<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [22]
+[24]     3.5    0.60    1.46 164288155         void std::__relocate_object_a<ChessMove, ChessMove, std::allocator<ChessMove> >(ChessMove*, ChessMove*, std::allocator<ChessMove>&) [24]
+                0.35    0.56 164288155/289337480     void std::allocator_traits<std::allocator<ChessMove> >::construct<ChessMove, ChessMove>(std::allocator<ChessMove>&, ChessMove*, ChessMove&&) [26]
+                0.21    0.18 164288155/164288155     void std::allocator_traits<std::allocator<ChessMove> >::destroy<ChessMove>(std::allocator<ChessMove>&, ChessMove*) [44]
+                0.08    0.00 164288155/492864465     ChessMove* std::__addressof<ChessMove>(ChessMove&) [56]
+                0.07    0.00 164288155/289337480     std::remove_reference<ChessMove&>::type&& std::move<ChessMove&>(ChessMove&) [75]
+-----------------------------------------------
+                0.75    1.20 125049325/125049325     perft(unsigned long, int&, ChessBoard&) [2]
+[25]     3.3    0.75    1.20 125049325         ChessBoard::undoMove(ChessMove) [25]
+                0.26    0.26 125049325/125049325     std::vector<PosInfo, std::allocator<PosInfo> >::pop_back() [35]
+                0.17    0.00 125049325/375147975     ChessMove::getStartingSquare() const [36]
+                0.17    0.00 125049325/250098650     ChessBoard::toggleSideToMove() [49]
+                0.11    0.00 125054831/406066469     ChessMove::getEndSquare() const [46]
+                0.11    0.00 125043819/341321063     ChessMove::getPiece() const [53]
+                0.10    0.00 125049325/498363722     ChessMove::getFlags() const [42]
+                0.03    0.00 2902912/5805824     ChessMove::getCaptured() const [92]
+-----------------------------------------------
+                0.07    0.11 30653446/289337480     void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+                0.20    0.32 94395879/289337480     ChessMove& std::vector<ChessMove, std::allocator<ChessMove> >::emplace_back<ChessMove>(ChessMove&&) [13]
+                0.35    0.56 164288155/289337480     void std::__relocate_object_a<ChessMove, ChessMove, std::allocator<ChessMove> >(ChessMove*, ChessMove*, std::allocator<ChessMove>&) [24]
+[26]     2.7    0.62    0.99 289337480         void std::allocator_traits<std::allocator<ChessMove> >::construct<ChessMove, ChessMove>(std::allocator<ChessMove>&, ChessMove*, ChessMove&&) [26]
+                0.49    0.32 289337480/289337480     void std::__new_allocator<ChessMove>::construct<ChessMove, ChessMove>(ChessMove*, ChessMove&&) [31]
+                0.18    0.00 289337480/734377731     ChessMove&& std::forward<ChessMove>(std::remove_reference<ChessMove>::type&) [39]
+-----------------------------------------------
+                0.03    1.27 5071197/5071197     ChessBoard::getAttackSet(int, unsigned long, int) [17]
+[27]     2.2    0.03    1.27 5071197         LookupTables::queenAttacks(unsigned long, int) [27]
+                0.02    0.62 5071197/140146227     LookupTables::rookAttacks(unsigned long, int) [8]
+                0.01    0.62 5071197/140128722     LookupTables::bishopAttacks(unsigned long, int) [9]
+-----------------------------------------------
+                0.27    0.87 125049325/125049325     ChessMove& std::vector<ChessMove, std::allocator<ChessMove> >::emplace_back<ChessMove>(ChessMove&&) [13]
+[28]     1.9    0.27    0.87 125049325         std::vector<ChessMove, std::allocator<ChessMove> >::back() [28]
+                0.23    0.16 125049325/155702771     std::vector<ChessMove, std::allocator<ChessMove> >::end() [37]
+                0.21    0.16 125049325/125049325     __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator-(long) const [45]
+                0.10    0.00 125049325/125049325     __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator*() const [79]
+-----------------------------------------------
+                0.00    0.00       1/141541739     PosInfo& std::vector<PosInfo, std::allocator<PosInfo> >::emplace_back<PosInfo>(PosInfo&&) [119]
+                0.01    0.04 6347987/141541739     ChessBoard::generatePawnsMoves(std::vector<ChessMove, std::allocator<ChessMove> >&) [14]
+                0.02    0.06 10144426/141541739     ChessBoard::generateCastles(std::vector<ChessMove, std::allocator<ChessMove> >&) [76]
+                0.24    0.76 125049325/141541739     ChessBoard::makeMove(ChessMove) [16]
+[29]     1.9    0.27    0.86 141541739         std::vector<PosInfo, std::allocator<PosInfo> >::back() [29]
+                0.24    0.17 141541739/141541739     __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator-(long) const [41]
+                0.14    0.17 141541739/141541743     std::vector<PosInfo, std::allocator<PosInfo> >::end() [51]
+                0.14    0.00 141541739/141541739     __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator*() const [73]
+-----------------------------------------------
+                0.28    0.84 125049325/125049325     ChessBoard::makeMove(ChessMove) [16]
+[30]     1.9    0.28    0.84 125049325         std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo const&) [30]
+                0.18    0.60 125049322/125049325     void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo const&>(std::allocator<PosInfo>&, PosInfo*, PosInfo const&) [32]
+                0.00    0.06       3/3           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+                0.00    0.00       3/141541743     std::vector<PosInfo, std::allocator<PosInfo> >::end() [51]
+-----------------------------------------------
+                0.49    0.32 289337480/289337480     void std::allocator_traits<std::allocator<ChessMove> >::construct<ChessMove, ChessMove>(std::allocator<ChessMove>&, ChessMove*, ChessMove&&) [26]
+[31]     1.4    0.49    0.32 289337480         void std::__new_allocator<ChessMove>::construct<ChessMove, ChessMove>(ChessMove*, ChessMove&&) [31]
+                0.18    0.00 289337480/734377731     ChessMove&& std::forward<ChessMove>(std::remove_reference<ChessMove>::type&) [39]
+                0.14    0.00 289337480/414386813     operator new(unsigned long, void*) [58]
+-----------------------------------------------
+                0.00    0.00       3/125049325     void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+                0.18    0.60 125049322/125049325     std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo const&) [30]
+[32]     1.3    0.18    0.60 125049325         void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo const&>(std::allocator<PosInfo>&, PosInfo*, PosInfo const&) [32]
+                0.28    0.19 125049325/125049325     void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo const&>(PosInfo*, PosInfo const&) [38]
+                0.13    0.00 125049325/250098653     PosInfo const& std::forward<PosInfo const&>(std::remove_reference<PosInfo const&>::type&) [54]
+-----------------------------------------------
+                0.77    0.00 498363722/498363722     perft(unsigned long, int&, ChessBoard&) [2]
+[33]     1.3    0.77    0.00 498363722         std::vector<ChessMove, std::allocator<ChessMove> >::operator[](unsigned long) [33]
+-----------------------------------------------
+                0.11    0.63 30653446/30653446     void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+[34]     1.3    0.11    0.63 30653446         std::vector<ChessMove, std::allocator<ChessMove> >::_M_check_len(unsigned long, char const*) const [34]
+                0.05    0.38 61306892/61306892     std::vector<ChessMove, std::allocator<ChessMove> >::max_size() const [40]
+                0.17    0.00 122613784/127685997     std::vector<ChessMove, std::allocator<ChessMove> >::size() const [63]
+                0.04    0.00 30653446/30653450     unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&) [110]
+-----------------------------------------------
+                0.26    0.26 125049325/125049325     ChessBoard::undoMove(ChessMove) [25]
+[35]     0.9    0.26    0.26 125049325         std::vector<PosInfo, std::allocator<PosInfo> >::pop_back() [35]
+                0.16    0.10 125049325/125049332     void std::allocator_traits<std::allocator<PosInfo> >::destroy<PosInfo>(std::allocator<PosInfo>&, PosInfo*) [55]
+-----------------------------------------------
+                0.17    0.00 125049325/375147975     ChessBoard::undoMove(ChessMove) [25]
+                0.34    0.00 250098650/375147975     ChessBoard::makeMove(ChessMove) [16]
+[36]     0.9    0.51    0.00 375147975         ChessMove::getStartingSquare() const [36]
+-----------------------------------------------
+                0.06    0.04 30653446/155702771     ChessMove& std::vector<ChessMove, std::allocator<ChessMove> >::emplace_back<ChessMove>(ChessMove&&) [13]
+                0.23    0.16 125049325/155702771     std::vector<ChessMove, std::allocator<ChessMove> >::back() [28]
+[37]     0.8    0.28    0.20 155702771         std::vector<ChessMove, std::allocator<ChessMove> >::end() [37]
+                0.20    0.00 155702771/311405542     __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::__normal_iterator(ChessMove* const&) [43]
+-----------------------------------------------
+                0.28    0.19 125049325/125049325     void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo const&>(std::allocator<PosInfo>&, PosInfo*, PosInfo const&) [32]
+[38]     0.8    0.28    0.19 125049325         void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo const&>(PosInfo*, PosInfo const&) [38]
+                0.13    0.00 125049325/250098653     PosInfo const& std::forward<PosInfo const&>(std::remove_reference<PosInfo const&>::type&) [54]
+                0.06    0.00 125049325/414386813     operator new(unsigned long, void*) [58]
+-----------------------------------------------
+                0.02    0.00 30653446/734377731     void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+                0.08    0.00 125049325/734377731     ChessMove& std::vector<ChessMove, std::allocator<ChessMove> >::emplace_back<ChessMove>(ChessMove&&) [13]
+                0.18    0.00 289337480/734377731     void std::allocator_traits<std::allocator<ChessMove> >::construct<ChessMove, ChessMove>(std::allocator<ChessMove>&, ChessMove*, ChessMove&&) [26]
+                0.18    0.00 289337480/734377731     void std::__new_allocator<ChessMove>::construct<ChessMove, ChessMove>(ChessMove*, ChessMove&&) [31]
+[39]     0.8    0.46    0.00 734377731         ChessMove&& std::forward<ChessMove>(std::remove_reference<ChessMove>::type&) [39]
+-----------------------------------------------
+                0.05    0.38 61306892/61306892     std::vector<ChessMove, std::allocator<ChessMove> >::_M_check_len(unsigned long, char const*) const [34]
+[40]     0.7    0.05    0.38 61306892         std::vector<ChessMove, std::allocator<ChessMove> >::max_size() const [40]
+                0.12    0.22 61306892/61306892     std::vector<ChessMove, std::allocator<ChessMove> >::_S_max_size(std::allocator<ChessMove> const&) [48]
+                0.04    0.00 61306892/61306892     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_get_Tp_allocator() const [109]
+-----------------------------------------------
+                0.24    0.17 141541739/141541739     std::vector<PosInfo, std::allocator<PosInfo> >::back() [29]
+[41]     0.7    0.24    0.17 141541739         __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator-(long) const [41]
+                0.17    0.00 141541739/283083486     __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::__normal_iterator(PosInfo* const&) [47]
+-----------------------------------------------
+                0.10    0.00 125049325/498363722     ChessBoard::makeMove(ChessMove) [16]
+                0.10    0.00 125049325/498363722     ChessBoard::undoMove(ChessMove) [25]
+                0.20    0.00 248265072/498363722     perft(unsigned long, int&, ChessBoard&) [2]
+[42]     0.7    0.41    0.00 498363722         ChessMove::getFlags() const [42]
+-----------------------------------------------
+                0.04    0.00 30653446/311405542     std::vector<ChessMove, std::allocator<ChessMove> >::begin() [65]
+                0.16    0.00 125049325/311405542     __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator-(long) const [45]
+                0.20    0.00 155702771/311405542     std::vector<ChessMove, std::allocator<ChessMove> >::end() [37]
+[43]     0.7    0.40    0.00 311405542         __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::__normal_iterator(ChessMove* const&) [43]
+-----------------------------------------------
+                0.21    0.18 164288155/164288155     void std::__relocate_object_a<ChessMove, ChessMove, std::allocator<ChessMove> >(ChessMove*, ChessMove*, std::allocator<ChessMove>&) [24]
+[44]     0.7    0.21    0.18 164288155         void std::allocator_traits<std::allocator<ChessMove> >::destroy<ChessMove>(std::allocator<ChessMove>&, ChessMove*) [44]
+                0.18    0.00 164288155/164288155     void std::__new_allocator<ChessMove>::destroy<ChessMove>(ChessMove*) [60]
+-----------------------------------------------
+                0.21    0.16 125049325/125049325     std::vector<ChessMove, std::allocator<ChessMove> >::back() [28]
+[45]     0.6    0.21    0.16 125049325         __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator-(long) const [45]
+                0.16    0.00 125049325/311405542     __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::__normal_iterator(ChessMove* const&) [43]
+-----------------------------------------------
+                0.11    0.00 125054831/406066469     ChessBoard::undoMove(ChessMove) [25]
+                0.24    0.00 281011638/406066469     ChessBoard::makeMove(ChessMove) [16]
+[46]     0.6    0.35    0.00 406066469         ChessMove::getEndSquare() const [46]
+-----------------------------------------------
+                0.00    0.00       4/283083486     std::vector<PosInfo, std::allocator<PosInfo> >::begin() [146]
+                0.17    0.00 141541739/283083486     __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator-(long) const [41]
+                0.17    0.00 141541743/283083486     std::vector<PosInfo, std::allocator<PosInfo> >::end() [51]
+[47]     0.6    0.34    0.00 283083486         __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::__normal_iterator(PosInfo* const&) [47]
+-----------------------------------------------
+                0.12    0.22 61306892/61306892     std::vector<ChessMove, std::allocator<ChessMove> >::max_size() const [40]
+[48]     0.6    0.12    0.22 61306892         std::vector<ChessMove, std::allocator<ChessMove> >::_S_max_size(std::allocator<ChessMove> const&) [48]
+                0.07    0.12 61306892/61306892     std::allocator_traits<std::allocator<ChessMove> >::max_size(std::allocator<ChessMove> const&) [59]
+                0.03    0.00 61306892/61306900     unsigned long const& std::min<unsigned long>(unsigned long const&, unsigned long const&) [112]
+-----------------------------------------------
+                0.17    0.00 125049325/250098650     ChessBoard::makeMove(ChessMove) [16]
+                0.17    0.00 125049325/250098650     ChessBoard::undoMove(ChessMove) [25]
+[49]     0.6    0.33    0.00 250098650         ChessBoard::toggleSideToMove() [49]
+-----------------------------------------------
+                0.08    0.00 30907482/122140907     ChessBoard::generateDoublePushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [23]
+                0.10    0.00 38181488/122140907     ChessBoard::generatePawnsPushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [19]
+                0.14    0.00 53051937/122140907     ChessBoard::generatePieceMoves(int, std::vector<ChessMove, std::allocator<ChessMove> >&) [11]
+[50]     0.5    0.32    0.00 122140907         ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int) [50]
+-----------------------------------------------
+                0.00    0.00       1/141541743     PosInfo& std::vector<PosInfo, std::allocator<PosInfo> >::emplace_back<PosInfo>(PosInfo&&) [119]
+                0.00    0.00       3/141541743     std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo const&) [30]
+                0.14    0.17 141541739/141541743     std::vector<PosInfo, std::allocator<PosInfo> >::back() [29]
+[51]     0.5    0.14    0.17 141541743         std::vector<PosInfo, std::allocator<PosInfo> >::end() [51]
+                0.17    0.00 141541743/283083486     __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::__normal_iterator(PosInfo* const&) [47]
+-----------------------------------------------
+                0.07    0.22 5072213/5072213     ChessBoard::generatePawnsMoves(std::vector<ChessMove, std::allocator<ChessMove> >&) [14]
+[52]     0.5    0.07    0.22 5072213         ChessBoard::generatePawnsCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [52]
+                0.03    0.06 10144426/11420520     btw::cpyWrapWest(unsigned long) [83]
+                0.00    0.06 1112062/125049325     std::vector<ChessMove, std::allocator<ChessMove> >::push_back(ChessMove&&) [12]
+                0.02    0.02 10144426/11420520     btw::cpyWrapEast(unsigned long) [107]
+                0.02    0.00 1112062/2908418     ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [100]
+                0.01    0.00 1112062/290654228     btw::bitScanForward(unsigned long) [18]
+                0.00    0.00 1112062/2902912     ChessBoard::capturedPiece(int) [159]
+-----------------------------------------------
+                0.11    0.00 125043819/341321063     ChessBoard::undoMove(ChessMove) [25]
+                0.18    0.00 216277244/341321063     ChessBoard::makeMove(ChessMove) [16]
+[53]     0.5    0.29    0.00 341321063         ChessMove::getPiece() const [53]
+-----------------------------------------------
+                0.00    0.00       3/250098653     void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+                0.13    0.00 125049325/250098653     void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo const&>(std::allocator<PosInfo>&, PosInfo*, PosInfo const&) [32]
+                0.13    0.00 125049325/250098653     void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo const&>(PosInfo*, PosInfo const&) [38]
+[54]     0.4    0.26    0.00 250098653         PosInfo const& std::forward<PosInfo const&>(std::remove_reference<PosInfo const&>::type&) [54]
+-----------------------------------------------
+                0.00    0.00       7/125049332     void std::__relocate_object_a<PosInfo, PosInfo, std::allocator<PosInfo> >(PosInfo*, PosInfo*, std::allocator<PosInfo>&) [90]
+                0.16    0.10 125049325/125049332     std::vector<PosInfo, std::allocator<PosInfo> >::pop_back() [35]
+[55]     0.4    0.16    0.10 125049332         void std::allocator_traits<std::allocator<PosInfo> >::destroy<PosInfo>(std::allocator<PosInfo>&, PosInfo*) [55]
+                0.10    0.00 125049332/125049332     void std::__new_allocator<PosInfo>::destroy<PosInfo>(PosInfo*) [82]
+-----------------------------------------------
+                0.08    0.00 164288155/492864465     void std::__relocate_object_a<ChessMove, ChessMove, std::allocator<ChessMove> >(ChessMove*, ChessMove*, std::allocator<ChessMove>&) [24]
+                0.16    0.00 328576310/492864465     ChessMove* std::__relocate_a_1<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [22]
+[56]     0.4    0.23    0.00 492864465         ChessMove* std::__addressof<ChessMove>(ChessMove&) [56]
+-----------------------------------------------
+                0.01    0.22       1/1           main [1]
+[57]     0.4    0.01    0.22       1         ChessBoard::ChessBoard() [57]
+                0.00    0.16       1/1           LookupTables::getInstance() [68]
+                0.00    0.04       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::vector() [105]
+                0.00    0.02       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo&&) [120]
+                0.00    0.00       1/1           ChessBoard::initBoard() [182]
+                0.00    0.00       1/1           PosInfo::PosInfo() [185]
+-----------------------------------------------
+                0.00    0.00       8/414386813     void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo>(PosInfo*, PosInfo&&) [149]
+                0.06    0.00 125049325/414386813     void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo const&>(PosInfo*, PosInfo const&) [38]
+                0.14    0.00 289337480/414386813     void std::__new_allocator<ChessMove>::construct<ChessMove, ChessMove>(ChessMove*, ChessMove&&) [31]
+[58]     0.3    0.20    0.00 414386813         operator new(unsigned long, void*) [58]
+-----------------------------------------------
+                0.07    0.12 61306892/61306892     std::vector<ChessMove, std::allocator<ChessMove> >::_S_max_size(std::allocator<ChessMove> const&) [48]
+[59]     0.3    0.07    0.12 61306892         std::allocator_traits<std::allocator<ChessMove> >::max_size(std::allocator<ChessMove> const&) [59]
+                0.04    0.08 61306892/61306892     std::__new_allocator<ChessMove>::max_size() const [77]
+-----------------------------------------------
+                0.18    0.00 164288155/164288155     void std::allocator_traits<std::allocator<ChessMove> >::destroy<ChessMove>(std::allocator<ChessMove>&, ChessMove*) [44]
+[60]     0.3    0.18    0.00 164288155         void std::__new_allocator<ChessMove>::destroy<ChessMove>(ChessMove*) [60]
+-----------------------------------------------
+                0.18    0.00 155956807/155956807     ChessBoard::makeMove(ChessMove) [16]
+[61]     0.3    0.18    0.00 155956807         PosInfo::setEpState(bool) [61]
+-----------------------------------------------
+                                                 <spontaneous>
+[62]     0.3    0.18    0.00                 btw::popCount(unsigned long) [62]
+-----------------------------------------------
+                0.01    0.00 5072213/127685997     perft(unsigned long, int&, ChessBoard&) [2]
+                0.17    0.00 122613784/127685997     std::vector<ChessMove, std::allocator<ChessMove> >::_M_check_len(unsigned long, char const*) const [34]
+[63]     0.3    0.17    0.00 127685997         std::vector<ChessMove, std::allocator<ChessMove> >::size() const [63]
+-----------------------------------------------
+                0.17    0.00 125049325/125049325     ChessBoard::makeMove(ChessMove) [16]
+[64]     0.3    0.17    0.00 125049325         PosInfo::incrementHalfmoveClock() [64]
+-----------------------------------------------
+                0.14    0.04 30653446/30653446     void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+[65]     0.3    0.14    0.04 30653446         std::vector<ChessMove, std::allocator<ChessMove> >::begin() [65]
+                0.04    0.00 30653446/311405542     __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::__normal_iterator(ChessMove* const&) [43]
+-----------------------------------------------
+                0.04    0.13 30653446/30653446     void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+[66]     0.3    0.04    0.13 30653446         std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_allocate(unsigned long) [66]
+                0.04    0.09 30653446/30653446     std::allocator_traits<std::allocator<ChessMove> >::allocate(std::allocator<ChessMove>&, unsigned long) [74]
+-----------------------------------------------
+                0.01    0.00 5072213/130003355     ChessBoard::getAttackSet(int, unsigned long, int) [17]
+                0.15    0.00 124931142/130003355     ChessBoard::isSquareAttacked(unsigned long, int, int) [6]
+[67]     0.3    0.16    0.00 130003355         LookupTables::kingAttacks(int) [67]
+-----------------------------------------------
+                0.00    0.16       1/1           ChessBoard::ChessBoard() [57]
+[68]     0.3    0.00    0.16       1         LookupTables::getInstance() [68]
+                0.15    0.00       1/1           LookupTables::LookupTables() [69]
+-----------------------------------------------
+                0.15    0.00       1/1           LookupTables::getInstance() [68]
+[69]     0.3    0.15    0.00       1         LookupTables::LookupTables() [69]
+                0.00    0.00       1/1           LookupTables::initKnightAttacks() [142]
+                0.00    0.00       1/1           LookupTables::initPawnAttacks() [141]
+                0.00    0.00       1/1           LookupTables::initKingAttacks() [143]
+                0.00    0.00       1/1           LookupTables::initRayAttacks() [144]
+                0.00    0.00       1/1           LookupTables::initPopCount256() [184]
+-----------------------------------------------
+                0.15    0.00 183920676/183920676     ChessMove* std::__relocate_a<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [21]
+[70]     0.3    0.15    0.00 183920676         ChessMove* std::__niter_base<ChessMove*>(ChessMove*) [70]
+-----------------------------------------------
+                0.01    0.00 10134374/135180557     ChessBoard::getAttackSet(int, unsigned long, int) [17]
+                0.14    0.00 125046183/135180557     ChessBoard::isSquareAttacked(unsigned long, int, int) [6]
+[71]     0.3    0.15    0.00 135180557         LookupTables::knightAttacks(int) [71]
+-----------------------------------------------
+                0.15    0.00 125049325/125049325     ChessBoard::isSquareAttacked(unsigned long, int, int) [6]
+[72]     0.3    0.15    0.00 125049325         LookupTables::pawnAttacks(int, int) [72]
+-----------------------------------------------
+                0.14    0.00 141541739/141541739     std::vector<PosInfo, std::allocator<PosInfo> >::back() [29]
+[73]     0.2    0.14    0.00 141541739         __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator*() const [73]
+-----------------------------------------------
+                0.04    0.09 30653446/30653446     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_allocate(unsigned long) [66]
+[74]     0.2    0.04    0.09 30653446         std::allocator_traits<std::allocator<ChessMove> >::allocate(std::allocator<ChessMove>&, unsigned long) [74]
+                0.05    0.04 30653446/30653446     std::__new_allocator<ChessMove>::allocate(unsigned long, void const*) [86]
+-----------------------------------------------
+                0.06    0.00 125049325/289337480     std::vector<ChessMove, std::allocator<ChessMove> >::push_back(ChessMove&&) [12]
+                0.07    0.00 164288155/289337480     void std::__relocate_object_a<ChessMove, ChessMove, std::allocator<ChessMove> >(ChessMove*, ChessMove*, std::allocator<ChessMove>&) [24]
+[75]     0.2    0.13    0.00 289337480         std::remove_reference<ChessMove&>::type&& std::move<ChessMove&>(ChessMove&) [75]
+-----------------------------------------------
+                0.02    0.10 5072213/5072213     ChessBoard::getMoveList() [10]
+[76]     0.2    0.02    0.10 5072213         ChessBoard::generateCastles(std::vector<ChessMove, std::allocator<ChessMove> >&) [76]
+                0.02    0.06 10144426/141541739     std::vector<PosInfo, std::allocator<PosInfo> >::back() [29]
+                0.01    0.00 5072213/5072215     PosInfo::getLongCastlingRights(int) const [123]
+                0.00    0.00 5072213/5072215     PosInfo::getShortCastlingRights(int) const [135]
+-----------------------------------------------
+                0.04    0.08 61306892/61306892     std::allocator_traits<std::allocator<ChessMove> >::max_size(std::allocator<ChessMove> const&) [59]
+[77]     0.2    0.04    0.08 61306892         std::__new_allocator<ChessMove>::max_size() const [77]
+                0.08    0.00 61306892/91960338     std::__new_allocator<ChessMove>::_M_max_size() const [78]
+-----------------------------------------------
+                0.04    0.00 30653446/91960338     std::__new_allocator<ChessMove>::allocate(unsigned long, void const*) [86]
+                0.08    0.00 61306892/91960338     std::__new_allocator<ChessMove>::max_size() const [77]
+[78]     0.2    0.12    0.00 91960338         std::__new_allocator<ChessMove>::_M_max_size() const [78]
+-----------------------------------------------
+                0.10    0.00 125049325/125049325     std::vector<ChessMove, std::allocator<ChessMove> >::back() [28]
+[79]     0.2    0.10    0.00 125049325         __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator*() const [79]
+-----------------------------------------------
+                0.05    0.00 61306892/122613784     void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+                0.05    0.00 61306892/122613784     __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::difference_type __gnu_cxx::operator-<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&, __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&) [84]
+[80]     0.2    0.10    0.00 122613784         __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::base() const [80]
+-----------------------------------------------
+                0.01    0.09 5072213/5072213     perft(unsigned long, int&, ChessBoard&) [2]
+[81]     0.2    0.01    0.09 5072213         std::vector<ChessMove, std::allocator<ChessMove> >::~vector() [81]
+                0.00    0.05 5072213/5072213     void std::_Destroy<ChessMove*, ChessMove>(ChessMove*, ChessMove*, std::allocator<ChessMove>&) [99]
+                0.02    0.02 5072213/5072213     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::~_Vector_base() [108]
+                0.00    0.00 5072213/66379105     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_get_Tp_allocator() [128]
+-----------------------------------------------
+                0.10    0.00 125049332/125049332     void std::allocator_traits<std::allocator<PosInfo> >::destroy<PosInfo>(std::allocator<PosInfo>&, PosInfo*) [55]
+[82]     0.2    0.10    0.00 125049332         void std::__new_allocator<PosInfo>::destroy<PosInfo>(PosInfo*) [82]
+-----------------------------------------------
+                0.00    0.00      64/11420520     LookupTables::initKingAttacks() [143]
+                0.00    0.00     128/11420520     LookupTables::initKnightAttacks() [142]
+                0.00    0.00     128/11420520     LookupTables::initPawnAttacks() [141]
+                0.00    0.01 1275774/11420520     ChessBoard::generateEpCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, int) [122]
+                0.03    0.06 10144426/11420520     ChessBoard::generatePawnsCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [52]
+[83]     0.2    0.03    0.06 11420520         btw::cpyWrapWest(unsigned long) [83]
+                0.06    0.00 11420520/11420544     btw::wrapWest(unsigned long&) [91]
+-----------------------------------------------
+                0.04    0.05 30653446/30653446     void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+[84]     0.2    0.04    0.05 30653446         __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::difference_type __gnu_cxx::operator-<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&, __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&) [84]
+                0.05    0.00 61306892/122613784     __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::base() const [80]
+-----------------------------------------------
+                0.01    0.00 5072213/35725659     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::~_Vector_base() [108]
+                0.06    0.02 30653446/35725659     void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+[85]     0.2    0.07    0.03 35725659         std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_deallocate(ChessMove*, unsigned long) [85]
+                0.01    0.02 30653446/30653446     std::allocator_traits<std::allocator<ChessMove> >::deallocate(std::allocator<ChessMove>&, ChessMove*, unsigned long) [114]
+-----------------------------------------------
+                0.05    0.04 30653446/30653446     std::allocator_traits<std::allocator<ChessMove> >::allocate(std::allocator<ChessMove>&, unsigned long) [74]
+[86]     0.1    0.05    0.04 30653446         std::__new_allocator<ChessMove>::allocate(unsigned long, void const*) [86]
+                0.04    0.00 30653446/91960338     std::__new_allocator<ChessMove>::_M_max_size() const [78]
+-----------------------------------------------
+                0.00    0.02       2/8           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.06       6/8           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+[87]     0.1    0.00    0.08       8         std::vector<PosInfo, std::allocator<PosInfo> >::_S_relocate(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [87]
+                0.01    0.07       8/8           PosInfo* std::__relocate_a<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [88]
+-----------------------------------------------
+                0.01    0.07       8/8           std::vector<PosInfo, std::allocator<PosInfo> >::_S_relocate(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [87]
+[88]     0.1    0.01    0.07       8         PosInfo* std::__relocate_a<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [88]
+                0.00    0.07       8/8           PosInfo* std::__relocate_a_1<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [89]
+                0.00    0.00      24/24          PosInfo* std::__niter_base<PosInfo*>(PosInfo*) [160]
+-----------------------------------------------
+                0.00    0.07       8/8           PosInfo* std::__relocate_a<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [88]
+[89]     0.1    0.00    0.07       8         PosInfo* std::__relocate_a_1<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [89]
+                0.07    0.00       7/7           void std::__relocate_object_a<PosInfo, PosInfo, std::allocator<PosInfo> >(PosInfo*, PosInfo*, std::allocator<PosInfo>&) [90]
+                0.00    0.00      14/21          PosInfo* std::__addressof<PosInfo>(PosInfo&) [161]
+-----------------------------------------------
+                0.07    0.00       7/7           PosInfo* std::__relocate_a_1<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [89]
+[90]     0.1    0.07    0.00       7         void std::__relocate_object_a<PosInfo, PosInfo, std::allocator<PosInfo> >(PosInfo*, PosInfo*, std::allocator<PosInfo>&) [90]
+                0.00    0.00       7/125049332     void std::allocator_traits<std::allocator<PosInfo> >::destroy<PosInfo>(std::allocator<PosInfo>&, PosInfo*) [55]
+                0.00    0.00       7/8           void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo>(std::allocator<PosInfo>&, PosInfo*, PosInfo&&) [150]
+                0.00    0.00       7/8           std::remove_reference<PosInfo&>::type&& std::move<PosInfo&>(PosInfo&) [170]
+                0.00    0.00       7/21          PosInfo* std::__addressof<PosInfo>(PosInfo&) [161]
+-----------------------------------------------
+                0.00    0.00      24/11420544     LookupTables::initRayAttacks() [144]
+                0.06    0.00 11420520/11420544     btw::cpyWrapWest(unsigned long) [83]
+[91]     0.1    0.07    0.00 11420544         btw::wrapWest(unsigned long&) [91]
+-----------------------------------------------
+                0.03    0.00 2902912/5805824     ChessBoard::makeMove(ChessMove) [16]
+                0.03    0.00 2902912/5805824     ChessBoard::undoMove(ChessMove) [25]
+[92]     0.1    0.06    0.00 5805824         ChessMove::getCaptured() const [92]
+-----------------------------------------------
+                                                 <spontaneous>
+[93]     0.1    0.06    0.00                 std::remove_reference<ChessMove*&>::type&& std::move<ChessMove*&>(ChessMove*&) [93]
+-----------------------------------------------
+                0.00    0.06       3/3           std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo const&) [30]
+[94]     0.1    0.00    0.06       3         void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+                0.00    0.06       6/8           std::vector<PosInfo, std::allocator<PosInfo> >::_S_relocate(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [87]
+                0.00    0.00       3/125049325     void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo const&>(std::allocator<PosInfo>&, PosInfo*, PosInfo const&) [32]
+                0.00    0.00       3/4           std::vector<PosInfo, std::allocator<PosInfo> >::_M_check_len(unsigned long, char const*) const [145]
+                0.00    0.00       3/4           std::vector<PosInfo, std::allocator<PosInfo> >::begin() [146]
+                0.00    0.00       3/250098653     PosInfo const& std::forward<PosInfo const&>(std::remove_reference<PosInfo const&>::type&) [54]
+                0.00    0.00       6/9           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_get_Tp_allocator() [166]
+                0.00    0.00       6/16          __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::base() const [163]
+                0.00    0.00       3/4           __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::difference_type __gnu_cxx::operator-<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&, __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&) [172]
+                0.00    0.00       3/4           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_allocate(unsigned long) [173]
+                0.00    0.00       3/5           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_deallocate(PosInfo*, unsigned long) [171]
+-----------------------------------------------
+                0.01    0.04 5072213/5072213     std::vector<ChessMove, std::allocator<ChessMove> >::vector() [96]
+[95]     0.1    0.01    0.04 5072213         std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_base() [95]
+                0.00    0.04 5072213/5072213     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl::_Vector_impl() [103]
+-----------------------------------------------
+                0.00    0.06 5072213/5072213     ChessBoard::getMoveList() [10]
+[96]     0.1    0.00    0.06 5072213         std::vector<ChessMove, std::allocator<ChessMove> >::vector() [96]
+                0.01    0.04 5072213/5072213     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_base() [95]
+-----------------------------------------------
+                0.05    0.00 71997388/71997388     ChessBoard::makeMove(ChessMove) [16]
+[97]     0.1    0.05    0.00 71997388         PosInfo::resetHalfmoveClock() [97]
+-----------------------------------------------
+                0.04    0.01 5072213/5072213     void std::_Destroy<ChessMove*, ChessMove>(ChessMove*, ChessMove*, std::allocator<ChessMove>&) [99]
+[98]     0.1    0.04    0.01 5072213         void std::_Destroy<ChessMove*>(ChessMove*, ChessMove*) [98]
+                0.01    0.00 5072213/5072213     void std::_Destroy_aux<true>::__destroy<ChessMove*>(ChessMove*, ChessMove*) [137]
+-----------------------------------------------
+                0.00    0.05 5072213/5072213     std::vector<ChessMove, std::allocator<ChessMove> >::~vector() [81]
+[99]     0.1    0.00    0.05 5072213         void std::_Destroy<ChessMove*, ChessMove>(ChessMove*, ChessMove*, std::allocator<ChessMove>&) [99]
+                0.04    0.01 5072213/5072213     void std::_Destroy<ChessMove*>(ChessMove*, ChessMove*) [98]
+-----------------------------------------------
+                0.00    0.00    5506/2908418     ChessBoard::generateEpCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, int) [122]
+                0.02    0.00 1112062/2908418     ChessBoard::generatePawnsCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [52]
+                0.03    0.00 1790850/2908418     ChessBoard::generatePieceMoves(int, std::vector<ChessMove, std::allocator<ChessMove> >&) [11]
+[100]    0.1    0.05    0.00 2908418         ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [100]
+-----------------------------------------------
+                                                 <spontaneous>
+[101]    0.1    0.05    0.00                 std::move_iterator<ChessMove*> std::make_move_iterator<ChessMove*>(ChessMove*) [101]
+-----------------------------------------------
+                0.04    0.00 30907482/30907482     ChessBoard::makeMove(ChessMove) [16]
+[102]    0.1    0.04    0.00 30907482         PosInfo::setEpSquare(int) [102]
+-----------------------------------------------
+                0.00    0.04 5072213/5072213     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_base() [95]
+[103]    0.1    0.00    0.04 5072213         std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl::_Vector_impl() [103]
+                0.04    0.00 5072213/5072213     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl_data::_Vector_impl_data() [111]
+                0.01    0.00 5072213/5072213     std::allocator<ChessMove>::allocator() [136]
+-----------------------------------------------
+                0.04    0.00       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::vector() [105]
+[104]    0.1    0.04    0.00       1         std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_base() [104]
+                0.00    0.00       1/1           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl::_Vector_impl() [193]
+-----------------------------------------------
+                0.00    0.04       1/1           ChessBoard::ChessBoard() [57]
+[105]    0.1    0.00    0.04       1         std::vector<PosInfo, std::allocator<PosInfo> >::vector() [105]
+                0.04    0.00       1/1           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_base() [104]
+-----------------------------------------------
+                                                 <spontaneous>
+[106]    0.1    0.04    0.00                 __gnu_cxx::__normal_iterator<ChessMove const*, std::vector<ChessMove, std::allocator<ChessMove> > >::__normal_iterator<ChessMove*, void>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&) [106]
+-----------------------------------------------
+                0.00    0.00      64/11420520     LookupTables::initKingAttacks() [143]
+                0.00    0.00     128/11420520     LookupTables::initKnightAttacks() [142]
+                0.00    0.00     128/11420520     LookupTables::initPawnAttacks() [141]
+                0.00    0.00 1275774/11420520     ChessBoard::generateEpCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, int) [122]
+                0.02    0.02 10144426/11420520     ChessBoard::generatePawnsCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [52]
+[107]    0.1    0.02    0.02 11420520         btw::cpyWrapEast(unsigned long) [107]
+                0.02    0.00 11420520/11420544     btw::wrapEast(unsigned long&) [115]
+-----------------------------------------------
+                0.02    0.02 5072213/5072213     std::vector<ChessMove, std::allocator<ChessMove> >::~vector() [81]
+[108]    0.1    0.02    0.02 5072213         std::_Vector_base<ChessMove, std::allocator<ChessMove> >::~_Vector_base() [108]
+                0.01    0.00 5072213/35725659     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_deallocate(ChessMove*, unsigned long) [85]
+                0.00    0.01 5072213/5072213     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl::~_Vector_impl() [132]
+-----------------------------------------------
+                0.04    0.00 61306892/61306892     std::vector<ChessMove, std::allocator<ChessMove> >::max_size() const [40]
+[109]    0.1    0.04    0.00 61306892         std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_get_Tp_allocator() const [109]
+-----------------------------------------------
+                0.00    0.00       4/30653450     std::vector<PosInfo, std::allocator<PosInfo> >::_M_check_len(unsigned long, char const*) const [145]
+                0.04    0.00 30653446/30653450     std::vector<ChessMove, std::allocator<ChessMove> >::_M_check_len(unsigned long, char const*) const [34]
+[110]    0.1    0.04    0.00 30653450         unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&) [110]
+-----------------------------------------------
+                0.04    0.00 5072213/5072213     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl::_Vector_impl() [103]
+[111]    0.1    0.04    0.00 5072213         std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl_data::_Vector_impl_data() [111]
+-----------------------------------------------
+                0.00    0.00       8/61306900     std::vector<PosInfo, std::allocator<PosInfo> >::_S_max_size(std::allocator<PosInfo> const&) [148]
+                0.03    0.00 61306892/61306900     std::vector<ChessMove, std::allocator<ChessMove> >::_S_max_size(std::allocator<ChessMove> const&) [48]
+[112]    0.1    0.04    0.00 61306900         unsigned long const& std::min<unsigned long>(unsigned long const&, unsigned long const&) [112]
+-----------------------------------------------
+                0.04    0.00 1275774/1275774     ChessBoard::generatePawnsMoves(std::vector<ChessMove, std::allocator<ChessMove> >&) [14]
+[113]    0.1    0.04    0.00 1275774         PosInfo::getEpSquare() const [113]
+-----------------------------------------------
+                0.01    0.02 30653446/30653446     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_deallocate(ChessMove*, unsigned long) [85]
+[114]    0.0    0.01    0.02 30653446         std::allocator_traits<std::allocator<ChessMove> >::deallocate(std::allocator<ChessMove>&, ChessMove*, unsigned long) [114]
+                0.02    0.00 30653446/30653446     std::__new_allocator<ChessMove>::deallocate(ChessMove*, unsigned long) [117]
+-----------------------------------------------
+                0.00    0.00      24/11420544     LookupTables::initRayAttacks() [144]
+                0.02    0.00 11420520/11420544     btw::cpyWrapEast(unsigned long) [107]
+[115]    0.0    0.03    0.00 11420544         btw::wrapEast(unsigned long&) [115]
+-----------------------------------------------
+                                                 <spontaneous>
+[116]    0.0    0.03    0.00                 std::vector<ChessMove, std::allocator<ChessMove> >::cbegin() const [116]
+-----------------------------------------------
+                0.02    0.00 30653446/30653446     std::allocator_traits<std::allocator<ChessMove> >::deallocate(std::allocator<ChessMove>&, ChessMove*, unsigned long) [114]
+[117]    0.0    0.02    0.00 30653446         std::__new_allocator<ChessMove>::deallocate(ChessMove*, unsigned long) [117]
+-----------------------------------------------
+                                                 <spontaneous>
+[118]    0.0    0.02    0.00                 _init [118]
+-----------------------------------------------
+                0.00    0.02       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo&&) [120]
+[119]    0.0    0.00    0.02       1         PosInfo& std::vector<PosInfo, std::allocator<PosInfo> >::emplace_back<PosInfo>(PosInfo&&) [119]
+                0.00    0.02       1/1           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.00       1/141541739     std::vector<PosInfo, std::allocator<PosInfo> >::back() [29]
+                0.00    0.00       1/141541743     std::vector<PosInfo, std::allocator<PosInfo> >::end() [51]
+                0.00    0.00       1/18          PosInfo&& std::forward<PosInfo>(std::remove_reference<PosInfo>::type&) [162]
+-----------------------------------------------
+                0.00    0.02       1/1           ChessBoard::ChessBoard() [57]
+[120]    0.0    0.00    0.02       1         std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo&&) [120]
+                0.00    0.02       1/1           PosInfo& std::vector<PosInfo, std::allocator<PosInfo> >::emplace_back<PosInfo>(PosInfo&&) [119]
+                0.00    0.00       1/8           std::remove_reference<PosInfo&>::type&& std::move<PosInfo&>(PosInfo&) [170]
+-----------------------------------------------
+                0.00    0.02       1/1           PosInfo& std::vector<PosInfo, std::allocator<PosInfo> >::emplace_back<PosInfo>(PosInfo&&) [119]
+[121]    0.0    0.00    0.02       1         void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.02       2/8           std::vector<PosInfo, std::allocator<PosInfo> >::_S_relocate(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [87]
+                0.00    0.00       1/4           std::vector<PosInfo, std::allocator<PosInfo> >::_M_check_len(unsigned long, char const*) const [145]
+                0.00    0.00       1/4           std::vector<PosInfo, std::allocator<PosInfo> >::begin() [146]
+                0.00    0.00       1/8           void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo>(std::allocator<PosInfo>&, PosInfo*, PosInfo&&) [150]
+                0.00    0.00       2/9           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_get_Tp_allocator() [166]
+                0.00    0.00       2/16          __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::base() const [163]
+                0.00    0.00       1/4           __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::difference_type __gnu_cxx::operator-<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&, __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&) [172]
+                0.00    0.00       1/4           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_allocate(unsigned long) [173]
+                0.00    0.00       1/18          PosInfo&& std::forward<PosInfo>(std::remove_reference<PosInfo>::type&) [162]
+                0.00    0.00       1/5           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_deallocate(PosInfo*, unsigned long) [171]
+-----------------------------------------------
+                0.00    0.02 1275774/1275774     ChessBoard::generatePawnsMoves(std::vector<ChessMove, std::allocator<ChessMove> >&) [14]
+[122]    0.0    0.00    0.02 1275774         ChessBoard::generateEpCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, int) [122]
+                0.00    0.01 1275774/11420520     btw::cpyWrapWest(unsigned long) [83]
+                0.00    0.00 1275774/11420520     btw::cpyWrapEast(unsigned long) [107]
+                0.00    0.00    5506/125049325     std::vector<ChessMove, std::allocator<ChessMove> >::push_back(ChessMove&&) [12]
+                0.00    0.00    5506/2908418     ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [100]
+-----------------------------------------------
+                0.00    0.00       2/5072215     operator<<(std::ostream&, ChessBoard const&) [127]
+                0.01    0.00 5072213/5072215     ChessBoard::generateCastles(std::vector<ChessMove, std::allocator<ChessMove> >&) [76]
+[123]    0.0    0.01    0.00 5072215         PosInfo::getLongCastlingRights(int) const [123]
+-----------------------------------------------
+                                                 <spontaneous>
+[124]    0.0    0.01    0.00                 _GLOBAL__sub_I__ZN10ChessBoardC2Ev [124]
+                0.00    0.00       1/1           __static_initialization_and_destruction_0(int, int) [180]
+-----------------------------------------------
+                                                 <spontaneous>
+[125]    0.0    0.01    0.00                 __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator+(long) const [125]
+-----------------------------------------------
+                                                 <spontaneous>
+[126]    0.0    0.01    0.00                 std::__new_allocator<unsigned long>::allocate(unsigned long, void const*) [126]
+-----------------------------------------------
+                0.01    0.00       1/1           main [1]
+[127]    0.0    0.01    0.00       1         operator<<(std::ostream&, ChessBoard const&) [127]
+                0.00    0.00       2/5072215     PosInfo::getLongCastlingRights(int) const [123]
+                0.00    0.00       2/5072215     PosInfo::getShortCastlingRights(int) const [135]
+                0.00    0.00       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::back() const [189]
+                0.00    0.00       1/5072214     PosInfo::isEpPossible() const [157]
+-----------------------------------------------
+                0.00    0.00 5072213/66379105     std::vector<ChessMove, std::allocator<ChessMove> >::~vector() [81]
+                0.01    0.00 61306892/66379105     void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&) [15]
+[128]    0.0    0.01    0.00 66379105         std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_get_Tp_allocator() [128]
+-----------------------------------------------
+                0.01    0.00 5384584/5384584     ChessBoard::makeMove(ChessMove) [16]
+[129]    0.0    0.01    0.00 5384584         PosInfo::removeShortCastlingRights(int) [129]
+-----------------------------------------------
+                0.01    0.00 5382429/5382429     ChessBoard::makeMove(ChessMove) [16]
+[130]    0.0    0.01    0.00 5382429         PosInfo::removeLongCastlingRights(int) [130]
+-----------------------------------------------
+                0.00    0.01 5072213/5072213     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl::~_Vector_impl() [132]
+[131]    0.0    0.00    0.01 5072213         std::allocator<ChessMove>::~allocator() [131]
+                0.01    0.00 5072213/5072213     std::__new_allocator<ChessMove>::~__new_allocator() [133]
+-----------------------------------------------
+                0.00    0.01 5072213/5072213     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::~_Vector_base() [108]
+[132]    0.0    0.00    0.01 5072213         std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl::~_Vector_impl() [132]
+                0.00    0.01 5072213/5072213     std::allocator<ChessMove>::~allocator() [131]
+-----------------------------------------------
+                0.01    0.00 5072213/5072213     std::allocator<ChessMove>::~allocator() [131]
+[133]    0.0    0.01    0.00 5072213         std::__new_allocator<ChessMove>::~__new_allocator() [133]
+-----------------------------------------------
+                                                 <spontaneous>
+[134]    0.0    0.01    0.00                 ChessMove* std::__uninitialized_move_a<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&) [134]
+-----------------------------------------------
+                0.00    0.00       2/5072215     operator<<(std::ostream&, ChessBoard const&) [127]
+                0.00    0.00 5072213/5072215     ChessBoard::generateCastles(std::vector<ChessMove, std::allocator<ChessMove> >&) [76]
+[135]    0.0    0.01    0.00 5072215         PosInfo::getShortCastlingRights(int) const [135]
+-----------------------------------------------
+                0.01    0.00 5072213/5072213     std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl::_Vector_impl() [103]
+[136]    0.0    0.01    0.00 5072213         std::allocator<ChessMove>::allocator() [136]
+                0.00    0.00 5072213/5072213     std::__new_allocator<ChessMove>::__new_allocator() [158]
+-----------------------------------------------
+                0.01    0.00 5072213/5072213     void std::_Destroy<ChessMove*>(ChessMove*, ChessMove*) [98]
+[137]    0.0    0.01    0.00 5072213         void std::_Destroy_aux<true>::__destroy<ChessMove*>(ChessMove*, ChessMove*) [137]
+-----------------------------------------------
+                                                 <spontaneous>
+[138]    0.0    0.01    0.00                 PosInfo::getHalfmoveClock() const [138]
+-----------------------------------------------
+                                                 <spontaneous>
+[139]    0.0    0.01    0.00                 std::vector<unsigned long, std::allocator<unsigned long> >::vector<unsigned long*, void>(unsigned long*, unsigned long*, std::allocator<unsigned long> const&) [139]
+-----------------------------------------------
+                                                 <spontaneous>
+[140]    0.0    0.01    0.00                 ChessMove* std::uninitialized_copy<ChessMove const*, ChessMove*>(ChessMove const*, ChessMove const*, ChessMove*) [140]
+-----------------------------------------------
+                0.00    0.00       1/1           LookupTables::LookupTables() [69]
+[141]    0.0    0.00    0.00       1         LookupTables::initPawnAttacks() [141]
+                0.00    0.00     128/11420520     btw::cpyWrapWest(unsigned long) [83]
+                0.00    0.00     128/11420520     btw::cpyWrapEast(unsigned long) [107]
+-----------------------------------------------
+                0.00    0.00       1/1           LookupTables::LookupTables() [69]
+[142]    0.0    0.00    0.00       1         LookupTables::initKnightAttacks() [142]
+                0.00    0.00     128/11420520     btw::cpyWrapWest(unsigned long) [83]
+                0.00    0.00     128/11420520     btw::cpyWrapEast(unsigned long) [107]
+-----------------------------------------------
+                0.00    0.00       1/1           LookupTables::LookupTables() [69]
+[143]    0.0    0.00    0.00       1         LookupTables::initKingAttacks() [143]
+                0.00    0.00      64/11420520     btw::cpyWrapWest(unsigned long) [83]
+                0.00    0.00      64/11420520     btw::cpyWrapEast(unsigned long) [107]
+-----------------------------------------------
+                0.00    0.00       1/1           LookupTables::LookupTables() [69]
+[144]    0.0    0.00    0.00       1         LookupTables::initRayAttacks() [144]
+                0.00    0.00      24/11420544     btw::wrapWest(unsigned long&) [91]
+                0.00    0.00      24/11420544     btw::wrapEast(unsigned long&) [115]
+-----------------------------------------------
+                0.00    0.00       1/4           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.00       3/4           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+[145]    0.0    0.00    0.00       4         std::vector<PosInfo, std::allocator<PosInfo> >::_M_check_len(unsigned long, char const*) const [145]
+                0.00    0.00       4/30653450     unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&) [110]
+                0.00    0.00       8/8           std::vector<PosInfo, std::allocator<PosInfo> >::max_size() const [147]
+                0.00    0.00      16/16          std::vector<PosInfo, std::allocator<PosInfo> >::size() const [164]
+-----------------------------------------------
+                0.00    0.00       1/4           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.00       3/4           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+[146]    0.0    0.00    0.00       4         std::vector<PosInfo, std::allocator<PosInfo> >::begin() [146]
+                0.00    0.00       4/283083486     __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::__normal_iterator(PosInfo* const&) [47]
+-----------------------------------------------
+                0.00    0.00       8/8           std::vector<PosInfo, std::allocator<PosInfo> >::_M_check_len(unsigned long, char const*) const [145]
+[147]    0.0    0.00    0.00       8         std::vector<PosInfo, std::allocator<PosInfo> >::max_size() const [147]
+                0.00    0.00       8/8           std::vector<PosInfo, std::allocator<PosInfo> >::_S_max_size(std::allocator<PosInfo> const&) [148]
+                0.00    0.00       8/8           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_get_Tp_allocator() const [167]
+-----------------------------------------------
+                0.00    0.00       8/8           std::vector<PosInfo, std::allocator<PosInfo> >::max_size() const [147]
+[148]    0.0    0.00    0.00       8         std::vector<PosInfo, std::allocator<PosInfo> >::_S_max_size(std::allocator<PosInfo> const&) [148]
+                0.00    0.00       8/61306900     unsigned long const& std::min<unsigned long>(unsigned long const&, unsigned long const&) [112]
+                0.00    0.00       8/8           std::allocator_traits<std::allocator<PosInfo> >::max_size(std::allocator<PosInfo> const&) [169]
+-----------------------------------------------
+                0.00    0.00       8/8           void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo>(std::allocator<PosInfo>&, PosInfo*, PosInfo&&) [150]
+[149]    0.0    0.00    0.00       8         void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo>(PosInfo*, PosInfo&&) [149]
+                0.00    0.00       8/414386813     operator new(unsigned long, void*) [58]
+                0.00    0.00       8/18          PosInfo&& std::forward<PosInfo>(std::remove_reference<PosInfo>::type&) [162]
+-----------------------------------------------
+                0.00    0.00       1/8           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.00       7/8           void std::__relocate_object_a<PosInfo, PosInfo, std::allocator<PosInfo> >(PosInfo*, PosInfo*, std::allocator<PosInfo>&) [90]
+[150]    0.0    0.00    0.00       8         void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo>(std::allocator<PosInfo>&, PosInfo*, PosInfo&&) [150]
+                0.00    0.00       8/8           void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo>(PosInfo*, PosInfo&&) [149]
+                0.00    0.00       8/18          PosInfo&& std::forward<PosInfo>(std::remove_reference<PosInfo>::type&) [162]
+-----------------------------------------------
+                0.00    0.00       1/5072214     operator<<(std::ostream&, ChessBoard const&) [127]
+                0.00    0.00 5072213/5072214     ChessBoard::generatePawnsMoves(std::vector<ChessMove, std::allocator<ChessMove> >&) [14]
+[157]    0.0    0.00    0.00 5072214         PosInfo::isEpPossible() const [157]
+-----------------------------------------------
+                0.00    0.00 5072213/5072213     std::allocator<ChessMove>::allocator() [136]
+[158]    0.0    0.00    0.00 5072213         std::__new_allocator<ChessMove>::__new_allocator() [158]
+-----------------------------------------------
+                0.00    0.00 1112062/2902912     ChessBoard::generatePawnsCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [52]
+                0.00    0.00 1790850/2902912     ChessBoard::generatePieceMoves(int, std::vector<ChessMove, std::allocator<ChessMove> >&) [11]
+[159]    0.0    0.00    0.00 2902912         ChessBoard::capturedPiece(int) [159]
+-----------------------------------------------
+                0.00    0.00      24/24          PosInfo* std::__relocate_a<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [88]
+[160]    0.0    0.00    0.00      24         PosInfo* std::__niter_base<PosInfo*>(PosInfo*) [160]
+-----------------------------------------------
+                0.00    0.00       7/21          void std::__relocate_object_a<PosInfo, PosInfo, std::allocator<PosInfo> >(PosInfo*, PosInfo*, std::allocator<PosInfo>&) [90]
+                0.00    0.00      14/21          PosInfo* std::__relocate_a_1<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&) [89]
+[161]    0.0    0.00    0.00      21         PosInfo* std::__addressof<PosInfo>(PosInfo&) [161]
+-----------------------------------------------
+                0.00    0.00       1/18          PosInfo& std::vector<PosInfo, std::allocator<PosInfo> >::emplace_back<PosInfo>(PosInfo&&) [119]
+                0.00    0.00       1/18          void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.00       8/18          void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo>(std::allocator<PosInfo>&, PosInfo*, PosInfo&&) [150]
+                0.00    0.00       8/18          void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo>(PosInfo*, PosInfo&&) [149]
+[162]    0.0    0.00    0.00      18         PosInfo&& std::forward<PosInfo>(std::remove_reference<PosInfo>::type&) [162]
+-----------------------------------------------
+                0.00    0.00       2/16          void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.00       6/16          void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+                0.00    0.00       8/16          __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::difference_type __gnu_cxx::operator-<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&, __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&) [172]
+[163]    0.0    0.00    0.00      16         __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::base() const [163]
+-----------------------------------------------
+                0.00    0.00      16/16          std::vector<PosInfo, std::allocator<PosInfo> >::_M_check_len(unsigned long, char const*) const [145]
+[164]    0.0    0.00    0.00      16         std::vector<PosInfo, std::allocator<PosInfo> >::size() const [164]
+-----------------------------------------------
+                0.00    0.00       4/12          std::__new_allocator<PosInfo>::allocate(unsigned long, void const*) [175]
+                0.00    0.00       8/12          std::__new_allocator<PosInfo>::max_size() const [168]
+[165]    0.0    0.00    0.00      12         std::__new_allocator<PosInfo>::_M_max_size() const [165]
+-----------------------------------------------
+                0.00    0.00       1/9           std::vector<PosInfo, std::allocator<PosInfo> >::~vector() [199]
+                0.00    0.00       2/9           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.00       6/9           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+[166]    0.0    0.00    0.00       9         std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_get_Tp_allocator() [166]
+-----------------------------------------------
+                0.00    0.00       8/8           std::vector<PosInfo, std::allocator<PosInfo> >::max_size() const [147]
+[167]    0.0    0.00    0.00       8         std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_get_Tp_allocator() const [167]
+-----------------------------------------------
+                0.00    0.00       8/8           std::allocator_traits<std::allocator<PosInfo> >::max_size(std::allocator<PosInfo> const&) [169]
+[168]    0.0    0.00    0.00       8         std::__new_allocator<PosInfo>::max_size() const [168]
+                0.00    0.00       8/12          std::__new_allocator<PosInfo>::_M_max_size() const [165]
+-----------------------------------------------
+                0.00    0.00       8/8           std::vector<PosInfo, std::allocator<PosInfo> >::_S_max_size(std::allocator<PosInfo> const&) [148]
+[169]    0.0    0.00    0.00       8         std::allocator_traits<std::allocator<PosInfo> >::max_size(std::allocator<PosInfo> const&) [169]
+                0.00    0.00       8/8           std::__new_allocator<PosInfo>::max_size() const [168]
+-----------------------------------------------
+                0.00    0.00       1/8           std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo&&) [120]
+                0.00    0.00       7/8           void std::__relocate_object_a<PosInfo, PosInfo, std::allocator<PosInfo> >(PosInfo*, PosInfo*, std::allocator<PosInfo>&) [90]
+[170]    0.0    0.00    0.00       8         std::remove_reference<PosInfo&>::type&& std::move<PosInfo&>(PosInfo&) [170]
+-----------------------------------------------
+                0.00    0.00       1/5           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::~_Vector_base() [196]
+                0.00    0.00       1/5           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.00       3/5           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+[171]    0.0    0.00    0.00       5         std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_deallocate(PosInfo*, unsigned long) [171]
+                0.00    0.00       4/4           std::allocator_traits<std::allocator<PosInfo> >::deallocate(std::allocator<PosInfo>&, PosInfo*, unsigned long) [176]
+-----------------------------------------------
+                0.00    0.00       1/4           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.00       3/4           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+[172]    0.0    0.00    0.00       4         __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::difference_type __gnu_cxx::operator-<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&, __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&) [172]
+                0.00    0.00       8/16          __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::base() const [163]
+-----------------------------------------------
+                0.00    0.00       1/4           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&) [121]
+                0.00    0.00       3/4           void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&) [94]
+[173]    0.0    0.00    0.00       4         std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_allocate(unsigned long) [173]
+                0.00    0.00       4/4           std::allocator_traits<std::allocator<PosInfo> >::allocate(std::allocator<PosInfo>&, unsigned long) [177]
+-----------------------------------------------
+                0.00    0.00       4/4           std::allocator_traits<std::allocator<PosInfo> >::deallocate(std::allocator<PosInfo>&, PosInfo*, unsigned long) [176]
+[174]    0.0    0.00    0.00       4         std::__new_allocator<PosInfo>::deallocate(PosInfo*, unsigned long) [174]
+-----------------------------------------------
+                0.00    0.00       4/4           std::allocator_traits<std::allocator<PosInfo> >::allocate(std::allocator<PosInfo>&, unsigned long) [177]
+[175]    0.0    0.00    0.00       4         std::__new_allocator<PosInfo>::allocate(unsigned long, void const*) [175]
+                0.00    0.00       4/12          std::__new_allocator<PosInfo>::_M_max_size() const [165]
+-----------------------------------------------
+                0.00    0.00       4/4           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_deallocate(PosInfo*, unsigned long) [171]
+[176]    0.0    0.00    0.00       4         std::allocator_traits<std::allocator<PosInfo> >::deallocate(std::allocator<PosInfo>&, PosInfo*, unsigned long) [176]
+                0.00    0.00       4/4           std::__new_allocator<PosInfo>::deallocate(PosInfo*, unsigned long) [174]
+-----------------------------------------------
+                0.00    0.00       4/4           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_allocate(unsigned long) [173]
+[177]    0.0    0.00    0.00       4         std::allocator_traits<std::allocator<PosInfo> >::allocate(std::allocator<PosInfo>&, unsigned long) [177]
+                0.00    0.00       4/4           std::__new_allocator<PosInfo>::allocate(unsigned long, void const*) [175]
+-----------------------------------------------
+                0.00    0.00       1/2           std::vector<PosInfo, std::allocator<PosInfo> >::end() const [188]
+                0.00    0.00       1/2           __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator-(long) const [187]
+[178]    0.0    0.00    0.00       2         __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::__normal_iterator(PosInfo const* const&) [178]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__Z5perftmR10ChessBoard [202]
+[179]    0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [179]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__ZN10ChessBoardC2Ev [124]
+[180]    0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [180]
+-----------------------------------------------
+                0.00    0.00       1/1           _GLOBAL__sub_I__ZN9ChessMoveC2Ejjjj [203]
+[181]    0.0    0.00    0.00       1         __static_initialization_and_destruction_0(int, int) [181]
+-----------------------------------------------
+                0.00    0.00       1/1           ChessBoard::ChessBoard() [57]
+[182]    0.0    0.00    0.00       1         ChessBoard::initBoard() [182]
+-----------------------------------------------
+                0.00    0.00       1/1           main [1]
+[183]    0.0    0.00    0.00       1         ChessBoard::~ChessBoard() [183]
+                0.00    0.00       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::~vector() [199]
+-----------------------------------------------
+                0.00    0.00       1/1           LookupTables::LookupTables() [69]
+[184]    0.0    0.00    0.00       1         LookupTables::initPopCount256() [184]
+-----------------------------------------------
+                0.00    0.00       1/1           ChessBoard::ChessBoard() [57]
+[185]    0.0    0.00    0.00       1         PosInfo::PosInfo() [185]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::back() const [189]
+[186]    0.0    0.00    0.00       1         __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator*() const [186]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::back() const [189]
+[187]    0.0    0.00    0.00       1         __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator-(long) const [187]
+                0.00    0.00       1/2           __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::__normal_iterator(PosInfo const* const&) [178]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::back() const [189]
+[188]    0.0    0.00    0.00       1         std::vector<PosInfo, std::allocator<PosInfo> >::end() const [188]
+                0.00    0.00       1/2           __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::__normal_iterator(PosInfo const* const&) [178]
+-----------------------------------------------
+                0.00    0.00       1/1           operator<<(std::ostream&, ChessBoard const&) [127]
+[189]    0.0    0.00    0.00       1         std::vector<PosInfo, std::allocator<PosInfo> >::back() const [189]
+                0.00    0.00       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::end() const [188]
+                0.00    0.00       1/1           __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator-(long) const [187]
+                0.00    0.00       1/1           __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator*() const [186]
+-----------------------------------------------
+                0.00    0.00       1/1           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl::_Vector_impl() [193]
+[190]    0.0    0.00    0.00       1         std::allocator<PosInfo>::allocator() [190]
+                0.00    0.00       1/1           std::__new_allocator<PosInfo>::__new_allocator() [197]
+-----------------------------------------------
+                0.00    0.00       1/1           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl::~_Vector_impl() [194]
+[191]    0.0    0.00    0.00       1         std::allocator<PosInfo>::~allocator() [191]
+                0.00    0.00       1/1           std::__new_allocator<PosInfo>::~__new_allocator() [198]
+-----------------------------------------------
+                0.00    0.00       1/1           void std::_Destroy<PosInfo*>(PosInfo*, PosInfo*) [200]
+[192]    0.0    0.00    0.00       1         void std::_Destroy_aux<true>::__destroy<PosInfo*>(PosInfo*, PosInfo*) [192]
+-----------------------------------------------
+                0.00    0.00       1/1           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_base() [104]
+[193]    0.0    0.00    0.00       1         std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl::_Vector_impl() [193]
+                0.00    0.00       1/1           std::allocator<PosInfo>::allocator() [190]
+                0.00    0.00       1/1           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl_data::_Vector_impl_data() [195]
+-----------------------------------------------
+                0.00    0.00       1/1           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::~_Vector_base() [196]
+[194]    0.0    0.00    0.00       1         std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl::~_Vector_impl() [194]
+                0.00    0.00       1/1           std::allocator<PosInfo>::~allocator() [191]
+-----------------------------------------------
+                0.00    0.00       1/1           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl::_Vector_impl() [193]
+[195]    0.0    0.00    0.00       1         std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl_data::_Vector_impl_data() [195]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::~vector() [199]
+[196]    0.0    0.00    0.00       1         std::_Vector_base<PosInfo, std::allocator<PosInfo> >::~_Vector_base() [196]
+                0.00    0.00       1/1           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl::~_Vector_impl() [194]
+                0.00    0.00       1/5           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_deallocate(PosInfo*, unsigned long) [171]
+-----------------------------------------------
+                0.00    0.00       1/1           std::allocator<PosInfo>::allocator() [190]
+[197]    0.0    0.00    0.00       1         std::__new_allocator<PosInfo>::__new_allocator() [197]
+-----------------------------------------------
+                0.00    0.00       1/1           std::allocator<PosInfo>::~allocator() [191]
+[198]    0.0    0.00    0.00       1         std::__new_allocator<PosInfo>::~__new_allocator() [198]
+-----------------------------------------------
+                0.00    0.00       1/1           ChessBoard::~ChessBoard() [183]
+[199]    0.0    0.00    0.00       1         std::vector<PosInfo, std::allocator<PosInfo> >::~vector() [199]
+                0.00    0.00       1/9           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_get_Tp_allocator() [166]
+                0.00    0.00       1/1           void std::_Destroy<PosInfo*, PosInfo>(PosInfo*, PosInfo*, std::allocator<PosInfo>&) [201]
+                0.00    0.00       1/1           std::_Vector_base<PosInfo, std::allocator<PosInfo> >::~_Vector_base() [196]
+-----------------------------------------------
+                0.00    0.00       1/1           void std::_Destroy<PosInfo*, PosInfo>(PosInfo*, PosInfo*, std::allocator<PosInfo>&) [201]
+[200]    0.0    0.00    0.00       1         void std::_Destroy<PosInfo*>(PosInfo*, PosInfo*) [200]
+                0.00    0.00       1/1           void std::_Destroy_aux<true>::__destroy<PosInfo*>(PosInfo*, PosInfo*) [192]
+-----------------------------------------------
+                0.00    0.00       1/1           std::vector<PosInfo, std::allocator<PosInfo> >::~vector() [199]
+[201]    0.0    0.00    0.00       1         void std::_Destroy<PosInfo*, PosInfo>(PosInfo*, PosInfo*, std::allocator<PosInfo>&) [201]
+                0.00    0.00       1/1           void std::_Destroy<PosInfo*>(PosInfo*, PosInfo*) [200]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+ [124] _GLOBAL__sub_I__ZN10ChessBoardC2Ev (ChessBoard.cpp) [92] ChessMove::getCaptured() const [176] std::allocator_traits<std::allocator<PosInfo> >::deallocate(std::allocator<PosInfo>&, PosInfo*, unsigned long)
+ [179] __static_initialization_and_destruction_0(int, int) (main.cpp) [46] ChessMove::getEndSquare() const [55] void std::allocator_traits<std::allocator<PosInfo> >::destroy<PosInfo>(std::allocator<PosInfo>&, PosInfo*)
+ [180] __static_initialization_and_destruction_0(int, int) (ChessBoard.cpp) [36] ChessMove::getStartingSquare() const [177] std::allocator_traits<std::allocator<PosInfo> >::allocate(std::allocator<PosInfo>&, unsigned long)
+ [181] __static_initialization_and_destruction_0(int, int) (ChessMove.cpp) [42] ChessMove::getFlags() const [169] std::allocator_traits<std::allocator<PosInfo> >::max_size(std::allocator<PosInfo> const&)
+   [2] perft(unsigned long, int&, ChessBoard&) [53] ChessMove::getPiece() const [32] void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo const&>(std::allocator<PosInfo>&, PosInfo*, PosInfo const&)
+  [10] ChessBoard::getMoveList() [163] __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::base() const [150] void std::allocator_traits<std::allocator<PosInfo> >::construct<PosInfo, PosInfo>(std::allocator<PosInfo>&, PosInfo*, PosInfo&&)
+  [17] ChessBoard::getAttackSet(int, unsigned long, int) [73] __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator*() const [114] std::allocator_traits<std::allocator<ChessMove> >::deallocate(std::allocator<ChessMove>&, ChessMove*, unsigned long)
+ [159] ChessBoard::capturedPiece(int) [41] __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator-(long) const [44] void std::allocator_traits<std::allocator<ChessMove> >::destroy<ChessMove>(std::allocator<ChessMove>&, ChessMove*)
+  [76] ChessBoard::generateCastles(std::vector<ChessMove, std::allocator<ChessMove> >&) [80] __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::base() const [74] std::allocator_traits<std::allocator<ChessMove> >::allocate(std::allocator<ChessMove>&, unsigned long)
+   [6] ChessBoard::isSquareAttacked(unsigned long, int, int) [79] __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator*() const [59] std::allocator_traits<std::allocator<ChessMove> >::max_size(std::allocator<ChessMove> const&)
+  [49] ChessBoard::toggleSideToMove() [45] __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator-(long) const [26] void std::allocator_traits<std::allocator<ChessMove> >::construct<ChessMove, ChessMove>(std::allocator<ChessMove>&, ChessMove*, ChessMove&&)
+ [122] ChessBoard::generateEpCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, int) [125] __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::operator+(long) const [148] std::vector<PosInfo, std::allocator<PosInfo> >::_S_max_size(std::allocator<PosInfo> const&)
+  [14] ChessBoard::generatePawnsMoves(std::vector<ChessMove, std::allocator<ChessMove> >&) [186] __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator*() const [87] std::vector<PosInfo, std::allocator<PosInfo> >::_S_relocate(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&)
+  [11] ChessBoard::generatePieceMoves(int, std::vector<ChessMove, std::allocator<ChessMove> >&) [187] __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::operator-(long) const [119] PosInfo& std::vector<PosInfo, std::allocator<PosInfo> >::emplace_back<PosInfo>(PosInfo&&)
+  [19] ChessBoard::generatePawnsPushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [167] std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_get_Tp_allocator() const [94] void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo const&>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo const&)
+  [23] ChessBoard::generateDoublePushes(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [109] std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_get_Tp_allocator() const [121] void std::vector<PosInfo, std::allocator<PosInfo> >::_M_realloc_insert<PosInfo>(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >, PosInfo&&)
+  [52] ChessBoard::generatePawnsCaptures(std::vector<ChessMove, std::allocator<ChessMove> >&, unsigned long, unsigned long) [165] std::__new_allocator<PosInfo>::_M_max_size() const [51] std::vector<PosInfo, std::allocator<PosInfo> >::end()
+   [4] ChessBoard::isCheck(int) [168] std::__new_allocator<PosInfo>::max_size() const [29] std::vector<PosInfo, std::allocator<PosInfo> >::back()
+  [16] ChessBoard::makeMove(ChessMove) [78] std::__new_allocator<ChessMove>::_M_max_size() const [146] std::vector<PosInfo, std::allocator<PosInfo> >::begin()
+  [25] ChessBoard::undoMove(ChessMove) [77] std::__new_allocator<ChessMove>::max_size() const [35] std::vector<PosInfo, std::allocator<PosInfo> >::pop_back()
+ [182] ChessBoard::initBoard() [145] std::vector<PosInfo, std::allocator<PosInfo> >::_M_check_len(unsigned long, char const*) const [120] std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo&&)
+   [3] ChessBoard::isIllegal() [188] std::vector<PosInfo, std::allocator<PosInfo> >::end() const [30] std::vector<PosInfo, std::allocator<PosInfo> >::push_back(PosInfo const&)
+  [57] ChessBoard::ChessBoard() [189] std::vector<PosInfo, std::allocator<PosInfo> >::back() const [105] std::vector<PosInfo, std::allocator<PosInfo> >::vector()
+ [183] ChessBoard::~ChessBoard() [164] std::vector<PosInfo, std::allocator<PosInfo> >::size() const [199] std::vector<PosInfo, std::allocator<PosInfo> >::~vector()
+  [68] LookupTables::getInstance() [147] std::vector<PosInfo, std::allocator<PosInfo> >::max_size() const [48] std::vector<ChessMove, std::allocator<ChessMove> >::_S_max_size(std::allocator<ChessMove> const&)
+  [67] LookupTables::kingAttacks(int) [34] std::vector<ChessMove, std::allocator<ChessMove> >::_M_check_len(unsigned long, char const*) const [20] std::vector<ChessMove, std::allocator<ChessMove> >::_S_relocate(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+  [72] LookupTables::pawnAttacks(int, int) [63] std::vector<ChessMove, std::allocator<ChessMove> >::size() const [13] ChessMove& std::vector<ChessMove, std::allocator<ChessMove> >::emplace_back<ChessMove>(ChessMove&&)
+   [8] LookupTables::rookAttacks(unsigned long, int) [116] std::vector<ChessMove, std::allocator<ChessMove> >::cbegin() const [15] void std::vector<ChessMove, std::allocator<ChessMove> >::_M_realloc_insert<ChessMove>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >, ChessMove&&)
+  [27] LookupTables::queenAttacks(unsigned long, int) [40] std::vector<ChessMove, std::allocator<ChessMove> >::max_size() const [37] std::vector<ChessMove, std::allocator<ChessMove> >::end()
+   [9] LookupTables::bishopAttacks(unsigned long, int) [190] std::allocator<PosInfo>::allocator() [28] std::vector<ChessMove, std::allocator<ChessMove> >::back()
+   [5] LookupTables::getRayAttacks(unsigned long, int, int) [191] std::allocator<PosInfo>::~allocator() [65] std::vector<ChessMove, std::allocator<ChessMove> >::begin()
+  [71] LookupTables::knightAttacks(int) [136] std::allocator<ChessMove>::allocator() [12] std::vector<ChessMove, std::allocator<ChessMove> >::push_back(ChessMove&&)
+ [144] LookupTables::initRayAttacks() [131] std::allocator<ChessMove>::~allocator() [96] std::vector<ChessMove, std::allocator<ChessMove> >::vector()
+ [143] LookupTables::initKingAttacks() [192] void std::_Destroy_aux<true>::__destroy<PosInfo*>(PosInfo*, PosInfo*) [81] std::vector<ChessMove, std::allocator<ChessMove> >::~vector()
+ [141] LookupTables::initPawnAttacks() [137] void std::_Destroy_aux<true>::__destroy<ChessMove*>(ChessMove*, ChessMove*) [33] std::vector<ChessMove, std::allocator<ChessMove> >::operator[](unsigned long)
+ [184] LookupTables::initPopCount256() [173] std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_allocate(unsigned long) [139] std::vector<unsigned long, std::allocator<unsigned long> >::vector<unsigned long*, void>(unsigned long*, unsigned long*, std::allocator<unsigned long> const&)
+ [142] LookupTables::initKnightAttacks() [193] std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl::_Vector_impl() [161] PosInfo* std::__addressof<PosInfo>(PosInfo&)
+  [69] LookupTables::LookupTables() [194] std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl::~_Vector_impl() [56] ChessMove* std::__addressof<ChessMove>(ChessMove&)
+ [107] btw::cpyWrapEast(unsigned long) [171] std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_deallocate(PosInfo*, unsigned long) [160] PosInfo* std::__niter_base<PosInfo*>(PosInfo*)
+  [83] btw::cpyWrapWest(unsigned long) [195] std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_impl_data::_Vector_impl_data() [70] ChessMove* std::__niter_base<ChessMove*>(ChessMove*)
+  [18] btw::bitScanForward(unsigned long) [166] std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_M_get_Tp_allocator() [88] PosInfo* std::__relocate_a<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&)
+   [7] btw::bitScanReverse(unsigned long) [104] std::_Vector_base<PosInfo, std::allocator<PosInfo> >::_Vector_base() [21] ChessMove* std::__relocate_a<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+  [62] btw::popCount(unsigned long) [196] std::_Vector_base<PosInfo, std::allocator<PosInfo> >::~_Vector_base() [89] PosInfo* std::__relocate_a_1<PosInfo*, PosInfo*, std::allocator<PosInfo> >(PosInfo*, PosInfo*, PosInfo*, std::allocator<PosInfo>&)
+ [115] btw::wrapEast(unsigned long&) [66] std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_allocate(unsigned long) [22] ChessMove* std::__relocate_a_1<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+  [91] btw::wrapWest(unsigned long&) [103] std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl::_Vector_impl() [101] std::move_iterator<ChessMove*> std::make_move_iterator<ChessMove*>(ChessMove*)
+  [61] PosInfo::setEpState(bool) [132] std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl::~_Vector_impl() [140] ChessMove* std::uninitialized_copy<ChessMove const*, ChessMove*>(ChessMove const*, ChessMove const*, ChessMove*)
+ [102] PosInfo::setEpSquare(int) [85] std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_deallocate(ChessMove*, unsigned long) [90] void std::__relocate_object_a<PosInfo, PosInfo, std::allocator<PosInfo> >(PosInfo*, PosInfo*, std::allocator<PosInfo>&)
+  [97] PosInfo::resetHalfmoveClock() [111] std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_impl_data::_Vector_impl_data() [24] void std::__relocate_object_a<ChessMove, ChessMove, std::allocator<ChessMove> >(ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+  [64] PosInfo::incrementHalfmoveClock() [128] std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_M_get_Tp_allocator() [134] ChessMove* std::__uninitialized_move_a<ChessMove*, ChessMove*, std::allocator<ChessMove> >(ChessMove*, ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+ [130] PosInfo::removeLongCastlingRights(int) [95] std::_Vector_base<ChessMove, std::allocator<ChessMove> >::_Vector_base() [110] unsigned long const& std::max<unsigned long>(unsigned long const&, unsigned long const&)
+ [129] PosInfo::removeShortCastlingRights(int) [108] std::_Vector_base<ChessMove, std::allocator<ChessMove> >::~_Vector_base() [112] unsigned long const& std::min<unsigned long>(unsigned long const&, unsigned long const&)
+ [185] PosInfo::PosInfo()    [174] std::__new_allocator<PosInfo>::deallocate(PosInfo*, unsigned long) [170] std::remove_reference<PosInfo&>::type&& std::move<PosInfo&>(PosInfo&)
+  [50] ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int) [82] void std::__new_allocator<PosInfo>::destroy<PosInfo>(PosInfo*) [75] std::remove_reference<ChessMove&>::type&& std::move<ChessMove&>(ChessMove&)
+ [100] ChessMove::ChessMove(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int) [175] std::__new_allocator<PosInfo>::allocate(unsigned long, void const*) [93] std::remove_reference<ChessMove*&>::type&& std::move<ChessMove*&>(ChessMove*&)
+  [47] __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::__normal_iterator(PosInfo* const&) [38] void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo const&>(PosInfo*, PosInfo const&) [162] PosInfo&& std::forward<PosInfo>(std::remove_reference<PosInfo>::type&)
+  [43] __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::__normal_iterator(ChessMove* const&) [149] void std::__new_allocator<PosInfo>::construct<PosInfo, PosInfo>(PosInfo*, PosInfo&&) [39] ChessMove&& std::forward<ChessMove>(std::remove_reference<ChessMove>::type&)
+ [178] __gnu_cxx::__normal_iterator<PosInfo const*, std::vector<PosInfo, std::allocator<PosInfo> > >::__normal_iterator(PosInfo const* const&) [197] std::__new_allocator<PosInfo>::__new_allocator() [54] PosInfo const& std::forward<PosInfo const&>(std::remove_reference<PosInfo const&>::type&)
+ [106] __gnu_cxx::__normal_iterator<ChessMove const*, std::vector<ChessMove, std::allocator<ChessMove> > >::__normal_iterator<ChessMove*, void>(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&) [198] std::__new_allocator<PosInfo>::~__new_allocator() [200] void std::_Destroy<PosInfo*>(PosInfo*, PosInfo*)
+ [172] __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >::difference_type __gnu_cxx::operator-<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > >(__gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&, __gnu_cxx::__normal_iterator<PosInfo*, std::vector<PosInfo, std::allocator<PosInfo> > > const&) [117] std::__new_allocator<ChessMove>::deallocate(ChessMove*, unsigned long) [201] void std::_Destroy<PosInfo*, PosInfo>(PosInfo*, PosInfo*, std::allocator<PosInfo>&)
+  [84] __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >::difference_type __gnu_cxx::operator-<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > >(__gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&, __gnu_cxx::__normal_iterator<ChessMove*, std::vector<ChessMove, std::allocator<ChessMove> > > const&) [60] void std::__new_allocator<ChessMove>::destroy<ChessMove>(ChessMove*) [98] void std::_Destroy<ChessMove*>(ChessMove*, ChessMove*)
+ [113] PosInfo::getEpSquare() const [86] std::__new_allocator<ChessMove>::allocate(unsigned long, void const*) [99] void std::_Destroy<ChessMove*, ChessMove>(ChessMove*, ChessMove*, std::allocator<ChessMove>&)
+ [157] PosInfo::isEpPossible() const [31] void std::__new_allocator<ChessMove>::construct<ChessMove, ChessMove>(ChessMove*, ChessMove&&) [127] operator<<(std::ostream&, ChessBoard const&)
+ [138] PosInfo::getHalfmoveClock() const [158] std::__new_allocator<ChessMove>::__new_allocator() [58] operator new(unsigned long, void*)
+ [123] PosInfo::getLongCastlingRights(int) const [133] std::__new_allocator<ChessMove>::~__new_allocator() [118] _init
+ [135] PosInfo::getShortCastlingRights(int) const [126] std::__new_allocator<unsigned long>::allocate(unsigned long, void const*) [1] main

@@ -43,7 +43,7 @@ int main(){
     ChessBoard cBoard;
     int captures = 0;
     std::cout << cBoard  << std::endl;
-    std::cout << perft(7, captures, cBoard) << "; castles = "<< captures << std::endl;
+    std::cout << perft(5, captures, cBoard) << "; castles = "<< captures << std::endl;
     
     return 0;
 }

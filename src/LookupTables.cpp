@@ -14,6 +14,7 @@ LookupTables::LookupTables()
     initKnightAttacks();
     initKingAttacks();
     initPawnAttacks();
+    initPopCount256();
 }
 
 LookupTables* LookupTables::m_instance = nullptr;
@@ -124,6 +125,13 @@ void LookupTables::initPawnAttacks()
     }    
 }
 
+void LookupTables::initPopCount256()
+{
+    m_popCount256[0] = 0;
+    for(int i = 1; i < 256; i ++)
+        m_popCount256[i] = m_popCount256[i / 2] + (i & 1);
+}
+
 uint64_t LookupTables::getRayAttacks(uint64_t t_occupied, int t_direction, int t_square)
 {
     const uint64_t mask[8] = {
@@ -146,9 +154,21 @@ uint64_t LookupTables::rookAttacks(uint64_t t_occupied, int t_square){
         | getRayAttacks(t_occupied, east, t_square) | getRayAttacks(t_occupied, west, t_square);
 }
 
+uint64_t LookupTables::rookXRays(int t_square)
+{
+    return m_rayAttacks[t_square][nort] | m_rayAttacks[t_square][east] | 
+        m_rayAttacks[t_square][sout] | m_rayAttacks[t_square][west];
+}
+
 uint64_t LookupTables::bishopAttacks(uint64_t t_occupied, int t_square){
     return getRayAttacks(t_occupied, noWe, t_square) | getRayAttacks(t_occupied, noEa, t_square)
         | getRayAttacks(t_occupied, soWe, t_square) | getRayAttacks(t_occupied, soEa, t_square);
+}
+
+uint64_t LookupTables::bishopXRays(int t_square)
+{
+    return m_rayAttacks[t_square][noWe] | m_rayAttacks[t_square][soWe] | 
+        m_rayAttacks[t_square][soEa] | m_rayAttacks[t_square][noEa];
 }
 
 uint64_t LookupTables::queenAttacks(uint64_t t_occupied, int t_square){
@@ -175,3 +195,15 @@ uint64_t LookupTables::pawnAttacks(int t_square, int t_sideToMove)
     return m_pawnAttacks[t_square][t_sideToMove];
 }
 
+int LookupTables::populationCount(uint64_t x)
+{
+    uint8_t *p = (uint8_t *) &x;
+    return  m_popCount256[p[0]] + 
+            m_popCount256[p[1]] +
+            m_popCount256[p[2]] +
+            m_popCount256[p[3]] +
+            m_popCount256[p[4]] +
+            m_popCount256[p[5]] +
+            m_popCount256[p[6]] +
+            m_popCount256[p[7]];
+}

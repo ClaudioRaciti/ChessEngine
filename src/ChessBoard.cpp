@@ -29,7 +29,7 @@ enum moveType {
 ChessBoard::ChessBoard() : m_sideToMove(white)
 {
     initBoard();
-    m_posHistory.push_back(PosInfo());
+    m_posHistory.emplace_back(PosInfo());
 }
 
 bool ChessBoard::isIllegal()
@@ -40,6 +40,7 @@ bool ChessBoard::isIllegal()
 std::vector<ChessMove> ChessBoard::getMoveList()
 {
     std::vector<ChessMove> moveList;
+    moveList.reserve(256); // over the maximum number of moves possible for any legal position
 
     generatePieceMoves(knights, moveList);
     generatePieceMoves(bishops, moveList);
@@ -49,7 +50,6 @@ std::vector<ChessMove> ChessBoard::getMoveList()
     generatePawnsMoves(moveList);    
     generateCastles(moveList);
 
-    // TODO castling (here) 
     return moveList;
 }
 
@@ -68,7 +68,7 @@ void ChessBoard::generatePieceMoves(int t_pieceType, std::vector<ChessMove>& t_m
         uint64_t captures = attackSet & enemyPieces;
         if (captures) do {
             int endSquare = btw::bitScanForward(captures);
-            t_moveList.push_back(
+            t_moveList.emplace_back(
                 ChessMove(t_pieceType, startingSquare, endSquare, capture, capturedPiece(endSquare))
             );
         } while (captures &= (captures -1 ));
@@ -77,7 +77,7 @@ void ChessBoard::generatePieceMoves(int t_pieceType, std::vector<ChessMove>& t_m
         uint64_t quietMoves    = attackSet & emptySquares;
         if (quietMoves) do {
             int endSquare = btw::bitScanForward(quietMoves);
-            t_moveList.push_back(
+            t_moveList.emplace_back(
                 ChessMove(t_pieceType, startingSquare, endSquare, quiet)
             );
         } while (quietMoves &= (quietMoves -1 ));
@@ -120,7 +120,7 @@ void ChessBoard::generatePawnsPushes(std::vector<ChessMove> &t_moveList,
     if (pushSet) do {
         int endSq = btw::bitScanForward(pushSet);
         int startSq = endSq + offset;
-        t_moveList.push_back(ChessMove(pawns, startSq, endSq, quiet));
+        t_moveList.emplace_back(ChessMove(pawns, startSq, endSq, quiet));
     } while (pushSet &= (pushSet - 1));
 
     if (promoSet) do {
@@ -167,7 +167,7 @@ void ChessBoard::generatePawnsCaptures(std::vector<ChessMove> &t_moveList,
         int endSq = btw::bitScanForward(westCaptures);
         int startSq = endSq + westOffset;
         int captured = capturedPiece(endSq);
-        t_moveList.push_back(ChessMove(pawns, startSq, endSq, capture, captured));
+        t_moveList.emplace_back(ChessMove(pawns, startSq, endSq, capture, captured));
     } while (westCaptures &= (westCaptures - 1));
 
 
@@ -175,7 +175,7 @@ void ChessBoard::generatePawnsCaptures(std::vector<ChessMove> &t_moveList,
         int endSq = btw::bitScanForward(eastCaptures);
         int startSq = endSq + eastOffset;
         int captured = capturedPiece(endSq);
-        t_moveList.push_back(ChessMove(pawns, startSq, endSq, capture, captured));
+        t_moveList.emplace_back(ChessMove(pawns, startSq, endSq, capture, captured));
     } while (eastCaptures &= (eastCaptures - 1));
 
 
@@ -224,7 +224,7 @@ void ChessBoard::generateDoublePushes(std::vector<ChessMove> &t_moveList,
         if (pawnDoublePush) do {
             int endSquare = btw::bitScanForward(pawnDoublePush);
             int startingSquare = endSquare - 16;
-            t_moveList.push_back(ChessMove(pawns, startingSquare, endSquare, doublePush));
+            t_moveList.emplace_back(ChessMove(pawns, startingSquare, endSquare, doublePush));
         } while (pawnDoublePush  &= (pawnDoublePush - 1));
     }
     else {
@@ -234,7 +234,7 @@ void ChessBoard::generateDoublePushes(std::vector<ChessMove> &t_moveList,
         if (pawnDoublePush) do {
             int endSquare = btw::bitScanForward(pawnDoublePush);
             int startingSquare = endSquare + 16;
-            t_moveList.push_back(ChessMove(pawns, startingSquare, endSquare, doublePush));
+            t_moveList.emplace_back(ChessMove(pawns, startingSquare, endSquare, doublePush));
         } while (pawnDoublePush  &= (pawnDoublePush - 1));
     }
 }
@@ -248,10 +248,10 @@ void ChessBoard::generateEpCaptures(std::vector<ChessMove> &t_moveList, uint64_t
     else endSquare = t_epSquare - 8;
 
     if(btw::cpyWrapEast(epMask) & t_pawnsSet)
-        t_moveList.push_back(ChessMove(pawns, t_epSquare + 1, endSquare, enPassant, pawns));
+        t_moveList.emplace_back(ChessMove(pawns, t_epSquare + 1, endSquare, enPassant, pawns));
 
     if(btw::cpyWrapWest(epMask) & t_pawnsSet)
-        t_moveList.push_back(ChessMove(pawns, t_epSquare - 1, endSquare, enPassant, pawns));
+        t_moveList.emplace_back(ChessMove(pawns, t_epSquare - 1, endSquare, enPassant, pawns));
 }
 
 void ChessBoard::generateCastles(std::vector<ChessMove> &t_moveList)
@@ -269,7 +269,7 @@ void ChessBoard::generateCastles(std::vector<ChessMove> &t_moveList)
             ! isSquareAttacked(occupied, c1, black) &&
             ! isSquareAttacked(occupied, d1, black) &&
             ! isSquareAttacked(occupied, e1, black)
-        ) t_moveList.push_back(ChessMove(kings, e1, c1, queenCastle));
+        ) t_moveList.emplace_back(ChessMove(kings, e1, c1, queenCastle));
         
         intersection = shortCastleSquares & emptySet; 
         if(
@@ -278,7 +278,7 @@ void ChessBoard::generateCastles(std::vector<ChessMove> &t_moveList)
             ! isSquareAttacked(occupied, e1, black) &&
             ! isSquareAttacked(occupied, f1, black) &&
             ! isSquareAttacked(occupied, g1, black)
-        ) t_moveList.push_back(ChessMove(kings, e1, g1, kingCastle));
+        ) t_moveList.emplace_back(ChessMove(kings, e1, g1, kingCastle));
     }
     else{
         const uint64_t longCastleSquares = (uint64_t) 0x0e00000000000000;
@@ -290,7 +290,7 @@ void ChessBoard::generateCastles(std::vector<ChessMove> &t_moveList)
             ! isSquareAttacked(occupied, c8, white) &&
             ! isSquareAttacked(occupied, d8, white) &&
             ! isSquareAttacked(occupied, e8, white)
-        ) t_moveList.push_back(ChessMove(kings, e8, c8, queenCastle));
+        ) t_moveList.emplace_back(ChessMove(kings, e8, c8, queenCastle));
 
         intersection = shortCastleSquares & emptySet;
         if(
@@ -299,7 +299,7 @@ void ChessBoard::generateCastles(std::vector<ChessMove> &t_moveList)
             ! isSquareAttacked(occupied, e8, white) &&
             ! isSquareAttacked(occupied, f8, white) &&
             ! isSquareAttacked(occupied, g8, white)
-        ) t_moveList.push_back(ChessMove(kings, e8, g8, kingCastle));
+        ) t_moveList.emplace_back(ChessMove(kings, e8, g8, kingCastle));
     }
 }
 
@@ -446,12 +446,12 @@ void ChessBoard::makeMove(ChessMove t_move){
         break;
     }
 
-    m_posHistory.push_back(newPosInfo);
+    m_posHistory.emplace_back(newPosInfo);
     toggleSideToMove();
 
     // DEBUG PARTS: MUST BE ERASED
     // int endPcs = btw::popCount(m_bitBoard[white] | m_bitBoard[black]);
-    // m_moveHistory.push_back(t_move);
+    // m_moveHistory.emplace_back(t_move);
     // bool isPcsNumConst = (t_move.isCapture() && endPcs == (startingPcs-1))||(endPcs==startingPcs);
     // if(!isPcsNumConst){
     //     std::cout << t_move << "\n";
@@ -568,23 +568,23 @@ bool ChessBoard::isCheck()
 }
 
 void ChessBoard::initBoard(){
-    m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
+    /*m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
     m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
     m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
     m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
     m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
     m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
     m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
-    m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
+    m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;*/
 
-    /*m_bitBoard[white]   = (uint64_t) 0x000000181024ff91;
+    m_bitBoard[white]   = (uint64_t) 0x000000181024ff91;
     m_bitBoard[black]   = (uint64_t) 0x917d730002800000;
     m_bitBoard[pawns]   = (uint64_t) 0x002d50081280e700;
     m_bitBoard[knights] = (uint64_t) 0x0000221000040000;
     m_bitBoard[bishops] = (uint64_t) 0x0040010000001800;
     m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
     m_bitBoard[queens]  = (uint64_t) 0x0010000000200000;
-    m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;*/
+    m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
 }
 
 
@@ -633,10 +633,16 @@ bool ChessBoard::isSquareAttacked(uint64_t t_occupied, int t_square, int t_attac
     if ((m_lookup.kingAttacks(t_square) & kingSet) != 0) return true;
 
     uint64_t rooksQueensSet = (m_bitBoard[queens] | m_bitBoard[rooks]) & m_bitBoard[t_attackingSide];
-    if ((m_lookup.rookAttacks(t_occupied, t_square) & rooksQueensSet) != 0) return true;
+    if (
+        (m_lookup.rookXRays(t_square) & rooksQueensSet) != 0    && 
+        (m_lookup.rookAttacks(t_occupied, t_square) & rooksQueensSet) != 0
+        ) return true;
 
     uint64_t bishopsQueensSet = (m_bitBoard[queens] | m_bitBoard[bishops]) & m_bitBoard[t_attackingSide];
-    if ((m_lookup.bishopAttacks(t_occupied, t_square) & bishopsQueensSet) != 0) return true;  
+    if (
+        (m_lookup.bishopXRays(t_square) & bishopsQueensSet) != 0 &&
+        (m_lookup.bishopAttacks(t_occupied, t_square) & bishopsQueensSet) != 0
+        ) return true;  
 
     return false;
 }
