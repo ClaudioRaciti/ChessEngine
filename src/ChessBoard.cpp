@@ -624,22 +624,30 @@ uint64_t ChessBoard::getAttackSet(int t_pieceType, uint64_t t_occupied, int t_sq
 bool ChessBoard::isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide)
 {
     uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[t_attackingSide];
-    if ((m_lookup.pawnAttacks(t_square, 1-t_attackingSide) & pawnsSet) != 0) return true;
+    if (
+        pawnsSet != 0 &&
+        (m_lookup.pawnAttacks(t_square, 1-t_attackingSide) & pawnsSet) != 0
+        ) return true;
 
     uint64_t knightsSet = m_bitBoard[knights] & m_bitBoard[t_attackingSide];
-    if ((m_lookup.knightAttacks(t_square) & knightsSet) != 0) return true;
+    if (
+        knightsSet != 0 &&
+        (m_lookup.knightAttacks(t_square) & knightsSet) != 0
+        ) return true;
 
     uint64_t kingSet = m_bitBoard[kings] & m_bitBoard[t_attackingSide];
     if ((m_lookup.kingAttacks(t_square) & kingSet) != 0) return true;
 
     uint64_t rooksQueensSet = (m_bitBoard[queens] | m_bitBoard[rooks]) & m_bitBoard[t_attackingSide];
     if (
+        rooksQueensSet != 0 &&
         (m_lookup.rookXRays(t_square) & rooksQueensSet) != 0    && 
         (m_lookup.rookAttacks(t_occupied, t_square) & rooksQueensSet) != 0
         ) return true;
 
     uint64_t bishopsQueensSet = (m_bitBoard[queens] | m_bitBoard[bishops]) & m_bitBoard[t_attackingSide];
     if (
+        bishopsQueensSet != 0 &&
         (m_lookup.bishopXRays(t_square) & bishopsQueensSet) != 0 &&
         (m_lookup.bishopAttacks(t_occupied, t_square) & bishopsQueensSet) != 0
         ) return true;  
