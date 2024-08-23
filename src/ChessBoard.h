@@ -50,10 +50,11 @@ private:
 
 private:
     int m_sideToMove;
+    int m_kingSquare[2];
 
     uint64_t m_bitBoard[8];
 
-    std::vector<PosInfo> m_posHistory;
+    std::vector<    PosInfo> m_posHistory;
 
     LookupTables& m_lookup = LookupTables::getInstance();
 

@@ -29,6 +29,8 @@ enum moveType {
 ChessBoard::ChessBoard() : m_sideToMove(white)
 {
     initBoard();
+    m_kingSquare[white] = btw::bitScanForward(m_bitBoard[white] & m_bitBoard[kings]);
+    m_kingSquare[black] = btw::bitScanForward(m_bitBoard[black] & m_bitBoard[kings]);
     m_posHistory.emplace_back(PosInfo());
 }
 
@@ -318,6 +320,8 @@ void ChessBoard::makeMove(ChessMove t_move){
 
     uint64_t moveMask, promoMask, captureMask;
 
+    if(t_move.getPiece() == kings) m_kingSquare[m_sideToMove] = t_move.getEndSquare();
+
     switch (t_move.getStartingSquare())
     {
     case a1: newPosInfo.removeLongCastlingRights(white); break;
@@ -465,6 +469,8 @@ void ChessBoard::makeMove(ChessMove t_move){
 void ChessBoard::undoMove(ChessMove t_move)
 {
     toggleSideToMove();
+
+    if(t_move.getPiece() == kings) m_kingSquare[m_sideToMove] = t_move.getStartingSquare();
 
     uint64_t moveMask, promoMask, captureMask;
     switch (t_move.getFlags())
@@ -624,44 +630,28 @@ uint64_t ChessBoard::getAttackSet(int t_pieceType, uint64_t t_occupied, int t_sq
 bool ChessBoard::isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide)
 {
     uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[t_attackingSide];
-    if (
-        pawnsSet != 0 &&
-        (m_lookup.pawnAttacks(t_square, 1-t_attackingSide) & pawnsSet) != 0
-        ) return true;
+    if ((m_lookup.pawnAttacks(t_square, 1-t_attackingSide) & pawnsSet) != 0) return true;
 
     uint64_t knightsSet = m_bitBoard[knights] & m_bitBoard[t_attackingSide];
-    if (
-        knightsSet != 0 &&
-        (m_lookup.knightAttacks(t_square) & knightsSet) != 0
-        ) return true;
+    if ((m_lookup.knightAttacks(t_square) & knightsSet) != 0) return true;
 
     uint64_t kingSet = m_bitBoard[kings] & m_bitBoard[t_attackingSide];
     if ((m_lookup.kingAttacks(t_square) & kingSet) != 0) return true;
 
     uint64_t rooksQueensSet = (m_bitBoard[queens] | m_bitBoard[rooks]) & m_bitBoard[t_attackingSide];
-    if (
-        rooksQueensSet != 0 &&
-        (m_lookup.rookXRays(t_square) & rooksQueensSet) != 0    && 
-        (m_lookup.rookAttacks(t_occupied, t_square) & rooksQueensSet) != 0
-        ) return true;
+    if ((m_lookup.rookAttacks(t_occupied, t_square) & rooksQueensSet) != 0) return true;
 
     uint64_t bishopsQueensSet = (m_bitBoard[queens] | m_bitBoard[bishops]) & m_bitBoard[t_attackingSide];
-    if (
-        bishopsQueensSet != 0 &&
-        (m_lookup.bishopXRays(t_square) & bishopsQueensSet) != 0 &&
-        (m_lookup.bishopAttacks(t_occupied, t_square) & bishopsQueensSet) != 0
-        ) return true;  
+    if ((m_lookup.bishopAttacks(t_occupied, t_square) & bishopsQueensSet) != 0) return true;  
 
     return false;
 }
 
 bool ChessBoard::isCheck(int t_attackingSide)
 {
-    uint64_t kingSet = m_bitBoard[kings] & m_bitBoard[1 - t_attackingSide];
     uint64_t occupied = m_bitBoard[white] | m_bitBoard[black];
-    int kingSquare = btw::bitScanForward(kingSet);
 
-    return isSquareAttacked(occupied, kingSquare, t_attackingSide);
+    return isSquareAttacked(occupied, m_kingSquare[1 - t_attackingSide], t_attackingSide);
 }
 
 std::ostream &operator<<(std::ostream &os, const ChessBoard &cb)
