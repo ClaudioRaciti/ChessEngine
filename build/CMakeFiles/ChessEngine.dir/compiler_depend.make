@@ -24,12 +24,16 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/
   /usr/include/c++/12/bits/cpp_type_traits.h \
   /usr/include/c++/12/bits/cxxabi_forced.h \
   /usr/include/c++/12/bits/cxxabi_init_exception.h \
+  /usr/include/c++/12/bits/enable_special_members.h \
+  /usr/include/c++/12/bits/erase_if.h \
   /usr/include/c++/12/bits/exception.h \
   /usr/include/c++/12/bits/exception_defines.h \
   /usr/include/c++/12/bits/exception_ptr.h \
   /usr/include/c++/12/bits/functexcept.h \
   /usr/include/c++/12/bits/functional_hash.h \
   /usr/include/c++/12/bits/hash_bytes.h \
+  /usr/include/c++/12/bits/hashtable.h \
+  /usr/include/c++/12/bits/hashtable_policy.h \
   /usr/include/c++/12/bits/invoke.h \
   /usr/include/c++/12/bits/ios_base.h \
   /usr/include/c++/12/bits/istream.tcc \
@@ -42,6 +46,7 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/
   /usr/include/c++/12/bits/move.h \
   /usr/include/c++/12/bits/nested_exception.h \
   /usr/include/c++/12/bits/new_allocator.h \
+  /usr/include/c++/12/bits/node_handle.h \
   /usr/include/c++/12/bits/ostream.tcc \
   /usr/include/c++/12/bits/ostream_insert.h \
   /usr/include/c++/12/bits/parse_numbers.h \
@@ -65,6 +70,8 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/
   /usr/include/c++/12/bits/streambuf_iterator.h \
   /usr/include/c++/12/bits/string_view.tcc \
   /usr/include/c++/12/bits/stringfwd.h \
+  /usr/include/c++/12/bits/unordered_map.h \
+  /usr/include/c++/12/bits/uses_allocator.h \
   /usr/include/c++/12/bits/utility.h \
   /usr/include/c++/12/bits/vector.tcc \
   /usr/include/c++/12/bitset \
@@ -81,6 +88,7 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/
   /usr/include/c++/12/debug/assertions.h \
   /usr/include/c++/12/debug/debug.h \
   /usr/include/c++/12/exception \
+  /usr/include/c++/12/ext/aligned_buffer.h \
   /usr/include/c++/12/ext/alloc_traits.h \
   /usr/include/c++/12/ext/atomicity.h \
   /usr/include/c++/12/ext/numeric_traits.h \
@@ -101,8 +109,10 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/
   /usr/include/c++/12/string \
   /usr/include/c++/12/string_view \
   /usr/include/c++/12/system_error \
+  /usr/include/c++/12/tuple \
   /usr/include/c++/12/type_traits \
   /usr/include/c++/12/typeinfo \
+  /usr/include/c++/12/unordered_map \
   /usr/include/c++/12/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -233,12 +243,16 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: /home/claudio/Documenti/Code/Ch
   /usr/include/c++/12/bits/cpp_type_traits.h \
   /usr/include/c++/12/bits/cxxabi_forced.h \
   /usr/include/c++/12/bits/cxxabi_init_exception.h \
+  /usr/include/c++/12/bits/enable_special_members.h \
+  /usr/include/c++/12/bits/erase_if.h \
   /usr/include/c++/12/bits/exception.h \
   /usr/include/c++/12/bits/exception_defines.h \
   /usr/include/c++/12/bits/exception_ptr.h \
   /usr/include/c++/12/bits/functexcept.h \
   /usr/include/c++/12/bits/functional_hash.h \
   /usr/include/c++/12/bits/hash_bytes.h \
+  /usr/include/c++/12/bits/hashtable.h \
+  /usr/include/c++/12/bits/hashtable_policy.h \
   /usr/include/c++/12/bits/invoke.h \
   /usr/include/c++/12/bits/ios_base.h \
   /usr/include/c++/12/bits/istream.tcc \
@@ -251,6 +265,7 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: /home/claudio/Documenti/Code/Ch
   /usr/include/c++/12/bits/move.h \
   /usr/include/c++/12/bits/nested_exception.h \
   /usr/include/c++/12/bits/new_allocator.h \
+  /usr/include/c++/12/bits/node_handle.h \
   /usr/include/c++/12/bits/ostream.tcc \
   /usr/include/c++/12/bits/ostream_insert.h \
   /usr/include/c++/12/bits/postypes.h \
@@ -277,6 +292,8 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: /home/claudio/Documenti/Code/Ch
   /usr/include/c++/12/bits/string_view.tcc \
   /usr/include/c++/12/bits/stringfwd.h \
   /usr/include/c++/12/bits/uniform_int_dist.h \
+  /usr/include/c++/12/bits/unordered_map.h \
+  /usr/include/c++/12/bits/uses_allocator.h \
   /usr/include/c++/12/bits/utility.h \
   /usr/include/c++/12/bits/vector.tcc \
   /usr/include/c++/12/cassert \
@@ -291,6 +308,7 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: /home/claudio/Documenti/Code/Ch
   /usr/include/c++/12/debug/assertions.h \
   /usr/include/c++/12/debug/debug.h \
   /usr/include/c++/12/exception \
+  /usr/include/c++/12/ext/aligned_buffer.h \
   /usr/include/c++/12/ext/alloc_traits.h \
   /usr/include/c++/12/ext/atomicity.h \
   /usr/include/c++/12/ext/numeric_traits.h \
@@ -311,8 +329,10 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: /home/claudio/Documenti/Code/Ch
   /usr/include/c++/12/string \
   /usr/include/c++/12/string_view \
   /usr/include/c++/12/system_error \
+  /usr/include/c++/12/tuple \
   /usr/include/c++/12/type_traits \
   /usr/include/c++/12/typeinfo \
+  /usr/include/c++/12/unordered_map \
   /usr/include/c++/12/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
@@ -678,8 +698,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
   /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h
 
 
-/usr/include/c++/12/ext/aligned_buffer.h:
-
 /usr/include/c++/12/bits/stl_multimap.h:
 
 /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.cpp:
@@ -689,10 +707,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/c++/12/bits/stl_tempbuf.h:
 
 /usr/include/c++/12/bits/stl_heap.h:
-
-/usr/include/c++/12/bits/erase_if.h:
-
-/usr/include/assert.h:
 
 /home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.cpp:
 
@@ -770,8 +784,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/x86_64-linux-gnu/bits/timex.h:
 
-/usr/include/x86_64-linux-gnu/bits/timesize.h:
-
 /usr/include/x86_64-linux-gnu/bits/time64.h:
 
 /usr/include/c++/12/cassert:
@@ -814,21 +826,27 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/x86_64-linux-gnu/bits/floatn.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdio.h:
+/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
 
-/usr/include/c++/12/bits/stl_uninitialized.h:
+/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
 
-/usr/include/c++/12/bits/uses_allocator.h:
+/usr/include/x86_64-linux-gnu/bits/endianness.h:
 
-/usr/include/c++/12/bits/stl_iterator_base_funcs.h:
+/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdlib.h:
+
+/usr/include/x86_64-linux-gnu/asm/errno.h:
+
+/usr/include/x86_64-linux-gnu/bits/errno.h:
+
+/usr/include/wctype.h:
+
+/usr/include/x86_64-linux-gnu/c++/12/bits/ctype_inline.h:
+
+/usr/include/wchar.h:
 
 /usr/include/c++/12/bits/stl_construct.h:
-
-/usr/include/x86_64-linux-gnu/bits/select.h:
-
-/usr/include/c++/12/cerrno:
-
-/usr/include/c++/12/bits/refwrap.h:
 
 /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.cpp:
 
@@ -836,11 +854,13 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/12/bits/ptr_traits.h:
 
-/usr/include/c++/12/bits/stl_bvector.h:
-
 /usr/include/c++/12/bits/new_allocator.h:
 
 /usr/include/c++/12/bits/nested_exception.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h:
+
+/usr/include/asm-generic/errno-base.h:
 
 /usr/include/c++/12/limits:
 
@@ -854,19 +874,33 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/12/bits/exception_defines.h:
 
-/usr/include/c++/12/bits/stl_pair.h:
-
 /usr/include/c++/12/bits/ios_base.h:
+
+/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
+
+/usr/include/c++/12/bits/postypes.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
 /usr/include/c++/12/bits/istream.tcc:
 
+/usr/include/c++/12/bits/unordered_map.h:
+
+/usr/include/c++/12/bits/stl_bvector.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/usr/include/c++/12/bits/ostream_insert.h:
+
+/usr/include/x86_64-linux-gnu/bits/timesize.h:
+
+/usr/include/c++/12/bits/hashtable_policy.h:
+
+/usr/include/c++/12/bits/hash_bytes.h:
+
 /usr/include/c++/12/bits/alloc_traits.h:
-
-/usr/include/x86_64-linux-gnu/c++/12/bits/ctype_inline.h:
-
-/usr/include/wchar.h:
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h:
 
@@ -898,25 +932,27 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/12/bits/basic_string.tcc:
 
-/usr/include/endian.h:
-
 /usr/include/c++/12/bits/charconv.h:
 
 /usr/include/alloca.h:
 
 /usr/include/c++/12/bits/stl_function.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h:
-
-/usr/include/asm-generic/errno-base.h:
-
 /usr/include/asm-generic/errno.h:
 
 /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h:
 
-/usr/include/c++/12/tuple:
+/usr/include/endian.h:
+
+/usr/include/c++/12/bits/hashtable.h:
+
+/usr/include/c++/12/bits/stringfwd.h:
+
+/home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h:
 
 /usr/include/c++/12/bits/ostream.tcc:
+
+/usr/include/c++/12/tuple:
 
 /usr/include/c++/12/bits/locale_facets.h:
 
@@ -938,23 +974,15 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/12/ctime:
 
-/usr/include/x86_64-linux-gnu/c++/12/bits/ctype_base.h:
-
-/usr/include/c++/12/bits/stl_iterator_base_types.h:
-
-/usr/include/c++/12/bits/cxxabi_forced.h:
-
 /usr/include/c++/12/bits/allocator.h:
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
 /usr/include/c++/12/bits/cpp_type_traits.h:
 
-/home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h:
-
-/usr/include/c++/12/bits/stringfwd.h:
-
 /usr/include/c++/12/bits/chrono.h:
+
+/usr/include/c++/12/ext/aligned_buffer.h:
 
 /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h:
 
@@ -962,11 +990,11 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/12/debug/debug.h:
 
-/usr/include/c++/12/bits/stl_iterator.h:
+/usr/include/c++/12/bits/cxxabi_forced.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+/usr/include/x86_64-linux-gnu/c++/12/bits/ctype_base.h:
 
-/usr/include/c++/12/bits/utility.h:
+/usr/include/c++/12/bits/stl_iterator_base_types.h:
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
 
@@ -974,15 +1002,35 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/12/bits/exception.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h:
+/usr/include/c++/12/bits/enable_special_members.h:
 
-/usr/include/x86_64-linux-gnu/bits/stdlib.h:
+/usr/include/assert.h:
 
-/usr/include/x86_64-linux-gnu/asm/errno.h:
+/usr/include/c++/12/bits/erase_if.h:
+
+/usr/include/c++/12/iostream:
+
+/usr/include/sched.h:
 
 /usr/include/c++/12/bits/exception_ptr.h:
 
-/usr/include/c++/12/bits/hash_bytes.h:
+/usr/include/c++/12/bits/stl_iterator.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
+
+/usr/include/c++/12/bits/utility.h:
+
+/usr/include/c++/12/bits/stl_pair.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio.h:
+
+/usr/include/c++/12/bits/stl_uninitialized.h:
+
+/usr/include/x86_64-linux-gnu/bits/select.h:
+
+/usr/include/c++/12/bits/refwrap.h:
+
+/usr/include/c++/12/cerrno:
 
 /usr/include/c++/12/bits/stl_vector.h:
 
@@ -991,6 +1039,10 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/c++/12/bits/parse_numbers.h:
 
 /usr/include/c++/12/bits/streambuf.tcc:
+
+/usr/include/c++/12/bits/stl_iterator_base_funcs.h:
+
+/usr/include/c++/12/bits/uses_allocator.h:
 
 /usr/include/c++/12/bits/predefined_ops.h:
 
@@ -1013,6 +1065,10 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
 /usr/include/c++/12/cstdio:
+
+/usr/include/x86_64-linux-gnu/bits/byteswap.h:
+
+/usr/include/c++/12/cstdlib:
 
 /usr/include/c++/12/cwchar:
 
@@ -1068,17 +1124,7 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/12/ratio:
 
-/usr/include/c++/12/type_traits:
-
-/usr/include/c++/12/typeinfo:
-
-/home/claudio/Documenti/Code/ChessEngine/src/PosInfo.cpp:
-
-/usr/include/c++/12/bits/streambuf_iterator.h:
-
-/usr/include/c++/12/vector:
-
-/usr/include/errno.h:
+/usr/include/features-time64.h:
 
 /usr/include/c++/12/stdexcept:
 
@@ -1088,7 +1134,19 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/12/string_view:
 
-/usr/include/features-time64.h:
+/usr/include/c++/12/type_traits:
+
+/usr/include/c++/12/typeinfo:
+
+/usr/include/c++/12/unordered_map:
+
+/home/claudio/Documenti/Code/ChessEngine/src/PosInfo.cpp:
+
+/usr/include/c++/12/bits/streambuf_iterator.h:
+
+/usr/include/c++/12/vector:
+
+/usr/include/errno.h:
 
 /usr/include/features.h:
 
@@ -1100,10 +1158,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/locale.h:
 
-/usr/include/c++/12/iostream:
-
-/usr/include/sched.h:
-
 /home/claudio/Documenti/Code/ChessEngine/src/utils.cpp:
 
 /usr/include/c++/12/bits/string_view.tcc:
@@ -1113,27 +1167,3 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/c++/12/bits/range_access.h:
 
 /usr/include/time.h:
-
-/usr/include/c++/12/cstdlib:
-
-/usr/include/x86_64-linux-gnu/bits/byteswap.h:
-
-/usr/include/c++/12/bits/postypes.h:
-
-/usr/include/x86_64-linux-gnu/bits/cpu-set.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
-/usr/include/c++/12/bits/ostream_insert.h:
-
-/usr/include/x86_64-linux-gnu/bits/endian.h:
-
-/usr/include/x86_64-linux-gnu/bits/endianness.h:
-
-/usr/include/wctype.h:
-
-/usr/include/x86_64-linux-gnu/bits/errno.h:
-
-/usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
-
-/usr/include/x86_64-linux-gnu/bits/floatn-common.h:

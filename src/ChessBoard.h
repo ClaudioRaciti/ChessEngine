@@ -10,13 +10,12 @@
 class ChessBoard{
 public:
     ChessBoard();
-    ChessBoard(const ChessBoard &) = default;
-    ChessBoard(ChessBoard &&) = default;
+    ChessBoard(const ChessBoard &);
     ChessBoard &operator=(const ChessBoard &) = default;
-    ChessBoard &operator=(ChessBoard &&) = default;
+    bool operator==(const ChessBoard &t_other) const;
 
+    friend struct HashFunction;
     friend std::ostream& operator<<(std::ostream& os,const ChessBoard& cb);
-
 public:
     bool isIllegal();
 
@@ -54,10 +53,12 @@ private:
 
     uint64_t m_bitBoard[8];
 
-    std::vector<    PosInfo> m_posHistory;
+    std::vector<PosInfo> m_posHistory;
 
     LookupTables& m_lookup = LookupTables::getInstance();
+};
 
-    //DEBUG PURPOSES: MUST BE DELETED
-    // std::vector<ChessMove> m_moveHistory;
+struct HashFunction
+{
+    std::size_t operator()(const ChessBoard &obj) const;
 };

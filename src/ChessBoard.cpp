@@ -2,6 +2,7 @@
 
 #include <cassert>
 #include <algorithm>
+#include <unordered_map>
 
 #include "utils.h"
 
@@ -32,6 +33,45 @@ ChessBoard::ChessBoard() : m_sideToMove(white)
     m_kingSquare[white] = btw::bitScanForward(m_bitBoard[white] & m_bitBoard[kings]);
     m_kingSquare[black] = btw::bitScanForward(m_bitBoard[black] & m_bitBoard[kings]);
     m_posHistory.emplace_back(PosInfo());
+}
+
+ChessBoard::ChessBoard(const ChessBoard &t_other) :  
+    m_sideToMove{
+        t_other.m_sideToMove
+    },  
+    m_kingSquare{
+        t_other.m_kingSquare[0], t_other.m_kingSquare[1]
+    },
+    m_bitBoard{
+        t_other.m_bitBoard[0], t_other.m_bitBoard[1], t_other.m_bitBoard[2], t_other.m_bitBoard[3],
+        t_other.m_bitBoard[4], t_other.m_bitBoard[5], t_other.m_bitBoard[6], t_other.m_bitBoard[7]
+    }    
+{
+    m_posHistory.reserve(1);
+    m_posHistory.emplace_back(t_other.m_posHistory.back());
+}
+
+bool ChessBoard::operator==(const ChessBoard &t_other) const
+{
+    bool flag = true;
+    PosInfo thisHist = this->m_posHistory.back();
+    PosInfo otherHist = t_other.m_posHistory.back();
+
+    if (
+        this->m_sideToMove != t_other.m_sideToMove  ||
+        this->m_bitBoard[white]   != t_other.m_bitBoard[white]  ||
+        this->m_bitBoard[black]   != t_other.m_bitBoard[black]  ||
+        this->m_bitBoard[pawns]   != t_other.m_bitBoard[pawns]  ||
+        this->m_bitBoard[knights] != t_other.m_bitBoard[knights]||
+        this->m_bitBoard[bishops] != t_other.m_bitBoard[bishops]||
+        this->m_bitBoard[rooks]   != t_other.m_bitBoard[rooks]  ||
+        this->m_bitBoard[queens]  != t_other.m_bitBoard[queens] ||
+        this->m_bitBoard[kings]   != t_other.m_bitBoard[kings]  ||
+        thisHist.isEpPossible() != otherHist.isEpPossible() ||
+        thisHist.getEpSquare()  != otherHist.getEpSquare()
+    ) flag = false;
+
+    return flag;
 }
 
 bool ChessBoard::isIllegal()
@@ -315,9 +355,6 @@ void ChessBoard::makeMove(ChessMove t_move){
     newPosInfo.incrementHalfmoveClock();
     newPosInfo.setEpState(false);
 
-    // DEBUGGING PURPOSE VARIABLE
-    // int startingPcs = btw::popCount(m_bitBoard[white] | m_bitBoard[black]);
-
     uint64_t moveMask, promoMask, captureMask;
 
     if(t_move.getPiece() == kings) m_kingSquare[m_sideToMove] = t_move.getEndSquare();
@@ -452,18 +489,6 @@ void ChessBoard::makeMove(ChessMove t_move){
 
     m_posHistory.emplace_back(newPosInfo);
     toggleSideToMove();
-
-    // DEBUG PARTS: MUST BE ERASED
-    // int endPcs = btw::popCount(m_bitBoard[white] | m_bitBoard[black]);
-    // m_moveHistory.emplace_back(t_move);
-    // bool isPcsNumConst = (t_move.isCapture() && endPcs == (startingPcs-1))||(endPcs==startingPcs);
-    // if(!isPcsNumConst){
-    //     std::cout << t_move << "\n";
-    //     std::cout << *this << "\n";
-    //     for (int i = 0; i < m_moveHistory.size(); i ++)
-    //         std::cout << m_moveHistory[i] << "\n";
-    //     std::cout << std::endl;
-    // }
 }
 
 void ChessBoard::undoMove(ChessMove t_move)
@@ -574,14 +599,14 @@ bool ChessBoard::isCheck()
 }
 
 void ChessBoard::initBoard(){
-    /*m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
-    m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
-    m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
-    m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
-    m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
-    m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
-    m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
-    m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;*/
+    // m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
+    // m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
+    // m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
+    // m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
+    // m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
+    // m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
+    // m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
+    // m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
 
     m_bitBoard[white]   = (uint64_t) 0x000000181024ff91;
     m_bitBoard[black]   = (uint64_t) 0x917d730002800000;
@@ -716,4 +741,23 @@ std::ostream &operator<<(std::ostream &os, const ChessBoard &cb)
     else os << " - ";
 
     return os;
+}
+
+std::size_t HashFunction::operator()(const ChessBoard &obj) const
+{
+    PosInfo hist = obj.m_posHistory.back();
+    return std::hash<int>()(obj.m_sideToMove)   ^
+        std::hash<uint64_t>()(obj.m_bitBoard[white])    ^
+        std::hash<uint64_t>()(obj.m_bitBoard[black])    ^
+        std::hash<uint64_t>()(obj.m_bitBoard[pawns])    ^
+        std::hash<uint64_t>()(obj.m_bitBoard[knights])  ^
+        std::hash<uint64_t>()(obj.m_bitBoard[bishops])  ^
+        std::hash<uint64_t>()(obj.m_bitBoard[rooks])    ^
+        std::hash<uint64_t>()(obj.m_bitBoard[queens])   ^
+        std::hash<uint64_t>()(obj.m_bitBoard[kings])    ^
+        std::hash<bool>()(hist.getLongCastlingRights(white))    ^
+        std::hash<bool>()(hist.getShortCastlingRights(white))   ^
+        std::hash<bool>()(hist.getLongCastlingRights(black))    ^
+        std::hash<bool>()(hist.getShortCastlingRights(black))   ^
+        (hist.isEpPossible() ? std::hash<int>()(hist.getEpSquare()) : 0);
 }
