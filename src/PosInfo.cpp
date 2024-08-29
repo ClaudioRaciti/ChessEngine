@@ -6,83 +6,83 @@ enum pieceType {
 
 bool PosInfo::isEpPossible() const
 {
-    return m_enPassantState;
+    bool enPassant = false;
+    if (info & (1<<23)) enPassant = true;
+    return enPassant;
 }
 
 void PosInfo::setEpState(bool t_state)
 {
-    m_enPassantState = t_state;
+    info &= ~(1 << 23);
+    if(t_state) info |= 1 << 23;
 }
 
 int PosInfo::getEpSquare() const
 {
-    return m_enPassantSq;
+    return (info >> 17) & 0x3f;
 }
 
 void PosInfo::setEpSquare(int t_square)
 {
-    m_enPassantSq = t_square;
+    info &= ~(0x3f << 17);
+    info |= (t_square & 0x3f) << 17;
 }
 
 bool PosInfo::getLongCastlingRights(int t_sideToMove) const
 {
-    bool longCastlingRights;
-    
-    if(t_sideToMove == white){
-        longCastlingRights = m_wLongRights;
-    }
-    else {
-        longCastlingRights = m_bLongRights;
-    }
+    bool rights = false;
 
-    return longCastlingRights;
+    if(
+        ((t_sideToMove == white) && (info & (1<<15))) ||
+        ((t_sideToMove != white) && (info & (1<<16)))
+    ) rights = true;
+
+    return rights;
 }
 
 bool PosInfo::getShortCastlingRights(int t_sideToMove) const
 {
-    bool shortCastlingRights;
+    bool rights = false;
 
-    if(t_sideToMove == white){
-        shortCastlingRights = m_wShortRights;
-    }
-    else {
-        shortCastlingRights = m_bShortRights;
-    }
+    if(
+        ((t_sideToMove == white) && (info & (1<<13))) ||
+        ((t_sideToMove != white) && (info & (1<<14)))
+    ) rights = true;
 
-    return shortCastlingRights;
+    return rights;
 }
 
 void PosInfo::removeLongCastlingRights(int t_sideToMove) 
 {
     if(t_sideToMove == white){
-        m_wLongRights = false;
+        info &= ~(1<<15);
     }
     else {
-        m_bLongRights = false;
+        info &= ~(1<<16);
     }
 }
 
 void PosInfo::removeShortCastlingRights(int t_sideToMove) 
 {
     if(t_sideToMove == white){
-        m_wShortRights = false;
+        info &= ~(1<<13);
     }
     else {
-        m_bShortRights = false;
+        info &= ~(1<<14);
     }
 }
 
 int PosInfo::getHalfmoveClock() const
 {
-    return m_halfmoveClock;
+    return info & 0x1fff;
 }
 
 void PosInfo::incrementHalfmoveClock()
 {
-    m_halfmoveClock += 1;
+    info += 1;
 }
 
 void PosInfo::resetHalfmoveClock()
 {
-    m_halfmoveClock = 0;
+    info &= 0xffffe000;
 }

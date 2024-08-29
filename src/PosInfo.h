@@ -1,15 +1,11 @@
 #pragma once
 
+#include <cstdint>
+
 class PosInfo
 {
 private:
-    int  m_halfmoveClock = 0;
-    bool m_wLongRights = true;
-    bool m_wShortRights = true;
-    bool m_bLongRights = true;
-    bool m_bShortRights = true;
-    bool m_enPassantState = false;
-    int m_enPassantSq = 0;
+    uint32_t info = 0x1e000;
     
 public:
     PosInfo()  = default;
@@ -32,5 +28,7 @@ public:
     int getHalfmoveClock() const;
     void incrementHalfmoveClock();
     void resetHalfmoveClock();
+
+    inline int getInfo() const {return info >> 13;};
 };
 

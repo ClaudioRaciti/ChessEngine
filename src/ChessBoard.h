@@ -11,6 +11,7 @@ class ChessBoard{
 public:
     ChessBoard();
     ChessBoard(const ChessBoard &);
+    ~ChessBoard() = default;
     ChessBoard &operator=(const ChessBoard &) = default;
     bool operator==(const ChessBoard &t_other) const;
 
