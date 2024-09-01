@@ -106,7 +106,6 @@ LookupTables::LookupTables() :
     initKnightAttacks();
     initKingAttacks();
     initPawnAttacks();
-    initPopCount256();
     initMagicMoves();
 }
 
@@ -216,13 +215,6 @@ void LookupTables::initPawnAttacks()
         m_pawnPushes [sq][white] = nortDir;
         m_pawnPushes [sq][black] = soutDir;
     }    
-}
-
-void LookupTables::initPopCount256()
-{
-    m_popCount256[0] = 0;
-    for(int i = 1; i < 256; i ++)
-        m_popCount256[i] = m_popCount256[i / 2] + (i & 1);
 }
 
 void LookupTables::initMagicMoves()
@@ -379,17 +371,4 @@ uint64_t LookupTables::bishopXRays(int t_square) const
 {
     return m_rayAttacks[t_square][noWe] | m_rayAttacks[t_square][soWe] | 
         m_rayAttacks[t_square][soEa] | m_rayAttacks[t_square][noEa];
-}
-
-int LookupTables::populationCount(uint64_t x) const
-{
-    uint8_t *p = (uint8_t *) &x;
-    return  m_popCount256[p[0]] + 
-            m_popCount256[p[1]] +
-            m_popCount256[p[2]] +
-            m_popCount256[p[3]] +
-            m_popCount256[p[4]] +
-            m_popCount256[p[5]] +
-            m_popCount256[p[6]] +
-            m_popCount256[p[7]];
 }

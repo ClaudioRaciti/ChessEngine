@@ -65,13 +65,26 @@ int btw::bitScanForward(uint64_t bitBoard){
     return index64[((bitBoard ^ (bitBoard-1)) * deBrujin64) >> 58];
 }
 
-int btw::popCount(uint64_t bitBoard){
-   int count = 0;
-   while (bitBoard) {
-       count++;
-       bitBoard &= bitBoard - 1; // reset LS1B
-   }
-   return count;
+void btw::initPopCount256()
+{
+    _popCount256[0] = 0;
+    for(int i = 1; i < 256; i ++)
+        _popCount256[i] = _popCount256[i / 2] + (i & 1);
+    _isPopCountInit = true;
+}
+
+int btw::popCount(uint64_t bitBoard)
+{
+    if (!_isPopCountInit) initPopCount256();
+    uint8_t *p = (uint8_t *) &bitBoard;
+    return  _popCount256[p[0]] + 
+            _popCount256[p[1]] +
+            _popCount256[p[2]] +
+            _popCount256[p[3]] +
+            _popCount256[p[4]] +
+            _popCount256[p[5]] +
+            _popCount256[p[6]] +
+            _popCount256[p[7]];
 }
 
 // Finds position of Most Significant 1 Bit
@@ -96,4 +109,26 @@ int btw::bitScanReverse(uint64_t bitBoard){
     bitBoard |= bitBoard >> 16;
     bitBoard |= bitBoard >> 32;
     return index64[(bitBoard * deBrujin64) >> 58];
+}
+
+enum pieceType {
+    white, black, pawns, knights, bishops, rooks, queens, kings
+};
+
+float eval::material(const std::vector<uint64_t> &position)
+{
+    float res = 0.0f;
+
+    res += btw::popCount(position[white] & position[pawns]);
+    res += 2.9f * btw::popCount(position[white] & position[knights]);
+    res += 3.0f * btw::popCount(position[white] & position[bishops]);
+    res += 5.0f * btw::popCount(position[white] & position[rooks]);
+    res += 10.0f * btw::popCount(position[white] & position[queens]);
+    res -= btw::popCount(position[black] & position[pawns]);
+    res -= 2.9f * btw::popCount(position[black] & position[knights]);
+    res -= 3.0f * btw::popCount(position[black] & position[bishops]);
+    res -= 5.0f * btw::popCount(position[black] & position[rooks]);
+    res -= 10.0f * btw::popCount(position[black] & position[queens]);
+
+    return res;
 }

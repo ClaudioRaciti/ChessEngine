@@ -344,7 +344,7 @@ void ChessBoard::generateCastles(std::vector<ChessMove> &t_moveList)
     }
 }
 
-std::vector<uint64_t> ChessBoard::getBitBoards()
+std::vector<uint64_t> ChessBoard::getBitBoards() const
 {
     return std::vector<uint64_t>(m_bitBoard, m_bitBoard + 8);
 }

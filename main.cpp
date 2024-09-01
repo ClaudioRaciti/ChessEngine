@@ -73,7 +73,7 @@ int main(){
     HashMap hashMap;
     std::cout << cBoard  << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
-    std::cout << perft(8, cBoard, hashMap) << std::endl;
+    std::cout << perft(7, cBoard, hashMap) << std::endl;
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
     std::cout << "Tempo impiegato: " << elapsed.count() << " secondi" << std::endl;

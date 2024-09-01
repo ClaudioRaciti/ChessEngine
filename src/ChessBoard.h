@@ -21,7 +21,7 @@ public:
     bool isIllegal();
 
     std::vector<ChessMove> getMoveList();
-    std::vector<uint64_t> getBitBoards();
+    std::vector<uint64_t> getBitBoards() const;
 
     void makeMove(ChessMove t_move);
     void undoMove(ChessMove t_move);

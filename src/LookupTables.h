@@ -23,9 +23,6 @@ public:
     inline uint64_t rookAttacks(uint64_t t_occupied, int t_square) const {return m_rMagicDb[t_square][((t_occupied & m_rMask[t_square]) * m_rMagic[t_square]) >> m_rShift[t_square]];}
     inline uint64_t bishopAttacks(uint64_t t_occupied, int t_square) const {return m_bMagicDb[t_square][((t_occupied & m_bMask[t_square]) * m_bMagic[t_square]) >> m_bShift[t_square]];}
     inline uint64_t queenAttacks(uint64_t t_occupied, int t_square) const {return rookAttacks(t_occupied, t_square) | bishopAttacks(t_occupied, t_square);}
-
-
-    int populationCount(uint64_t x) const;
 private:
     LookupTables();
     ~LookupTables() = default;
@@ -58,6 +55,4 @@ private:
 
     uint64_t m_rMagicDb[64][1<<12];
     uint64_t m_bMagicDb[64][1<<9];
-
-    int m_popCount256[256];
 };
