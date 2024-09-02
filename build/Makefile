@@ -249,6 +249,30 @@ src/PosInfo.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/PosInfo.cpp.s
 .PHONY : src/PosInfo.cpp.s
 
+src/TranspositionTable.o: src/TranspositionTable.cpp.o
+.PHONY : src/TranspositionTable.o
+
+# target to build an object file
+src/TranspositionTable.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o
+.PHONY : src/TranspositionTable.cpp.o
+
+src/TranspositionTable.i: src/TranspositionTable.cpp.i
+.PHONY : src/TranspositionTable.i
+
+# target to preprocess a source file
+src/TranspositionTable.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.i
+.PHONY : src/TranspositionTable.cpp.i
+
+src/TranspositionTable.s: src/TranspositionTable.cpp.s
+.PHONY : src/TranspositionTable.s
+
+# target to generate assembly for a file
+src/TranspositionTable.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.s
+.PHONY : src/TranspositionTable.cpp.s
+
 src/utils.o: src/utils.cpp.o
 .PHONY : src/utils.o
 
@@ -297,6 +321,9 @@ help:
 	@echo "... src/PosInfo.o"
 	@echo "... src/PosInfo.i"
 	@echo "... src/PosInfo.s"
+	@echo "... src/TranspositionTable.o"
+	@echo "... src/TranspositionTable.i"
+	@echo "... src/TranspositionTable.s"
 	@echo "... src/utils.o"
 	@echo "... src/utils.i"
 	@echo "... src/utils.s"

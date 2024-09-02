@@ -34,5 +34,11 @@
   "command": "/usr/bin/g++    -O3 -g -o CMakeFiles/ChessEngine.dir/src/PosInfo.cpp.o -c /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.cpp",
   "file": "/home/claudio/Documenti/Code/ChessEngine/src/PosInfo.cpp",
   "output": "CMakeFiles/ChessEngine.dir/src/PosInfo.cpp.o"
+},
+{
+  "directory": "/home/claudio/Documenti/Code/ChessEngine/build",
+  "command": "/usr/bin/g++    -O3 -g -o CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o -c /home/claudio/Documenti/Code/ChessEngine/src/TranspositionTable.cpp",
+  "file": "/home/claudio/Documenti/Code/ChessEngine/src/TranspositionTable.cpp",
+  "output": "CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o"
 }
 ]

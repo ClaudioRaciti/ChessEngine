@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o.d"
   "CMakeFiles/ChessEngine.dir/src/PosInfo.cpp.o"
   "CMakeFiles/ChessEngine.dir/src/PosInfo.cpp.o.d"
+  "CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o"
+  "CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o.d"
   "CMakeFiles/ChessEngine.dir/src/utils.cpp.o"
   "CMakeFiles/ChessEngine.dir/src/utils.cpp.o.d"
   "ChessEngine"

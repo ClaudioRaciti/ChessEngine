@@ -22,7 +22,7 @@ public:
 
     std::vector<ChessMove> getMoveList();
     std::vector<uint64_t> getBitBoards() const;
-
+    inline int getSideToMove() const {return m_sideToMove;}
     void makeMove(ChessMove t_move);
     void undoMove(ChessMove t_move);
 

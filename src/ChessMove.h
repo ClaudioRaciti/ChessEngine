@@ -5,6 +5,7 @@
 
 class ChessMove{
 public:
+    ChessMove() = default;
     ChessMove(uint32_t t_piece, uint32_t t_from, uint32_t t_to, uint32_t t_flag);
     ChessMove(uint32_t t_piece, uint32_t t_from, uint32_t t_to, uint32_t t_flag, uint32_t t_captured);
 
