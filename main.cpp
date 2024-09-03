@@ -50,7 +50,7 @@ float minimax(ChessBoard &pos, int depth, TranspositionTable &table){
     return res;
 }
 
-float alphaBetaMin(ChessBoard &, int, float, float);
+float alphaBetaMin(ChessBoard &, std::vector<ChessMove> &,int, float, float);
 
 std::vector<int> moveListOrder(std::vector<ChessMove> &moveList){
     enum pieceType {white, black, pawns, knights, bishops, rooks, queens, kings};
@@ -67,7 +67,7 @@ std::vector<int> moveListOrder(std::vector<ChessMove> &moveList){
     return order;
 }
 
-float alphaBetaMax(ChessBoard &position, int depth, float alpha, float beta){
+float alphaBetaMax(ChessBoard &position, std::vector<ChessMove> &variation,int depth, float alpha, float beta){
     if(depth == 0)alpha = eval::material(position.getBitBoards());
     else {
         std::vector<ChessMove> moveList = position.getMoveList();
@@ -77,13 +77,16 @@ float alphaBetaMax(ChessBoard &position, int depth, float alpha, float beta){
         for(int i = 0; i < moveList.size() && !exitCondition; i ++){
             position.makeMove(moveList[moveOrder[i]]);
             if(!position.isIllegal()){
-                float alphaTmp = alphaBetaMin(position, depth - 1, alpha, beta);
+                std::vector<ChessMove> bestContinuation;
+                float alphaTmp = alphaBetaMin(position, bestContinuation, depth - 1, alpha, beta);
                 if(alphaTmp >= beta){ 
                     alpha = alphaTmp;
                     exitCondition = true;
                 }
                 else if(alphaTmp > alpha){ 
                     alpha = alphaTmp;
+                    bestContinuation.push_back(moveList[moveOrder[i]]);
+                    variation = bestContinuation;
                 }
             }
             position.undoMove(moveList[moveOrder[i]]);
@@ -92,7 +95,7 @@ float alphaBetaMax(ChessBoard &position, int depth, float alpha, float beta){
     return alpha;
 }
 
-float alphaBetaMin(ChessBoard &position, int depth, float alpha, float beta){
+float alphaBetaMin(ChessBoard &position, std::vector<ChessMove> &variation, int depth, float alpha, float beta){
     
     if(depth == 0) beta = eval::material(position.getBitBoards());
     else {
@@ -102,13 +105,16 @@ float alphaBetaMin(ChessBoard &position, int depth, float alpha, float beta){
         for(int i = 0; i < moveList.size() && !exitCondition; i ++){
             position.makeMove(moveList[moveOrder[i]]);
             if(!position.isIllegal()){
-                float betaTmp = alphaBetaMax(position, depth - 1, alpha, beta);
+                std::vector<ChessMove> bestContinuation;
+                float betaTmp = alphaBetaMax(position, bestContinuation, depth - 1, alpha, beta);
                 if(alpha >= betaTmp){
                     beta = betaTmp;
                     exitCondition = true;
                 }
                 else if(betaTmp < beta){
-                    beta = betaTmp;                    
+                    beta = betaTmp;  
+                    bestContinuation.push_back(moveList[moveOrder[i]]);
+                    variation = bestContinuation;
                 }
             }
             position.undoMove(moveList[moveOrder[i]]);
@@ -117,25 +123,56 @@ float alphaBetaMin(ChessBoard &position, int depth, float alpha, float beta){
     return beta;
 }
 
-float alphaBeta(ChessBoard &position, int depth){
+float alphaBeta(ChessBoard &position, std::vector<ChessMove> &variation, int depth){
     float result;
     enum Pieces {white, black};
-    if(position.getSideToMove() == white) result = alphaBetaMax(position, depth, -INF, INF);
-    else result = alphaBetaMin(position, depth, -INF, INF);
+    if(position.getSideToMove() == white) result = alphaBetaMax(position, variation, depth, -INF, INF);
+    else result = alphaBetaMin(position, variation, depth, -INF, INF);
     return result;
+}
+
+float alphaBeta(ChessBoard &position, std::vector<ChessMove> &variation, int depth, float alpha, float beta){
+    if(depth == 0) alpha =  (1 - 2 * position.getSideToMove()) * eval::material(position.getBitBoards());
+    else{
+        std::vector<ChessMove> moveList = position.getMoveList();
+        std::vector<int> moveOrder = moveListOrder(moveList);
+        assert(moveList.size() == moveOrder.size());
+        bool exitCondition = false;
+        for(int i = 0; i < moveList.size() && !exitCondition; i ++){
+            position.makeMove(moveList[moveOrder[i]]);
+            if(!position.isIllegal()){
+                std::vector<ChessMove> bestContinuation;
+                float alphaTmp = -alphaBeta(position, bestContinuation, depth - 1, -beta, -alpha);
+                if(alphaTmp >= beta){ 
+                    alpha = alphaTmp;
+                    exitCondition = true;
+                }
+                else if(alphaTmp > alpha){ 
+                    alpha = alphaTmp;
+                    bestContinuation.push_back(moveList[moveOrder[i]]);
+                    variation = bestContinuation;
+                }
+            }
+            position.undoMove(moveList[moveOrder[i]]);
+        }
+    }
+    return alpha;
 }
 
 int main(){
     ChessBoard cBoard;
+    std::vector<ChessMove> variation;
+    variation.reserve(DEPTH);
     std::cout << cBoard  << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
-    float result = alphaBeta(cBoard, DEPTH);
+    float result = alphaBeta(cBoard, variation, DEPTH, -INF, INF);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
 
     std::cout << "Evaluation during search at depth " << DEPTH << " is " << result  << std::endl;
     // for (int i = 0; i < result.seq.size(); i ++) std::cout << result.seq[i] << std::endl;
     std::cout << "Tempo impiegato: " << elapsed.count() << " secondi" << std::endl;
+    for (int i = 0; i < variation.size(); i ++) std::cout  << DEPTH - i << ") " << variation[i] << std::endl;
     // std::cout << "Elements in table: " << table.getSize() << std::endl;
     return 0;
 }
