@@ -598,23 +598,23 @@ bool ChessBoard::isCheck()
 }
 
 void ChessBoard::initBoard(){
-    // m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
-    // m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
-    // m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
-    // m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
-    // m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
-    // m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
-    // m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
-    // m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
-
-    m_bitBoard[white]   = (uint64_t) 0x000000181024ff91;
-    m_bitBoard[black]   = (uint64_t) 0x917d730002800000;
-    m_bitBoard[pawns]   = (uint64_t) 0x002d50081280e700;
-    m_bitBoard[knights] = (uint64_t) 0x0000221000040000;
-    m_bitBoard[bishops] = (uint64_t) 0x0040010000001800;
+    m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
+    m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
+    m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
+    m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
+    m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
     m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
-    m_bitBoard[queens]  = (uint64_t) 0x0010000000200000;
+    m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
     m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
+
+    // m_bitBoard[white]   = (uint64_t) 0x000000181024ff91;
+    // m_bitBoard[black]   = (uint64_t) 0x917d730002800000;
+    // m_bitBoard[pawns]   = (uint64_t) 0x002d50081280e700;
+    // m_bitBoard[knights] = (uint64_t) 0x0000221000040000;
+    // m_bitBoard[bishops] = (uint64_t) 0x0040010000001800;
+    // m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
+    // m_bitBoard[queens]  = (uint64_t) 0x0010000000200000;
+    // m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
 }
 
 

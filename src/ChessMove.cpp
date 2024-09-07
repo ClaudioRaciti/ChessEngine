@@ -185,3 +185,10 @@ uint16_t ChessMove::asShort()
 {
     return (uint16_t) m_Move;
 }
+
+float ChessMove::getExpectedValue()
+{
+    static std::map<int, float> pieceValue{{pawns, 1.0f}, {knights, 2.9f}, {bishops, 3.0f}, {rooks, 5.0f}, {queens, 10.0f}};
+    if (isCapture())return pieceValue[getCaptured()] - pieceValue[getPiece()];
+    else return 0.0f;
+}

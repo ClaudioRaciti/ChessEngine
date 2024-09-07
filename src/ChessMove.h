@@ -36,6 +36,8 @@ public:
     uint32_t getButterflyIndex();
     uint16_t asShort();
 
+    float getExpectedValue();
+
 private:
     uint32_t m_Move = 0;
 };

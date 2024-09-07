@@ -11,46 +11,7 @@
 #include "src/TranspositionTable.h"
 
 #define INF std::numeric_limits<float>::infinity()
-#define DEPTH 8
-
-float minimax(ChessBoard &pos, int depth, TranspositionTable &table){
-    if (table.doesContain(pos)) return table.get(pos);
-
-    enum Pieces {white, black};
-    float res;
-
-    if (depth == 0) res = eval::material(pos.getBitBoards());
-    else {   
-        std::vector<ChessMove> moveList = pos.getMoveList();
-        if (pos.getSideToMove() == white){
-            res = -std::numeric_limits<float>::infinity();
-            for (int i = 0; i < moveList.size(); i ++){
-                pos.makeMove(moveList[i]);
-                if(!pos.isIllegal()){
-                    float tmp = minimax(pos, depth - 1, table);
-                    if (tmp > res) res = tmp;
-                }
-                pos.undoMove(moveList[i]);
-            }
-        }
-        else{
-            res = std::numeric_limits<float>::infinity();
-            for (int i = 0; i < moveList.size(); i ++){
-                pos.makeMove(moveList[i]);
-                if(!pos.isIllegal()){
-                    float tmp = minimax(pos, depth - 1, table);
-                    if (tmp < res) res = tmp;
-                }
-                pos.undoMove(moveList[i]);
-            }
-        }
-    }
-
-    table.insert(pos, res);
-    return res;
-}
-
-float alphaBetaMin(ChessBoard &, std::vector<ChessMove> &,int, float, float);
+#define DEPTH 6
 
 std::vector<int> moveListOrder(std::vector<ChessMove> &moveList){
     enum pieceType {white, black, pawns, knights, bishops, rooks, queens, kings};
@@ -67,105 +28,80 @@ std::vector<int> moveListOrder(std::vector<ChessMove> &moveList){
     return order;
 }
 
-float alphaBetaMax(ChessBoard &position, std::vector<ChessMove> &variation,int depth, float alpha, float beta){
-    if(depth == 0)alpha = eval::material(position.getBitBoards());
+float quiescence(ChessBoard &pos, float alpha, float beta){
+    int sign = (1 - 2*pos.getSideToMove());
+    float standPat = sign * eval::material(pos.getBitBoards()); 
+    if(standPat >= beta) alpha = standPat;
     else {
-        std::vector<ChessMove> moveList = position.getMoveList();
+        if(standPat > alpha) alpha = standPat;
+        std::vector<ChessMove> moveList = pos.getMoveList();
         std::vector<int> moveOrder = moveListOrder(moveList);
-        assert(moveList.size() == moveOrder.size());
         bool exitCondition = false;
+
         for(int i = 0; i < moveList.size() && !exitCondition; i ++){
-            position.makeMove(moveList[moveOrder[i]]);
-            if(!position.isIllegal()){
-                std::vector<ChessMove> bestContinuation;
-                float alphaTmp = alphaBetaMin(position, bestContinuation, depth - 1, alpha, beta);
-                if(alphaTmp >= beta){ 
-                    alpha = alphaTmp;
-                    exitCondition = true;
+            ChessMove candidateMove = moveList[moveOrder[i]];
+
+            if(candidateMove.isCapture()){
+                pos.makeMove(candidateMove);
+
+                if(!pos.isIllegal()){
+                    float tmp = - quiescence(pos, -beta, -alpha);
+                    if(tmp > alpha) alpha = tmp;
+                    if(alpha >= beta) exitCondition = true;
                 }
-                else if(alphaTmp > alpha){ 
-                    alpha = alphaTmp;
-                    bestContinuation.push_back(moveList[moveOrder[i]]);
-                    variation = bestContinuation;
-                }
+
+                pos.undoMove(candidateMove);
             }
-            position.undoMove(moveList[moveOrder[i]]);
         }
     }
     return alpha;
 }
 
-float alphaBetaMin(ChessBoard &position, std::vector<ChessMove> &variation, int depth, float alpha, float beta){
-    
-    if(depth == 0) beta = eval::material(position.getBitBoards());
-    else {
-        std::vector<ChessMove> moveList = position.getMoveList();
-        std::vector<int> moveOrder = moveListOrder(moveList);
-        bool exitCondition = false;
-        for(int i = 0; i < moveList.size() && !exitCondition; i ++){
-            position.makeMove(moveList[moveOrder[i]]);
-            if(!position.isIllegal()){
-                std::vector<ChessMove> bestContinuation;
-                float betaTmp = alphaBetaMax(position, bestContinuation, depth - 1, alpha, beta);
-                if(alpha >= betaTmp){
-                    beta = betaTmp;
-                    exitCondition = true;
-                }
-                else if(betaTmp < beta){
-                    beta = betaTmp;  
-                    bestContinuation.push_back(moveList[moveOrder[i]]);
-                    variation = bestContinuation;
-                }
-            }
-            position.undoMove(moveList[moveOrder[i]]);
-        }
+float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &var, int depth, float alpha, float beta){
+    if(depth == 0){
+        if(map.doesContain(pos)) alpha = map.get(pos);
+        else{ 
+            if(pos.getSideToMove() == 0) alpha = quiescence(pos, alpha, beta);
+            else alpha = quiescence(pos, -beta, -alpha);
+            map.insert(pos, alpha);
+        } 
     }
-    return beta;
-}
-
-float alphaBeta(ChessBoard &position, std::vector<ChessMove> &variation, int depth){
-    float result;
-    enum Pieces {white, black};
-    if(position.getSideToMove() == white) result = alphaBetaMax(position, variation, depth, -INF, INF);
-    else result = alphaBetaMin(position, variation, depth, -INF, INF);
-    return result;
-}
-
-float alphaBeta(ChessBoard &position, std::vector<ChessMove> &variation, int depth, float alpha, float beta){
-    if(depth == 0) alpha =  (1 - 2 * position.getSideToMove()) * eval::material(position.getBitBoards());
     else{
-        std::vector<ChessMove> moveList = position.getMoveList();
+        std::vector<ChessMove> moveList = pos.getMoveList();
         std::vector<int> moveOrder = moveListOrder(moveList);
-        assert(moveList.size() == moveOrder.size());
         bool exitCondition = false;
+
         for(int i = 0; i < moveList.size() && !exitCondition; i ++){
-            position.makeMove(moveList[moveOrder[i]]);
-            if(!position.isIllegal()){
+            ChessMove candidateMove = moveList[moveOrder[i]]; 
+            pos.makeMove(candidateMove);
+            if(!pos.isIllegal()){
                 std::vector<ChessMove> bestContinuation;
-                float alphaTmp = -alphaBeta(position, bestContinuation, depth - 1, -beta, -alpha);
+                float alphaTmp = -alphaBeta(pos, map, bestContinuation, depth - 1, -beta, -alpha);
+
                 if(alphaTmp >= beta){ 
                     alpha = alphaTmp;
                     exitCondition = true;
                 }
                 else if(alphaTmp > alpha){ 
                     alpha = alphaTmp;
-                    bestContinuation.push_back(moveList[moveOrder[i]]);
-                    variation = bestContinuation;
+                    bestContinuation.push_back(candidateMove);
+                    var = bestContinuation;
                 }
             }
-            position.undoMove(moveList[moveOrder[i]]);
+            pos.undoMove(candidateMove);
         }
     }
     return alpha;
 }
+
 
 int main(){
     ChessBoard cBoard;
+    TranspositionTable map;
     std::vector<ChessMove> variation;
-    variation.reserve(DEPTH);
     std::cout << cBoard  << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
-    float result = alphaBeta(cBoard, variation, DEPTH, -INF, INF);
+    float result = alphaBeta(cBoard, map, variation, DEPTH, -INF, INF);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
 
@@ -173,6 +109,6 @@ int main(){
     // for (int i = 0; i < result.seq.size(); i ++) std::cout << result.seq[i] << std::endl;
     std::cout << "Tempo impiegato: " << elapsed.count() << " secondi" << std::endl;
     for (int i = 0; i < variation.size(); i ++) std::cout  << DEPTH - i << ") " << variation[i] << std::endl;
-    // std::cout << "Elements in table: " << table.getSize() << std::endl;
+    std::cout << "Elements in table: " << map.getSize() << std::endl;
     return 0;
 }
