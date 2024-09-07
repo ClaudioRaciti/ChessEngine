@@ -52,6 +52,12 @@
         "ctime": "cpp",
         "map": "cpp",
         "ratio": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "charconv": "cpp",
+        "cstring": "cpp",
+        "optional": "cpp",
+        "span": "cpp",
+        "variant": "cpp",
+        "format": "cpp"
     }
 }

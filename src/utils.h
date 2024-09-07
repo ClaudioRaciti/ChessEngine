@@ -27,5 +27,7 @@ namespace btw
 // Evaluation functions
 namespace eval
 {
-    float material(const std::vector<uint64_t> &bitBoards);
+    float evaluate(const std::vector<uint64_t> &bitBoards);
+    int material(const std::vector<uint64_t> &bitBoards);
+    int pawnStructure(const std::vector<uint64_t> &bitBoards);
 }; // namespace eval

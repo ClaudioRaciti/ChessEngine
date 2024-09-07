@@ -200,7 +200,14 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: \
  /usr/include/c++/13/bits/stl_vector.h \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/vector.tcc /usr/include/c++/13/cassert \
- /usr/include/assert.h \
+ /usr/include/assert.h /usr/include/c++/13/algorithm \
+ /usr/include/c++/13/bits/stl_algo.h \
+ /usr/include/c++/13/bits/algorithmfwd.h \
+ /usr/include/c++/13/bits/stl_heap.h \
+ /usr/include/c++/13/bits/uniform_int_dist.h \
+ /usr/include/c++/13/bits/stl_tempbuf.h \
+ /usr/include/c++/13/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/13/pstl/execution_defs.h \
  /home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.h \
  /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h \
  /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \

@@ -6,40 +6,66 @@
 #include <limits>
 #include <vector>
 #include <cassert>
+#include <algorithm>
 
 #include "src/ChessBoard.h"
 #include "src/TranspositionTable.h"
 
 #define INF std::numeric_limits<float>::infinity()
-#define DEPTH 6
+#define DEPTH 8
 
-std::vector<int> moveListOrder(std::vector<ChessMove> &moveList){
+enum pieceType {
+    white, black, pawns, knights, bishops, rooks, queens, kings
+};
+
+enum algebraicNotation{
+    a1, b1, c1, d1, e1, f1, g1, h1,
+    a2, b2, c2, d2, e2, f2, g2, h2,
+    a3, b3, c3, d3, e3, f3, g3, h3,
+    a4, b4, c4, d4, e4, f4, g4, h4,
+    a5, b5, c5, d5, e5, f5, g5, h5,
+    a6, b6, c6, d6, e6, f6, g6, h6,
+    a7, b7, c7, d7, e7, f7, g7, h7,
+    a8, b8, c8, d8, e8, f8, g8, h8
+};
+
+enum moveType {
+    quiet, doublePush, kingCastle, queenCastle, capture, enPassant, 
+    knightPromo = 8, bishopPromo, rookPromo, queenPromo, 
+    knightPromoCapture,  bishopPromoCapture, rookPromoCapture, queenPromoCapture
+};
+
+void moveListOrder(std::vector<ChessMove> &moveList){
     enum pieceType {white, black, pawns, knights, bishops, rooks, queens, kings};
     std::vector<int> order;
-
-    for(int i = 0; i < moveList.size(); i ++) 
-        if(moveList[i].getPiece() == pawns && moveList[i].isCapture()) order.emplace_back(i);
-    for(int i = 0; i < moveList.size(); i ++) 
-        if(moveList[i].getPiece() != pawns && moveList[i].isCapture()) order.emplace_back(i);
-    for(int i = 0; i < moveList.size(); i ++) 
-        if(!moveList[i].isCapture()) order.emplace_back(i);
-
-    assert(order.size() == moveList.size());
-    return order;
+    // std::sort(
+    //     moveList.begin(), 
+    //     moveList.end(),
+    //     [](ChessMove a, ChessMove b){
+    //         return a.isCapture() && !b.isCapture();
+    //     }
+    // );    
+    std::sort(
+        moveList.begin(), 
+        moveList.end(),
+        [](ChessMove a, ChessMove b){
+            return (a.getExpectedValue() > b.getExpectedValue());
+        }
+    );
 }
 
 float quiescence(ChessBoard &pos, float alpha, float beta){
     int sign = (1 - 2*pos.getSideToMove());
-    float standPat = sign * eval::material(pos.getBitBoards()); 
+    float standPat = sign * eval::evaluate(pos.getBitBoards()); 
     if(standPat >= beta) alpha = standPat;
     else {
         if(standPat > alpha) alpha = standPat;
         std::vector<ChessMove> moveList = pos.getMoveList();
-        std::vector<int> moveOrder = moveListOrder(moveList);
+        moveListOrder(moveList);
         bool exitCondition = false;
 
         for(int i = 0; i < moveList.size() && !exitCondition; i ++){
-            ChessMove candidateMove = moveList[moveOrder[i]];
+            ChessMove candidateMove = moveList[i];
 
             if(candidateMove.isCapture()){
                 pos.makeMove(candidateMove);
@@ -61,18 +87,17 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
     if(depth == 0){
         if(map.doesContain(pos)) alpha = map.get(pos);
         else{ 
-            if(pos.getSideToMove() == 0) alpha = quiescence(pos, alpha, beta);
-            else alpha = quiescence(pos, -beta, -alpha);
+            alpha = quiescence(pos, alpha, beta);
             map.insert(pos, alpha);
         } 
     }
     else{
         std::vector<ChessMove> moveList = pos.getMoveList();
-        std::vector<int> moveOrder = moveListOrder(moveList);
+        moveListOrder(moveList);
         bool exitCondition = false;
 
         for(int i = 0; i < moveList.size() && !exitCondition; i ++){
-            ChessMove candidateMove = moveList[moveOrder[i]]; 
+            ChessMove candidateMove = moveList[i]; 
             pos.makeMove(candidateMove);
             if(!pos.isIllegal()){
                 std::vector<ChessMove> bestContinuation;
@@ -110,5 +135,6 @@ int main(){
     std::cout << "Tempo impiegato: " << elapsed.count() << " secondi" << std::endl;
     for (int i = 0; i < variation.size(); i ++) std::cout  << DEPTH - i << ") " << variation[i] << std::endl;
     std::cout << "Elements in table: " << map.getSize() << std::endl;
+
     return 0;
 }
