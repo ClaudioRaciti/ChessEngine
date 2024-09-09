@@ -1,11 +1,5 @@
 #include "TranspositionTable.h"
 
-bool TranspositionTable::doesContain(const ChessBoard &t_key) const
-{
-    if (m_hashTable.find(t_key) != m_hashTable.end()) return true;
-    
-    return false;
-}
 
 float TranspositionTable::get(const ChessBoard &t_key) const
 {

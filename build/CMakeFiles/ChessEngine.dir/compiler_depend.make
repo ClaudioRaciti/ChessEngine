@@ -59,6 +59,8 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/
   /usr/include/c++/13/bits/postypes.h \
   /usr/include/c++/13/bits/predefined_ops.h \
   /usr/include/c++/13/bits/ptr_traits.h \
+  /usr/include/c++/13/bits/random.h \
+  /usr/include/c++/13/bits/random.tcc \
   /usr/include/c++/13/bits/range_access.h \
   /usr/include/c++/13/bits/refwrap.h \
   /usr/include/c++/13/bits/requires_hosted.h \
@@ -73,6 +75,7 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/
   /usr/include/c++/13/bits/stl_iterator.h \
   /usr/include/c++/13/bits/stl_iterator_base_funcs.h \
   /usr/include/c++/13/bits/stl_iterator_base_types.h \
+  /usr/include/c++/13/bits/stl_numeric.h \
   /usr/include/c++/13/bits/stl_pair.h \
   /usr/include/c++/13/bits/stl_tempbuf.h \
   /usr/include/c++/13/bits/stl_uninitialized.h \
@@ -118,10 +121,13 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/
   /usr/include/c++/13/limits \
   /usr/include/c++/13/math.h \
   /usr/include/c++/13/new \
+  /usr/include/c++/13/numeric \
   /usr/include/c++/13/ostream \
   /usr/include/c++/13/pstl/execution_defs.h \
   /usr/include/c++/13/pstl/glue_algorithm_defs.h \
+  /usr/include/c++/13/pstl/glue_numeric_defs.h \
   /usr/include/c++/13/pstl/pstl_config.h \
+  /usr/include/c++/13/random \
   /usr/include/c++/13/ratio \
   /usr/include/c++/13/stdexcept \
   /usr/include/c++/13/streambuf \
@@ -252,6 +258,7 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/
   /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/gthr.h \
+  /usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h \
   /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
@@ -1119,15 +1126,15 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h:
 
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
-
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
-/usr/include/c++/13/system_error:
+/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
 
-/usr/include/c++/13/ratio:
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
 
-/usr/include/c++/13/cwctype:
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
 
 /usr/include/c++/13/pstl/pstl_config.h:
 
@@ -1187,16 +1194,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/13/tr1/poly_hermite.tcc:
 
-/usr/include/c++/13/bitset:
-
-/usr/include/c++/13/bits/range_access.h:
-
-/usr/include/c++/13/tr1/hypergeometric.tcc:
-
-/usr/include/c++/13/type_traits:
-
-/usr/include/x86_64-linux-gnu/sys/single_threaded.h:
-
 /usr/include/c++/13/bits/vector.tcc:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
@@ -1223,9 +1220,15 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/13/bits/stringfwd.h:
 
-/usr/include/c++/13/bits/stl_vector.h:
+/usr/include/c++/13/bitset:
 
-/usr/include/c++/13/bits/stl_tempbuf.h:
+/usr/include/c++/13/type_traits:
+
+/usr/include/c++/13/bits/stl_numeric.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
+
+/usr/include/c++/13/pstl/glue_numeric_defs.h:
 
 /usr/include/c++/13/bits/functexcept.h:
 
@@ -1243,15 +1246,27 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/13/cstddef:
 
-/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
-
-/usr/include/c++/13/bits/string_view.tcc:
-
 /usr/include/c++/13/bits/locale_facets.tcc:
 
 /usr/include/c++/13/bits/refwrap.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
+
+/usr/include/c++/13/tr1/hypergeometric.tcc:
+
+/usr/include/c++/13/bits/range_access.h:
+
+/usr/include/c++/13/system_error:
+
+/usr/include/c++/13/bits/string_view.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
+
+/usr/include/c++/13/random:
+
+/usr/include/c++/13/bits/random.tcc:
+
+/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
 /usr/include/c++/13/bits/move.h:
 
@@ -1271,6 +1286,8 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/13/bits/streambuf_iterator.h:
 
+/usr/include/x86_64-linux-gnu/c++/13/bits/opt_random.h:
+
 /usr/include/c++/13/ostream:
 
 /usr/include/c++/13/tr1/riemann_zeta.tcc:
@@ -1278,10 +1295,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/c++/13/cassert:
 
 /usr/include/c++/13/bits/cpp_type_traits.h:
-
-/usr/include/c++/13/string:
-
-/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
 /usr/include/x86_64-linux-gnu/bits/types.h:
 
@@ -1349,21 +1362,25 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h:
 
+/usr/include/x86_64-linux-gnu/sys/select.h:
+
+/usr/include/c++/13/cwchar:
+
 /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.cpp:
 
 /usr/include/c++/13/iosfwd:
 
 /usr/include/c++/13/bits/predefined_ops.h:
 
+/usr/include/c++/13/cwctype:
+
+/usr/include/c++/13/ratio:
+
 /usr/include/alloca.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
 
-/usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h:
-
 /usr/include/c++/13/algorithm:
-
-/usr/include/features-time64.h:
 
 /usr/include/c++/13/bits/stl_iterator_base_funcs.h:
 
@@ -1386,6 +1403,10 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/c++/13/bits/functional_hash.h:
 
 /usr/include/errno.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
+
+/usr/include/c++/13/numeric:
 
 /usr/include/c++/13/bits/ios_base.h:
 
@@ -1421,7 +1442,23 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h:
 
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/c++/13/bits/node_handle.h:
+
+/usr/include/c++/13/bits/stl_vector.h:
+
+/usr/include/c++/13/bits/stl_tempbuf.h:
+
+/usr/include/c++/13/bits/random.h:
+
 /usr/include/c++/13/stdexcept:
+
+/usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
+
+/usr/include/c++/13/string:
+
+/usr/include/features-time64.h:
 
 /usr/include/c++/13/initializer_list:
 
@@ -1499,8 +1536,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/x86_64-linux-gnu/bits/endian.h:
 
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
-
 /usr/include/c++/13/bits/requires_hosted.h:
 
 /usr/include/x86_64-linux-gnu/bits/floatn-common.h:
@@ -1543,10 +1578,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h:
 
-/usr/include/c++/13/cwchar:
-
-/usr/include/x86_64-linux-gnu/sys/select.h:
-
 /usr/include/x86_64-linux-gnu/bits/stdio.h:
 
 /usr/include/c++/13/bits/ptr_traits.h:
@@ -1558,8 +1589,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/x86_64-linux-gnu/bits/types/FILE.h:
 
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
-
-/usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
 
@@ -1611,8 +1640,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/time_t.h:
-
 /usr/include/x86_64-linux-gnu/bits/types/timer_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/typesizes.h:
@@ -1638,9 +1665,3 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/gthr-default.h:
-
-/usr/include/c++/13/bits/node_handle.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
-
-/usr/include/x86_64-linux-gnu/sys/cdefs.h:

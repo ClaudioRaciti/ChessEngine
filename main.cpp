@@ -7,12 +7,13 @@
 #include <vector>
 #include <cassert>
 #include <algorithm>
+#include <random>
 
 #include "src/ChessBoard.h"
 #include "src/TranspositionTable.h"
 
 #define INF std::numeric_limits<float>::infinity()
-#define DEPTH 8
+#define DEPTH 10
 
 enum pieceType {
     white, black, pawns, knights, bishops, rooks, queens, kings
@@ -35,21 +36,34 @@ enum moveType {
     knightPromoCapture,  bishopPromoCapture, rookPromoCapture, queenPromoCapture
 };
 
-void moveListOrder(std::vector<ChessMove> &moveList){
-    enum pieceType {white, black, pawns, knights, bishops, rooks, queens, kings};
-    std::vector<int> order;
-    // std::sort(
-    //     moveList.begin(), 
-    //     moveList.end(),
-    //     [](ChessMove a, ChessMove b){
-    //         return a.isCapture() && !b.isCapture();
-    //     }
-    // );    
+
+int staticExchangeEval(const ChessMove &move, int sideToMove){
+    int res = eval::pieceVal(1 - sideToMove, move.getCaptured(), move.getEndSquare()) 
+        - eval::pieceVal(sideToMove, move.getPiece(), move.getStartingSquare());
+
+    return res + (move.isPromo() ? eval::pieceVal(sideToMove, move.getPromoPiece(), move.getEndSquare()) : 0);
+}
+
+int staticMoveEval(const ChessMove &move, int sideToMove){
+    return eval::pieceVal(sideToMove, move.isPromo() ? move.getPromoPiece() : move.getPiece(), move.getEndSquare())
+        - eval::pieceVal(sideToMove, move.getPiece(), move.getStartingSquare());
+}
+
+
+void orderMoveList(std::vector<ChessMove> &moveList, int sideToMove){
+    std::vector<ChessMove>::iterator it = std::partition(
+        moveList.begin(), moveList.end(), [](ChessMove a){return a.isCapture();}
+    );
+
     std::sort(
-        moveList.begin(), 
-        moveList.end(),
-        [](ChessMove a, ChessMove b){
-            return (a.getExpectedValue() > b.getExpectedValue());
+        moveList.begin(), it, [sideToMove](ChessMove a, ChessMove b){
+            return staticExchangeEval(a, sideToMove) > staticExchangeEval(b, sideToMove);
+        }
+    );
+
+    std::sort(
+        it, moveList.end(), [sideToMove](ChessMove a, ChessMove b){
+            return staticMoveEval(a, sideToMove) > staticMoveEval(b, sideToMove);
         }
     );
 }
@@ -61,7 +75,7 @@ float quiescence(ChessBoard &pos, float alpha, float beta){
     else {
         if(standPat > alpha) alpha = standPat;
         std::vector<ChessMove> moveList = pos.getMoveList();
-        moveListOrder(moveList);
+        orderMoveList(moveList, pos.getSideToMove());
         bool exitCondition = false;
 
         for(int i = 0; i < moveList.size() && !exitCondition; i ++){
@@ -93,7 +107,7 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
     }
     else{
         std::vector<ChessMove> moveList = pos.getMoveList();
-        moveListOrder(moveList);
+        orderMoveList(moveList, pos.getSideToMove());
         bool exitCondition = false;
 
         for(int i = 0; i < moveList.size() && !exitCondition; i ++){
@@ -122,6 +136,7 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
 
 int main(){
     ChessBoard cBoard;
+
     TranspositionTable map;
     std::vector<ChessMove> variation;
     std::cout << cBoard  << std::endl;
@@ -135,6 +150,5 @@ int main(){
     std::cout << "Tempo impiegato: " << elapsed.count() << " secondi" << std::endl;
     for (int i = 0; i < variation.size(); i ++) std::cout  << DEPTH - i << ") " << variation[i] << std::endl;
     std::cout << "Elements in table: " << map.getSize() << std::endl;
-
     return 0;
 }

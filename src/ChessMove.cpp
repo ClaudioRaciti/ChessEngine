@@ -70,58 +70,6 @@ std::ostream &operator<<(std::ostream &os, const ChessMove &cm)
     return os;
 }
 
-uint32_t ChessMove::getPiece() const
-{
-    return (m_Move >> 16) & 0x0f;
-}
-
-uint32_t ChessMove::getEndSquare() const
-{
-    return m_Move & 0x3f;
-}
-
-uint32_t ChessMove::getStartingSquare() const
-{
-    return (m_Move >> 6) & 0x3f;
-}
-
-uint32_t ChessMove::getFlags() const
-{
-    return (m_Move >> 12) & 0x0f;
-}
-
-uint32_t ChessMove::getCaptured() const
-{
-    return (m_Move >> 20) & 0x0f;
-}
-
-uint32_t ChessMove::getPromoPiece() const
-{
-    uint32_t promoPiece;
-
-    switch (getFlags())
-    {
-    case knightPromo:
-    case knightPromoCapture:
-        promoPiece = knights;
-        break;
-    case bishopPromo:
-    case bishopPromoCapture:
-        promoPiece = bishops;
-        break;
-    case rookPromo:
-    case rookPromoCapture:
-        promoPiece = rooks;
-        break;
-    case queenPromo:
-    case queenPromoCapture:
-        promoPiece = queens;
-        break;
-    }
-
-    return promoPiece;
-}
-
 void ChessMove::setPiece(uint32_t t_piece)
 {
     m_Move &= 0xf0000;
@@ -151,30 +99,6 @@ void ChessMove::setCaptured(uint32_t t_taken)
 {
     m_Move &= 0xf00000;
     m_Move |= (t_taken & 0x0f) << 20;
-}
-
-bool ChessMove::isCapture()
-{   
-    if ((getFlags() & 0x04)!= 0) return true;
-    return false;
-}
-
-bool ChessMove::isDoublePush()
-{   
-    if (getFlags() == (uint32_t) doublePush) return true;
-    return false;
-}
-
-bool ChessMove::isPromo()
-{
-    if ((getFlags() & 0x08)!= 0) return true;
-    return false;
-}
-
-bool ChessMove::isEnPassant()
-{
-    if (getFlags() == (uint32_t) enPassant) return true;
-    return false;
 }
 
 uint32_t ChessMove::getButterflyIndex()
