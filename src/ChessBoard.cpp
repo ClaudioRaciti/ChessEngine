@@ -53,24 +53,9 @@ ChessBoard::ChessBoard(const ChessBoard &t_other) :
 
 bool ChessBoard::operator==(const ChessBoard &t_other) const
 {
-    bool flag = true;
-    PosInfo thisHist = m_posHistory.back();
-    PosInfo otherHist = t_other.m_posHistory.back();
-
-    if (
-        m_sideToMove != t_other.m_sideToMove  ||
-        m_bitBoard[white]   != t_other.m_bitBoard[white]  ||
-        m_bitBoard[black]   != t_other.m_bitBoard[black]  ||
-        m_bitBoard[pawns]   != t_other.m_bitBoard[pawns]  ||
-        m_bitBoard[knights] != t_other.m_bitBoard[knights]||
-        m_bitBoard[bishops] != t_other.m_bitBoard[bishops]||
-        m_bitBoard[rooks]   != t_other.m_bitBoard[rooks]  ||
-        m_bitBoard[queens]  != t_other.m_bitBoard[queens] ||
-        m_bitBoard[kings]   != t_other.m_bitBoard[kings]  ||
-        thisHist.getInfo() != otherHist.getInfo()
-    ) flag = false;
-
-    return flag;
+    return m_sideToMove == t_other.m_sideToMove 
+        && std::equal(std::begin(m_bitBoard), std::end(m_bitBoard), std::begin(t_other.m_bitBoard), std::end(t_other.m_bitBoard))
+        && m_posHistory.back().getInfo() == t_other.m_posHistory.back().getInfo();
 }
 
 bool ChessBoard::isIllegal()
@@ -598,23 +583,23 @@ bool ChessBoard::isCheck()
 }
 
 void ChessBoard::initBoard(){
-    m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
-    m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
-    m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
-    m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
-    m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
-    m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
-    m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
-    m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
-
-    // m_bitBoard[white]   = (uint64_t) 0x000000181024ff91;
-    // m_bitBoard[black]   = (uint64_t) 0x917d730002800000;
-    // m_bitBoard[pawns]   = (uint64_t) 0x002d50081280e700;
-    // m_bitBoard[knights] = (uint64_t) 0x0000221000040000;
-    // m_bitBoard[bishops] = (uint64_t) 0x0040010000001800;
+    // m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
+    // m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
+    // m_bitBoard[pawns]   = (uint64_t) 0x00ff00000000ff00;
+    // m_bitBoard[knights] = (uint64_t) 0x4200000000000042;
+    // m_bitBoard[bishops] = (uint64_t) 0x2400000000000024;
     // m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
-    // m_bitBoard[queens]  = (uint64_t) 0x0010000000200000;
+    // m_bitBoard[queens]  = (uint64_t) 0x0800000000000008;
     // m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
+
+    m_bitBoard[white]   = (uint64_t) 0x000000181024ff91;
+    m_bitBoard[black]   = (uint64_t) 0x917d730002800000;
+    m_bitBoard[pawns]   = (uint64_t) 0x002d50081280e700;
+    m_bitBoard[knights] = (uint64_t) 0x0000221000040000;
+    m_bitBoard[bishops] = (uint64_t) 0x0040010000001800;
+    m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
+    m_bitBoard[queens]  = (uint64_t) 0x0010000000200000;
+    m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
 }
 
 
@@ -639,16 +624,17 @@ int ChessBoard::capturedPiece(int t_square)
 
 uint64_t ChessBoard::getAttackSet(int t_pieceType, uint64_t t_occupied, int t_square)
 {
-    uint64_t attackSet;
-    switch (t_pieceType) {
-        case knights: attackSet = m_lookup.knightAttacks(t_square); break;
-        case bishops: attackSet = m_lookup.bishopAttacks(t_occupied, t_square);break;
-        case rooks: attackSet = m_lookup.rookAttacks(t_occupied, t_square);break;
-        case queens: attackSet = m_lookup.queenAttacks(t_occupied, t_square);break;
-        case kings: attackSet = m_lookup.kingAttacks(t_square);break;
-        default: attackSet = 0;
-    }
-    return attackSet;
+    using AttackFunction = uint64_t (LookupTables::*)(uint64_t, int) const;
+
+    static const AttackFunction attackFunctions[] = {
+        &LookupTables::knightAttacks, // knights
+        &LookupTables::bishopAttacks, // bishops
+        &LookupTables::rookAttacks, // rooks
+        &LookupTables::queenAttacks, // queens
+        &LookupTables::kingAttacks // kings
+    };
+    
+    return (m_lookup.*attackFunctions[t_pieceType - 3])(t_occupied, t_square);
 }
 
 bool ChessBoard::isSquareAttacked(uint64_t t_occupied, int t_square, int t_attackingSide)
