@@ -99,10 +99,10 @@ float quiescence(ChessBoard &pos, float alpha, float beta){
 
 float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &var, int depth, float alpha, float beta){
     if(depth == 0){
-        if(map.doesContain(pos)) alpha = map.get(pos);
+        if(map.doesContain(pos)) alpha = map.getValue(pos);
         else{ 
             alpha = quiescence(pos, alpha, beta);
-            map.insert(pos, alpha);
+            map.insert(pos, alpha, depth);
         } 
     }
     else{
@@ -137,10 +137,10 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
     bool followingPV, int depth, float alpha, float beta)
 {
     if(depth == 0){
-        if(map.doesContain(pos)) alpha = map.get(pos);
+        if(map.doesContain(pos)) alpha = map.getValue(pos);
         else{ 
             alpha = quiescence(pos, alpha, beta);
-            map.insert(pos, alpha);
+            map.insert(pos, alpha, depth);
         } 
     }
     else{
@@ -176,20 +176,21 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
 }
 
 float iterativeDeepening(ChessBoard &pos, int depth){
-    TranspositionTable map;
+    TranspositionTable map(1<<20);
     std::vector<ChessMove> pv;
     float res;
     for (int i = 1; i <= depth; i ++){
         res = alphaBeta(pos, map, pv, true, i, -INF, INF);
     }
     for (int i = 0; i < pv.size(); i ++) std::cout << depth - i << ") " << pv[i] << std::endl;
+    std::cout << map.getSize() <<std::endl;
     return res;
 }
 
 int main(){
     ChessBoard cBoard;
     std::vector<ChessMove> pv;
-    TranspositionTable map;
+    //TranspositionTable map(1<<20);
 
     std::cout << cBoard  << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
