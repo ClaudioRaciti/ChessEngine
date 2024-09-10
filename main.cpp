@@ -13,7 +13,7 @@
 #include "src/TranspositionTable.h"
 
 #define INF std::numeric_limits<float>::infinity()
-#define DEPTH 10
+#define DEPTH 9
 
 enum pieceType {
     white, black, pawns, knights, bishops, rooks, queens, kings
@@ -133,22 +133,74 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
     return alpha;
 }
 
+float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &pv,
+    bool followingPV, int depth, float alpha, float beta)
+{
+    if(depth == 0){
+        if(map.doesContain(pos)) alpha = map.get(pos);
+        else{ 
+            alpha = quiescence(pos, alpha, beta);
+            map.insert(pos, alpha);
+        } 
+    }
+    else{
+        std::vector<ChessMove> moveList = pos.getMoveList();
+        orderMoveList(moveList, pos.getSideToMove());
+        if(followingPV && pv.size() != 0)
+            std::partition(moveList.begin(),moveList.end(),[pv](ChessMove a){return a == pv.back();});
+        bool exitCondition = false;
+
+        for(int i = 0; i < moveList.size() && !exitCondition; i ++){
+            ChessMove candidateMove = moveList[i]; 
+            pos.makeMove(candidateMove);
+            if(!pos.isIllegal()){
+                std::vector<ChessMove> bestContinuation;
+                if(followingPV && pv.size() != 0) bestContinuation.assign(pv.begin(), pv.end() - 1);
+                float alphaTmp = -alphaBeta(pos, map, bestContinuation, followingPV, depth - 1, -beta, -alpha);
+
+                if(alphaTmp >= beta){ 
+                    alpha = alphaTmp;
+                    exitCondition = true;
+                }
+                else if(alphaTmp > alpha){ 
+                    alpha = alphaTmp;
+                    bestContinuation.push_back(candidateMove);
+                    pv = bestContinuation;
+                }
+                followingPV = false;
+            }
+            pos.undoMove(candidateMove);
+        }
+    }
+    return alpha;
+}
+
+float iterativeDeepening(ChessBoard &pos, int depth){
+    TranspositionTable map;
+    std::vector<ChessMove> pv;
+    float res;
+    for (int i = 1; i <= depth; i ++){
+        res = alphaBeta(pos, map, pv, true, i, -INF, INF);
+    }
+    for (int i = 0; i < pv.size(); i ++) std::cout << depth - i << ") " << pv[i] << std::endl;
+    return res;
+}
 
 int main(){
     ChessBoard cBoard;
-
+    std::vector<ChessMove> pv;
     TranspositionTable map;
-    std::vector<ChessMove> variation;
+
     std::cout << cBoard  << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
-    float result = alphaBeta(cBoard, map, variation, DEPTH, -INF, INF);
+    float result = iterativeDeepening(cBoard, DEPTH);
+    // float result = alphaBeta(cBoard, map, pv, DEPTH, -INF, INF);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
 
+    for (int i = 0; i < pv.size(); i ++) std::cout << DEPTH - i << ") " << pv[i] << std::endl;
     std::cout << "Evaluation during search at depth " << DEPTH << " is " << result  << std::endl;
-    // for (int i = 0; i < result.seq.size(); i ++) std::cout << result.seq[i] << std::endl;
     std::cout << "Tempo impiegato: " << elapsed.count() << " secondi" << std::endl;
-    for (int i = 0; i < variation.size(); i ++) std::cout  << DEPTH - i << ") " << variation[i] << std::endl;
-    std::cout << "Elements in table: " << map.getSize() << std::endl;
+
     return 0;
 }
