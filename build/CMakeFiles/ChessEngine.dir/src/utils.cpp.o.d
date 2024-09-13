@@ -62,4 +62,5 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
  /usr/include/c++/13/bits/uses_allocator.h \
  /usr/include/c++/13/bits/uses_allocator_args.h /usr/include/c++/13/tuple \
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
  /usr/include/c++/13/cassert /usr/include/assert.h

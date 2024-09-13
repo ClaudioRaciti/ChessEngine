@@ -7,6 +7,7 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: /home/claudio/Documenti/Code/ChessEngine/
   /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \
   /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h \
   /home/claudio/Documenti/Code/ChessEngine/src/TranspositionTable.h \
+  /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
   /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -279,6 +280,7 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: /home/claudio/Documenti/Code/Ch
   /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h \
   /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \
   /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h \
+  /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
   /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -505,6 +507,7 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: /home/claudio/Documenti/Code/Ch
 
 CMakeFiles/ChessEngine.dir/src/ChessMove.cpp.o: /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.cpp \
   /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h \
+  /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -715,6 +718,7 @@ CMakeFiles/ChessEngine.dir/src/ChessMove.cpp.o: /home/claudio/Documenti/Code/Che
 
 CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o: /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.cpp \
   /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \
+  /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
   /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
   /usr/include/c++/13/backward/binders.h \
   /usr/include/c++/13/bit \
@@ -791,6 +795,7 @@ CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o: /home/claudio/Documenti/Code/
 
 CMakeFiles/ChessEngine.dir/src/PosInfo.cpp.o: /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.cpp \
   /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h \
+  /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
   /usr/include/c++/13/cstdint \
   /usr/include/c++/13/pstl/pstl_config.h \
   /usr/include/features-time64.h \
@@ -822,6 +827,7 @@ CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o: /home/claudio/Documenti
   /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \
   /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h \
   /home/claudio/Documenti/Code/ChessEngine/src/TranspositionTable.h \
+  /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
   /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -1041,6 +1047,7 @@ CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o: /home/claudio/Documenti
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h
 
 CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEngine/src/utils.cpp \
+  /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
   /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
   /usr/include/assert.h \
   /usr/include/c++/13/backward/binders.h \
@@ -1148,9 +1155,7 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/error_constants.h:
 
-/usr/include/c++/13/pstl/execution_defs.h:
-
-/usr/include/c++/13/bits/basic_ios.tcc:
+/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:
 
 /usr/include/c++/13/math.h:
 
@@ -1258,6 +1263,12 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/c++locale.h:
 
+/usr/include/c++/13/bits/predefined_ops.h:
+
+/home/claudio/Documenti/Code/ChessEngine/src/LookupTables.cpp:
+
+/usr/include/c++/13/iosfwd:
+
 /usr/include/c++/13/bits/move.h:
 
 /usr/include/c++/13/bits/istream.tcc:
@@ -1306,12 +1317,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/13/bits/locale_facets.h:
 
-/usr/include/c++/13/bits/localefwd.h:
-
-/usr/include/c++/13/bits/streambuf_iterator.h:
-
-/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
-
 /usr/include/c++/13/ext/aligned_buffer.h:
 
 /usr/include/locale.h:
@@ -1339,10 +1344,6 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/x86_64-linux-gnu/bits/long-double.h:
 
 /usr/include/c++/13/bits/algorithmfwd.h:
-
-/usr/include/c++/13/bits/basic_ios.h:
-
-/usr/include/x86_64-linux-gnu/bits/time64.h:
 
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
@@ -1382,15 +1383,17 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/c++/13/cwchar:
 
-/home/claudio/Documenti/Code/ChessEngine/src/LookupTables.cpp:
-
-/usr/include/c++/13/iosfwd:
-
-/usr/include/c++/13/bits/predefined_ops.h:
-
 /usr/include/c++/13/cwctype:
 
 /usr/include/c++/13/ratio:
+
+/usr/include/c++/13/bits/basic_ios.h:
+
+/usr/include/x86_64-linux-gnu/bits/time64.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
+
+/usr/include/c++/13/numeric:
 
 /usr/include/alloca.h:
 
@@ -1404,6 +1407,12 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/x86_64-linux-gnu/bits/math-vector.h:
 
+/usr/include/c++/13/bits/localefwd.h:
+
+/usr/include/c++/13/bits/streambuf_iterator.h:
+
+/usr/include/x86_64-linux-gnu/bits/flt-eval-method.h:
+
 /usr/include/c++/13/bits/cxxabi_init_exception.h:
 
 /usr/include/c++/13/typeinfo:
@@ -1414,13 +1423,13 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 
 /usr/include/x86_64-linux-gnu/bits/uintn-identity.h:
 
+/usr/include/c++/13/bits/basic_ios.tcc:
+
+/usr/include/c++/13/pstl/execution_defs.h:
+
 /usr/include/c++/13/bits/functional_hash.h:
 
 /usr/include/errno.h:
-
-/usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h:
-
-/usr/include/c++/13/numeric:
 
 /usr/include/c++/13/bits/ios_base.h:
 
@@ -1475,6 +1484,8 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/x86_64-linux-gnu/bits/stdint-intn.h:
 
 /usr/include/c++/13/string:
+
+/home/claudio/Documenti/Code/ChessEngine/src/notation.h:
 
 /usr/include/features-time64.h:
 
@@ -1679,5 +1690,3 @@ CMakeFiles/ChessEngine.dir/src/utils.cpp.o: /home/claudio/Documenti/Code/ChessEn
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
 /usr/include/x86_64-linux-gnu/c++/13/bits/atomic_word.h:
-
-/usr/include/x86_64-linux-gnu/c++/13/bits/ctype_base.h:

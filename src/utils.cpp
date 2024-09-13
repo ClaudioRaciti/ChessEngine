@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "notation.h"
 
 #include <cassert>
 
@@ -110,10 +111,6 @@ int btw::bitScanReverse(uint64_t bitBoard){
     bitBoard |= bitBoard >> 32;
     return index64[(bitBoard * deBrujin64) >> 58];
 }
-
-enum pieceType {
-    white, black, pawns, knights, bishops, rooks, queens, kings
-};
 
 float eval::evaluate(const std::vector<uint64_t> &bitBoards)
 {

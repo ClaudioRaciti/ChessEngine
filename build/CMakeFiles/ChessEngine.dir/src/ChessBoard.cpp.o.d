@@ -185,4 +185,5 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: \
  /usr/include/c++/13/ext/aligned_buffer.h \
  /usr/include/c++/13/bits/enable_special_members.h \
  /usr/include/c++/13/bits/node_handle.h \
- /usr/include/c++/13/bits/erase_if.h
+ /usr/include/c++/13/bits/erase_if.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h

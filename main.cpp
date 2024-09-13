@@ -11,30 +11,10 @@
 
 #include "src/ChessBoard.h"
 #include "src/TranspositionTable.h"
+#include "src/notation.h"
 
 #define INF std::numeric_limits<float>::infinity()
 #define DEPTH 9
-
-enum pieceType {
-    white, black, pawns, knights, bishops, rooks, queens, kings
-};
-
-enum algebraicNotation{
-    a1, b1, c1, d1, e1, f1, g1, h1,
-    a2, b2, c2, d2, e2, f2, g2, h2,
-    a3, b3, c3, d3, e3, f3, g3, h3,
-    a4, b4, c4, d4, e4, f4, g4, h4,
-    a5, b5, c5, d5, e5, f5, g5, h5,
-    a6, b6, c6, d6, e6, f6, g6, h6,
-    a7, b7, c7, d7, e7, f7, g7, h7,
-    a8, b8, c8, d8, e8, f8, g8, h8
-};
-
-enum moveType {
-    quiet, doublePush, kingCastle, queenCastle, capture, enPassant, 
-    knightPromo = 8, bishopPromo, rookPromo, queenPromo, 
-    knightPromoCapture,  bishopPromoCapture, rookPromoCapture, queenPromoCapture
-};
 
 
 int staticExchangeEval(const ChessMove &move, int sideToMove){
@@ -70,77 +50,86 @@ void orderMoveList(std::vector<ChessMove> &moveList, int sideToMove){
 
 float quiescence(ChessBoard &pos, float alpha, float beta){
     int sign = (1 - 2*pos.getSideToMove());
-    float standPat = sign * eval::evaluate(pos.getBitBoards()); 
-    if(standPat >= beta) alpha = standPat;
-    else {
-        if(standPat > alpha) alpha = standPat;
-        std::vector<ChessMove> moveList = pos.getMoveList();
-        orderMoveList(moveList, pos.getSideToMove());
-        bool exitCondition = false;
+    bool evadeChecks = pos.isCheck();
+    float bestScore =  evadeChecks ? -INF : sign * eval::evaluate(pos.getBitBoards()); 
 
-        for(int i = 0; i < moveList.size() && !exitCondition; i ++){
-            ChessMove candidateMove = moveList[i];
+    if(bestScore >= beta) return bestScore;
+    if(bestScore > alpha) alpha = bestScore;
 
-            if(candidateMove.isCapture()){
-                pos.makeMove(candidateMove);
+    std::vector<ChessMove> moveList = pos.getMoveList();
+    orderMoveList(moveList, pos.getSideToMove());
 
-                if(!pos.isIllegal()){
-                    float tmp = - quiescence(pos, -beta, -alpha);
-                    if(tmp > alpha) alpha = tmp;
-                    if(alpha >= beta) exitCondition = true;
+    for(auto move = moveList.begin(); move != moveList.end() && alpha < beta; ++ move){
+        if(evadeChecks || move->isCapture()){
+            pos.makeMove(*move);
+            if(pos.isLegal()){
+                float score = - quiescence(pos, -beta, -alpha);
+                if(score > bestScore){
+                bestScore = score;
+                    if(score > alpha) alpha = bestScore;
                 }
-
-                pos.undoMove(candidateMove);
-            }
+            }        
+            pos.undoMove(*move);
         }
     }
-    return alpha;
+
+    return bestScore;
 }
 
-float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &var, int depth, float alpha, float beta){
-    if(depth == 0){
-        if(map.doesContain(pos)) alpha = map.getValue(pos);
-        else{ 
-            alpha = quiescence(pos, alpha, beta);
-            map.insert(pos, alpha, depth);
-        } 
+float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &pv, int depth, float alpha, float beta){
+    
+    if(map.doesContain(pos) && map.getDepth(pos) >= depth){
+        int nodeType = map.getNodeType(pos);
+        float score = map.getScore(pos);
+        if(nodeType == pvNode) return score;
+        if(nodeType == allNode && score < alpha) return score;
+        if(nodeType == cutNode && score > beta) return score;
     }
-    else{
-        std::vector<ChessMove> moveList = pos.getMoveList();
-        orderMoveList(moveList, pos.getSideToMove());
-        bool exitCondition = false;
+    
+    if(depth == 0){
+        float score = quiescence(pos, alpha, beta);
+        map.insert(pos, score, depth, pvNode);
+        return score;
+    }
+    
+    float bestScore = -INF;
+    std::vector<ChessMove> moveList = pos.getMoveList();
+    orderMoveList(moveList, pos.getSideToMove());
+    int nodeType = allNode;
 
-        for(int i = 0; i < moveList.size() && !exitCondition; i ++){
-            ChessMove candidateMove = moveList[i]; 
-            pos.makeMove(candidateMove);
-            if(!pos.isIllegal()){
-                std::vector<ChessMove> bestContinuation;
-                float alphaTmp = -alphaBeta(pos, map, bestContinuation, depth - 1, -beta, -alpha);
+    for(auto move = moveList.begin(); move != moveList.end() && nodeType != cutNode; ++ move){
+        pos.makeMove(*move);
+        if(!pos.isIllegal()){
+            std::vector<ChessMove> variation;
+            float score = -alphaBeta(pos, map, variation, depth - 1, -beta, -alpha);
 
-                if(alphaTmp >= beta){ 
-                    alpha = alphaTmp;
-                    exitCondition = true;
-                }
-                else if(alphaTmp > alpha){ 
-                    alpha = alphaTmp;
-                    bestContinuation.push_back(candidateMove);
-                    var = bestContinuation;
+            if(score > bestScore){
+                bestScore = score;
+                if(bestScore >= beta) nodeType = cutNode;
+                else if(bestScore > alpha) {
+                    alpha = bestScore;
+                    nodeType = pvNode;
+                    variation.push_back(*move);
+                    pv = variation;
                 }
             }
-            pos.undoMove(candidateMove);
         }
+        pos.undoMove(*move);
     }
-    return alpha;
+
+    map.insert(pos, bestScore, depth, nodeType);
+
+    return bestScore;
 }
 
 float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &pv,
     bool followingPV, int depth, float alpha, float beta)
 {
     if(depth == 0){
-        if(map.doesContain(pos)) alpha = map.getValue(pos);
+        if(map.doesContain(pos)) alpha = map.getScore(pos);
         else{ 
             alpha = quiescence(pos, alpha, beta);
-            map.insert(pos, alpha, depth);
+            map.insert(pos, alpha, depth, pvNode);
         } 
     }
     else{
@@ -190,18 +179,19 @@ float iterativeDeepening(ChessBoard &pos, int depth){
 int main(){
     ChessBoard cBoard;
     std::vector<ChessMove> pv;
-    //TranspositionTable map(1<<20);
+    TranspositionTable map(1<<20);
 
     std::cout << cBoard  << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
-    float result = iterativeDeepening(cBoard, DEPTH);
-    // float result = alphaBeta(cBoard, map, pv, DEPTH, -INF, INF);
+    //float result = iterativeDeepening(cBoard, DEPTH);
+    float result = alphaBeta(cBoard, map, pv, DEPTH, -INF, INF);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
 
     for (int i = 0; i < pv.size(); i ++) std::cout << DEPTH - i << ") " << pv[i] << std::endl;
     std::cout << "Evaluation during search at depth " << DEPTH << " is " << result  << std::endl;
     std::cout << "Tempo impiegato: " << elapsed.count() << " secondi" << std::endl;
+    std::cout << "Transposition table size: " << map.getSize() << std::endl;
 
     return 0;
 }

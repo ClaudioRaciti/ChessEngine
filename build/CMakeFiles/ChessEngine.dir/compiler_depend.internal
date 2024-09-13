@@ -8,6 +8,7 @@ CMakeFiles/ChessEngine.dir/main.cpp.o
  /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h
  /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h
  /home/claudio/Documenti/Code/ChessEngine/src/TranspositionTable.h
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h
  /home/claudio/Documenti/Code/ChessEngine/src/utils.h
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
@@ -281,6 +282,7 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o
  /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h
  /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h
  /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h
  /home/claudio/Documenti/Code/ChessEngine/src/utils.h
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
@@ -508,6 +510,7 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o
 CMakeFiles/ChessEngine.dir/src/ChessMove.cpp.o
  /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.cpp
  /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
  /usr/include/asm-generic/errno.h
@@ -719,6 +722,7 @@ CMakeFiles/ChessEngine.dir/src/ChessMove.cpp.o
 CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o
  /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.cpp
  /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h
  /home/claudio/Documenti/Code/ChessEngine/src/utils.h
  /usr/include/c++/13/backward/binders.h
  /usr/include/c++/13/bit
@@ -796,6 +800,7 @@ CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o
 CMakeFiles/ChessEngine.dir/src/PosInfo.cpp.o
  /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.cpp
  /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h
  /usr/include/c++/13/cstdint
  /usr/include/c++/13/pstl/pstl_config.h
  /usr/include/features-time64.h
@@ -828,6 +833,7 @@ CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o
  /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h
  /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h
  /home/claudio/Documenti/Code/ChessEngine/src/TranspositionTable.h
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h
  /home/claudio/Documenti/Code/ChessEngine/src/utils.h
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
@@ -1048,6 +1054,7 @@ CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o
 
 CMakeFiles/ChessEngine.dir/src/utils.cpp.o
  /home/claudio/Documenti/Code/ChessEngine/src/utils.cpp
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h
  /home/claudio/Documenti/Code/ChessEngine/src/utils.h
  /usr/include/assert.h
  /usr/include/c++/13/backward/binders.h

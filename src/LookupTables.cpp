@@ -1,12 +1,5 @@
 #include "LookupTables.h"
-
-enum rayDirections {
-    soWe, sout, soEa, west, east, noWe, nort, noEa
-};
-
-enum pieceType {
-    white, black, pawns, knights, bishops, rooks, queens, kings
-};
+#include "notation.h"
 
 LookupTables::LookupTables() : 
     m_rShift {

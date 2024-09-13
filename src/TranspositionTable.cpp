@@ -1,17 +1,27 @@
 #include "TranspositionTable.h"
+#include "notation.h"
 
-
-float TranspositionTable::getValue(const ChessBoard &t_key) 
+Value TranspositionTable::getValue(const ChessBoard &t_key)
 {
     auto it = m_cache.find(t_key);
     if (it != m_cache.end()){
         m_contents.splice(m_contents.begin(), m_contents, it -> second);
-        return it->second->second.value;
+        return it->second->second;
     }
     throw std::runtime_error("ChessBoard not found");
 }
 
-float TranspositionTable::getDepth(const ChessBoard &t_key) 
+float TranspositionTable::getScore(const ChessBoard &t_key)
+{
+    auto it = m_cache.find(t_key);
+    if (it != m_cache.end()){
+        m_contents.splice(m_contents.begin(), m_contents, it -> second);
+        return it->second->second.score;
+    }
+    throw std::runtime_error("ChessBoard not found");
+}
+
+int TranspositionTable::getDepth(const ChessBoard &t_key) 
 {
     auto it = m_cache.find(t_key);
     if (it != m_cache.end()){
@@ -21,18 +31,28 @@ float TranspositionTable::getDepth(const ChessBoard &t_key)
     throw std::runtime_error("ChessBoard not found");
 }
 
-void TranspositionTable::insert(const ChessBoard &t_key, float t_value, int t_depth)
+int TranspositionTable::getNodeType(const ChessBoard &t_key)
+{
+    auto it = m_cache.find(t_key);
+    if (it != m_cache.end()){
+        m_contents.splice(m_contents.begin(), m_contents, it -> second);
+        return it->second->second.nodeType;
+    }
+    throw std::runtime_error("ChessBoard not found");
+}
+
+void TranspositionTable::insert(const ChessBoard &t_key, float t_value, int t_depth, int t_nodeType)
 {
     auto it = m_cache.find(t_key);
     if (it == m_cache.end()){
-        m_contents.emplace_front(t_key, Node{t_value, t_depth});
+        m_contents.emplace_front(t_key, Value{t_value, t_depth, t_nodeType});
         m_cache[t_key] = m_contents.begin();
         if (m_contents.size() == m_maxSize){
             m_cache.erase(m_contents.back().first);
             m_contents.pop_back();
         }
     }
-    else if (t_depth > it->second->second.depth){
+    else if(t_depth >= it->second->second.depth || t_depth == 0){
         it->second->second = {t_value, t_depth};
         m_contents.splice(m_contents.begin(), m_contents, it -> second);
     }

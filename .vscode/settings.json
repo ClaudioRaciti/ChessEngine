@@ -58,6 +58,7 @@
         "optional": "cpp",
         "span": "cpp",
         "variant": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "list": "cpp"
     }
 }

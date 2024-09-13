@@ -181,4 +181,5 @@ CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o: \
  /usr/include/c++/13/bits/istream.tcc \
  /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \
  /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
- /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h
+ /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h

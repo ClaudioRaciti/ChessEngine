@@ -1,8 +1,5 @@
 #include "PosInfo.h"
-
-enum pieceType {
-    white, black
-};
+#include "notation.h"
 
 bool PosInfo::isEpPossible() const
 {

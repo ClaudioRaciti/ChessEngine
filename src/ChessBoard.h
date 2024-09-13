@@ -19,6 +19,7 @@ public:
     friend std::ostream& operator<<(std::ostream& os,const ChessBoard& cb);
 public:
     bool isIllegal();
+    bool isLegal();
 
     std::vector<ChessMove> getMoveList();
     std::vector<uint64_t> getBitBoards() const;
@@ -31,7 +32,6 @@ public:
 private:
     void initBoard();
     void toggleSideToMove();
-    void updateBitBoards(ChessMove t_move, PosInfo& t_state);
 
     void generatePieceMoves(int pieceType, std::vector<ChessMove>& t_moveList);
     void generatePawnsMoves(std::vector<ChessMove>& t_moveList);

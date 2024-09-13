@@ -1,16 +1,7 @@
 #include "ChessMove.h"
+#include "notation.h"
 #include <map>
 #include <limits>
-
-enum moveType {
-    quiet, doublePush, kingCastle, queenCastle, capture, enPassant, 
-    knightPromo = 8, bishopPromo, rookPromo, queenPromo, 
-    knightPromoCapture,  bishopPromoCapture, rookPromoCapture, queenPromoCapture
-};
-
-enum pieceType {
-    white, black, pawns, knights, bishops, rooks, queens, kings
-};
 
 ChessMove::ChessMove(uint32_t t_piece, uint32_t t_from, uint32_t t_to, uint32_t t_flag)
 {

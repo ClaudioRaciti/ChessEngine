@@ -221,4 +221,5 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: \
  /home/claudio/Documenti/Code/ChessEngine/src/TranspositionTable.h \
  /usr/include/c++/13/list /usr/include/c++/13/bits/stl_list.h \
  /usr/include/c++/13/bits/allocated_ptr.h \
- /usr/include/c++/13/bits/list.tcc
+ /usr/include/c++/13/bits/list.tcc \
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h

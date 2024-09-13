@@ -5,27 +5,7 @@
 #include <unordered_map>
 
 #include "utils.h"
-
-enum pieceType {
-    white, black, pawns, knights, bishops, rooks, queens, kings
-};
-
-enum algebraicNotation{
-    a1, b1, c1, d1, e1, f1, g1, h1,
-    a2, b2, c2, d2, e2, f2, g2, h2,
-    a3, b3, c3, d3, e3, f3, g3, h3,
-    a4, b4, c4, d4, e4, f4, g4, h4,
-    a5, b5, c5, d5, e5, f5, g5, h5,
-    a6, b6, c6, d6, e6, f6, g6, h6,
-    a7, b7, c7, d7, e7, f7, g7, h7,
-    a8, b8, c8, d8, e8, f8, g8, h8
-};
-
-enum moveType {
-    quiet, doublePush, kingCastle, queenCastle, capture, enPassant, 
-    knightPromo = 8, bishopPromo, rookPromo, queenPromo, 
-    knightPromoCapture,  bishopPromoCapture, rookPromoCapture, queenPromoCapture
-};
+#include "notation.h"
 
 ChessBoard::ChessBoard() : m_sideToMove(white)
 {
@@ -61,6 +41,11 @@ bool ChessBoard::operator==(const ChessBoard &t_other) const
 bool ChessBoard::isIllegal()
 {
     return isCheck(m_sideToMove);
+}
+
+bool ChessBoard::isLegal()
+{
+    return !isIllegal();
 }
 
 std::vector<ChessMove> ChessBoard::getMoveList()
@@ -572,9 +557,6 @@ void ChessBoard::undoMove(ChessMove t_move)
     }
 
     m_posHistory.pop_back();
-
-    //DEBUG PURPOSES: MUST BE DELETED
-    //m_moveHistory.pop_back();
 }
 
 bool ChessBoard::isCheck()
@@ -600,6 +582,15 @@ void ChessBoard::initBoard(){
     m_bitBoard[rooks]   = (uint64_t) 0x8100000000000081;
     m_bitBoard[queens]  = (uint64_t) 0x0010000000200000;
     m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
+
+    // m_bitBoard[white]   = (uint64_t) 0x1000000000004000;
+    // m_bitBoard[black]   = (uint64_t) 0x0080000000000000;
+    // m_bitBoard[pawns]   = (uint64_t) 0x0000000000000000;
+    // m_bitBoard[knights] = (uint64_t) 0x0000000000000000;
+    // m_bitBoard[bishops] = (uint64_t) 0x0000000000000000;
+    // m_bitBoard[rooks]   = (uint64_t) 0x0000000000000000;
+    // m_bitBoard[queens]  = (uint64_t) 0x1000000000000000;
+    // m_bitBoard[kings]   = (uint64_t) 0x0080000000004000;
 }
 
 
