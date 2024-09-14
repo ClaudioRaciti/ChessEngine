@@ -23,6 +23,7 @@ public:
     inline bool doesContain(const ChessBoard &t_key) const {return m_cache.find(t_key) != m_cache.end();};
     
     Value getValue(const ChessBoard &t_key);
+    bool getValue(const ChessBoard &t_key, Value &t_out);
     float getScore(const ChessBoard &t_key);
     int getDepth(const ChessBoard &t_key);
     int getNodeType(const ChessBoard & t_key);

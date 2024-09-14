@@ -11,6 +11,17 @@ Value TranspositionTable::getValue(const ChessBoard &t_key)
     throw std::runtime_error("ChessBoard not found");
 }
 
+bool TranspositionTable::getValue(const ChessBoard &t_key, Value &t_out)
+{
+    auto it = m_cache.find(t_key);
+    if (it != m_cache.end()){
+        m_contents.splice(m_contents.begin(), m_contents, it -> second);
+        t_out = it->second->second;
+        return true;
+    }
+    return false;
+}
+
 float TranspositionTable::getScore(const ChessBoard &t_key)
 {
     auto it = m_cache.find(t_key);
@@ -52,7 +63,7 @@ void TranspositionTable::insert(const ChessBoard &t_key, float t_value, int t_de
             m_contents.pop_back();
         }
     }
-    else if(t_depth >= it->second->second.depth || t_depth == 0){
+    else if(t_depth >= it->second->second.depth) {
         it->second->second = {t_value, t_depth};
         m_contents.splice(m_contents.begin(), m_contents, it -> second);
     }

@@ -14,7 +14,7 @@
 #include "src/notation.h"
 
 #define INF std::numeric_limits<float>::infinity()
-#define DEPTH 9
+#define DEPTH 10
 
 
 int staticExchangeEval(const ChessMove &move, int sideToMove){
@@ -76,39 +76,41 @@ float quiescence(ChessBoard &pos, float alpha, float beta){
     return bestScore;
 }
 
-float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &pv, int depth, float alpha, float beta){
+float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &pv, bool followPV,int depth, float alpha, float beta){
     
-    if(map.doesContain(pos) && map.getDepth(pos) >= depth){
-        int nodeType = map.getNodeType(pos);
-        float score = map.getScore(pos);
-        if(nodeType == pvNode) return score;
-        if(nodeType == allNode && score < alpha) return score;
-        if(nodeType == cutNode && score > beta) return score;
+    Value val;
+    if(map.getValue(pos, val) && val.depth >= depth){
+        if(val.nodeType == pvNode) return val.score;
+        if(val.nodeType == allNode && val.score < alpha) return val.score;
+        if(val.nodeType == cutNode && val.score > beta) return val.score;
     }
     
     if(depth == 0){
         float score = quiescence(pos, alpha, beta);
-        map.insert(pos, score, depth, pvNode);
         return score;
     }
     
     float bestScore = -INF;
+
     std::vector<ChessMove> moveList = pos.getMoveList();
     orderMoveList(moveList, pos.getSideToMove());
+    if(followPV&&pv.size())std::partition(moveList.begin(),moveList.end(),[pv](ChessMove a){return a==pv.back();});
+
     int nodeType = allNode;
 
     for(auto move = moveList.begin(); move != moveList.end() && nodeType != cutNode; ++ move){
         pos.makeMove(*move);
         if(!pos.isIllegal()){
             std::vector<ChessMove> variation;
-            float score = -alphaBeta(pos, map, variation, depth - 1, -beta, -alpha);
+            if(followPV && pv.size()){variation.assign(pv.begin(), pv.end() - 1); followPV = false;}
+            float score = -alphaBeta(pos, map, variation, followPV, depth - 1, -beta, -alpha);
 
             if(score > bestScore){
                 bestScore = score;
-                if(bestScore >= beta) nodeType = cutNode;
-                else if(bestScore > alpha) {
+                if(bestScore > alpha) {
                     alpha = bestScore;
-                    nodeType = pvNode;
+                    nodeType = alpha >= beta ? cutNode : pvNode;
+                    
                     variation.push_back(*move);
                     pv = variation;
                 }
@@ -116,82 +118,40 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
         }
         pos.undoMove(*move);
     }
-
     map.insert(pos, bestScore, depth, nodeType);
-
     return bestScore;
-}
-
-float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &pv,
-    bool followingPV, int depth, float alpha, float beta)
-{
-    if(depth == 0){
-        if(map.doesContain(pos)) alpha = map.getScore(pos);
-        else{ 
-            alpha = quiescence(pos, alpha, beta);
-            map.insert(pos, alpha, depth, pvNode);
-        } 
-    }
-    else{
-        std::vector<ChessMove> moveList = pos.getMoveList();
-        orderMoveList(moveList, pos.getSideToMove());
-        if(followingPV && pv.size() != 0)
-            std::partition(moveList.begin(),moveList.end(),[pv](ChessMove a){return a == pv.back();});
-        bool exitCondition = false;
-
-        for(int i = 0; i < moveList.size() && !exitCondition; i ++){
-            ChessMove candidateMove = moveList[i]; 
-            pos.makeMove(candidateMove);
-            if(!pos.isIllegal()){
-                std::vector<ChessMove> bestContinuation;
-                if(followingPV && pv.size() != 0) bestContinuation.assign(pv.begin(), pv.end() - 1);
-                float alphaTmp = -alphaBeta(pos, map, bestContinuation, followingPV, depth - 1, -beta, -alpha);
-
-                if(alphaTmp >= beta){ 
-                    alpha = alphaTmp;
-                    exitCondition = true;
-                }
-                else if(alphaTmp > alpha){ 
-                    alpha = alphaTmp;
-                    bestContinuation.push_back(candidateMove);
-                    pv = bestContinuation;
-                }
-                followingPV = false;
-            }
-            pos.undoMove(candidateMove);
-        }
-    }
-    return alpha;
 }
 
 float iterativeDeepening(ChessBoard &pos, int depth){
     TranspositionTable map(1<<20);
     std::vector<ChessMove> pv;
-    float res;
+    float res = alphaBeta(pos, map, pv, true, 0, -INF, INF);
     for (int i = 1; i <= depth; i ++){
-        res = alphaBeta(pos, map, pv, true, i, -INF, INF);
+        float alpha = res - 0.5f;
+        float beta = res + 0.5f;
+        auto start = std::chrono::high_resolution_clock::now();
+        res = alphaBeta(pos, map, pv, true, i, alpha, beta);
+        auto end = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> elapsed = end - start;
+
+        std::cout << "at depth " << i << " evaluation is " << res << "\t(" << elapsed.count() << "s)" << std::endl;
     }
-    for (int i = 0; i < pv.size(); i ++) std::cout << depth - i << ") " << pv[i] << std::endl;
-    std::cout << map.getSize() <<std::endl;
+    for (int i = 0; i < pv.size(); i ++) std::cout << depth  - i << ") " << pv[i] << std::endl;
+    //std::cout << map.getSize() <<std::endl;
     return res;
 }
 
 int main(){
     ChessBoard cBoard;
-    std::vector<ChessMove> pv;
-    TranspositionTable map(1<<20);
 
     std::cout << cBoard  << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
-    //float result = iterativeDeepening(cBoard, DEPTH);
-    float result = alphaBeta(cBoard, map, pv, DEPTH, -INF, INF);
+    float result = iterativeDeepening(cBoard, DEPTH);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
 
-    for (int i = 0; i < pv.size(); i ++) std::cout << DEPTH - i << ") " << pv[i] << std::endl;
     std::cout << "Evaluation during search at depth " << DEPTH << " is " << result  << std::endl;
     std::cout << "Tempo impiegato: " << elapsed.count() << " secondi" << std::endl;
-    std::cout << "Transposition table size: " << map.getSize() << std::endl;
 
     return 0;
 }
