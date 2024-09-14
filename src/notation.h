@@ -1,5 +1,7 @@
 #pragma once
 
+const float CHECKMATE = 500.0f;
+
 enum pieceType {
     white, black, pawns, knights, bishops, rooks, queens, kings
 };
@@ -27,5 +29,5 @@ enum moveType {
 };
 
 enum nodeType {
-    pvNode, allNode, cutNode
+    pvNode, allNode, cutNode, endNode
 };

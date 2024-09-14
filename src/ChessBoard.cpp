@@ -598,14 +598,14 @@ void ChessBoard::initBoard(){
     m_bitBoard[queens]  = (uint64_t) 0x0010000000200000;
     m_bitBoard[kings]   = (uint64_t) 0x1000000000000010;
 
-    // m_bitBoard[white]   = (uint64_t) 0x1000000000004000;
-    // m_bitBoard[black]   = (uint64_t) 0x0080000000000000;
+    // m_bitBoard[white]   = (uint64_t) 0x0020000000000010;
+    // m_bitBoard[black]   = (uint64_t) 0x8000000000000000;
     // m_bitBoard[pawns]   = (uint64_t) 0x0000000000000000;
     // m_bitBoard[knights] = (uint64_t) 0x0000000000000000;
     // m_bitBoard[bishops] = (uint64_t) 0x0000000000000000;
     // m_bitBoard[rooks]   = (uint64_t) 0x0000000000000000;
-    // m_bitBoard[queens]  = (uint64_t) 0x1000000000000000;
-    // m_bitBoard[kings]   = (uint64_t) 0x0080000000004000;
+    // m_bitBoard[queens]  = (uint64_t) 0x0020000000000000;
+    // m_bitBoard[kings]   = (uint64_t) 0x8000000000000010;
 }
 
 

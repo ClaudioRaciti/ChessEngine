@@ -14,7 +14,7 @@
 #include "src/notation.h"
 
 #define INF std::numeric_limits<float>::infinity()
-#define DEPTH 11
+#define DEPTH 10
 
 
 int staticExchangeEval(const ChessMove &move, int sideToMove){
@@ -51,6 +51,7 @@ void orderMoveList(std::vector<ChessMove> &moveList, int sideToMove){
 float quiescence(ChessBoard &pos, float alpha, float beta){
     int sign = (1 - 2*pos.getSideToMove());
     bool evadeChecks = pos.isCheck();
+    bool unableToMove = true;
     float bestScore =  evadeChecks ? -INF : sign * eval::evaluate(pos.getBitBoards()); 
 
     if(bestScore >= beta) return bestScore;
@@ -63,6 +64,7 @@ float quiescence(ChessBoard &pos, float alpha, float beta){
         if(evadeChecks || move->isCapture()){
             pos.makeMove(*move);
             if(pos.isLegal()){
+                unableToMove = false;
                 float score = - quiescence(pos, -beta, -alpha);
                 if(score > bestScore){
                 bestScore = score;
@@ -73,16 +75,23 @@ float quiescence(ChessBoard &pos, float alpha, float beta){
         }
     }
 
+    if(evadeChecks && unableToMove) bestScore = - CHECKMATE;
+
     return bestScore;
 }
 
-float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &pv, bool followPV,int depth, float alpha, float beta){
+float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &pv, bool followPV,int depth, float alpha, float beta)
+{
     
     Value val;
-    if(map.getValue(pos, val) && val.depth >= depth){
+    if(map.getValue(pos, val) && (val.depth >= depth || val.nodeType == endNode)){
         if(val.nodeType == pvNode) return val.score;
         if(val.nodeType == allNode && val.score < alpha) return val.score;
         if(val.nodeType == cutNode && val.score > beta) return val.score;
+        if(val.nodeType == endNode){
+            if(val.score < 0) return -(CHECKMATE + depth);
+            else return 0.0f;
+        }
     }
     
     if(depth == 0){
@@ -97,10 +106,12 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
     if(followPV&&pv.size())std::partition(moveList.begin(),moveList.end(),[pv](ChessMove a){return a==pv.back();});
 
     int nodeType = allNode;
+    bool unableToMove = true;
 
     for(auto move = moveList.begin(); move != moveList.end() && nodeType != cutNode; ++ move){
         pos.makeMove(*move);
         if(!pos.isIllegal()){
+            unableToMove = false;
             std::vector<ChessMove> variation;
             if(followPV && pv.size()){variation.assign(pv.begin(), pv.end() - 1); followPV = false;}
             float score = -alphaBeta(pos, map, variation, followPV, depth - 1, -beta, -alpha);
@@ -118,27 +129,55 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
         }
         pos.undoMove(*move);
     }
+
+    if(unableToMove) {
+        bestScore = pos.isCheck() ? -(CHECKMATE + depth) : 0.0f;
+        nodeType = endNode;
+    }
+    
     map.insert(pos, bestScore, depth, nodeType);
     return bestScore;
 }
 
-float iterativeDeepening(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &pv, int depth, int maxDepth, float alpha, float beta){
+float iterativeDeepening(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &pv, int depth, int maxDepth, float alpha, float beta)
+{
     auto start = std::chrono::high_resolution_clock::now();
     float res = alphaBeta(pos, map, pv, true, depth, alpha, beta);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
-    std::cout << "at ply " << depth << " evaluation is " << res << "\t(" << elapsed.count() << "s)";
+
+    std::cout << "at ply " << depth << " evaluation is ";
+
+    bool mating = false, gettingMated = false;
+    if(res <= -CHECKMATE){
+        gettingMated = true;
+        int pliesToMate = pos.getSideToMove() + ((depth-int(res-CHECKMATE))/2) + ((depth-int(res-CHECKMATE))%2);
+        std::cout << "mate in " << pliesToMate << "\t(" << elapsed.count() << "s)";
+
+    }
+    else if(res >= CHECKMATE){
+        mating = true;
+        int pliesToMate = pos.getSideToMove() + ((depth-int(res-CHECKMATE))/2) + ((depth-int(res-CHECKMATE))%2);
+        std::cout << "mate in " << pliesToMate << "\t(" << elapsed.count() << "s)";
+    }
+    else std::cout << res << "\t(" << elapsed.count() << "s)";
+
+    
     if(res < alpha){
         std::cout << " Fail low" << std::endl;
         return iterativeDeepening(pos, map, pv, depth, maxDepth, -INF, beta);
     }
-    if(res > beta){ 
+    else if(res > beta){ 
         std::cout << " Fail high"<< std::endl;
         return iterativeDeepening(pos, map, pv, depth, maxDepth, alpha, INF);
     }
-    std::cout << std::endl;
+    else std::cout << std::endl;
+
     if (depth == maxDepth) return res;
-    return iterativeDeepening(pos, map, pv, depth + 1, maxDepth, res - 0.3f, res + 0.3f);
+
+    alpha = gettingMated ? res - 1.1f : res - 0.3f;
+    beta = mating ? res + 1.1f : res + 0.3f;
+    return iterativeDeepening(pos, map, pv, depth + 1, maxDepth, alpha, beta);
 }
 
 int main(){
@@ -149,7 +188,6 @@ int main(){
     std::cout << cBoard  << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
     float result = iterativeDeepening(cBoard, map, pv, 0, DEPTH, -INF, INF);
-    //float result = alphaBeta(cBoard, map, pv, false, 11, -INF, INF);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
 
