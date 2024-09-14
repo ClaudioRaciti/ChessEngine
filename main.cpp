@@ -14,7 +14,7 @@
 #include "src/notation.h"
 
 #define INF std::numeric_limits<float>::infinity()
-#define DEPTH 10
+#define DEPTH 9
 
 
 int staticExchangeEval(const ChessMove &move, int sideToMove){
@@ -137,12 +137,13 @@ float iterativeDeepening(ChessBoard &pos, int depth){
         std::cout << "at depth " << i << " evaluation is " << res << "\t(" << elapsed.count() << "s)" << std::endl;
     }
     for (int i = 0; i < pv.size(); i ++) std::cout << depth  - i << ") " << pv[i] << std::endl;
-    //std::cout << map.getSize() <<std::endl;
+    std::cout << map.getSize() <<std::endl;
     return res;
 }
 
 int main(){
     ChessBoard cBoard;
+    ChessBoard nwBo = cBoard;
 
     std::cout << cBoard  << std::endl;
     auto start = std::chrono::high_resolution_clock::now();

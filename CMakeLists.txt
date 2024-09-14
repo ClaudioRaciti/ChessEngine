@@ -5,4 +5,4 @@ add_executable(
     ChessEngine main.cpp src/ChessBoard.cpp src/ChessMove.cpp src/utils.cpp src/LookupTables.cpp src/PosInfo.cpp src/TranspositionTable.cpp
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pg -O3")

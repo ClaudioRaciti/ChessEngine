@@ -12,7 +12,7 @@ public:
     ChessBoard();
     ChessBoard(const ChessBoard &);
     ~ChessBoard() = default;
-    ChessBoard &operator=(const ChessBoard &) = default;
+    ChessBoard &operator=(const ChessBoard&);
     bool operator==(const ChessBoard &t_other) const;
 
     friend struct HashFunction;
@@ -56,7 +56,7 @@ private:
 
     std::vector<PosInfo> m_posHistory;
 
-    LookupTables& m_lookup = LookupTables::getInstance();
+    LookupTables& m_lookup;
 };
 
 struct HashFunction

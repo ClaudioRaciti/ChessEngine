@@ -7,7 +7,7 @@
 #include "utils.h"
 #include "notation.h"
 
-ChessBoard::ChessBoard() : m_sideToMove(white)
+ChessBoard::ChessBoard() : m_sideToMove(white), m_lookup {LookupTables::getInstance()}
 {
     initBoard();
     m_kingSquare[white] = btw::bitScanForward(m_bitBoard[white] & m_bitBoard[kings]);
@@ -25,10 +25,25 @@ ChessBoard::ChessBoard(const ChessBoard &t_other) :
     m_bitBoard{
         t_other.m_bitBoard[0], t_other.m_bitBoard[1], t_other.m_bitBoard[2], t_other.m_bitBoard[3],
         t_other.m_bitBoard[4], t_other.m_bitBoard[5], t_other.m_bitBoard[6], t_other.m_bitBoard[7]
+    },
+    m_lookup {
+        LookupTables::getInstance()
     }
 {
     m_posHistory.reserve(1);
     m_posHistory.emplace_back(t_other.m_posHistory.back());
+}
+
+ChessBoard& ChessBoard::operator=(const ChessBoard &other)
+{
+    if(this != &other){
+        std::copy(std::begin(other.m_bitBoard), std::end(other.m_bitBoard), std::begin(m_bitBoard));
+        std::copy(std::begin(other.m_kingSquare), std::end(other.m_kingSquare), std::begin(m_kingSquare));
+        m_posHistory.emplace_back(other.m_posHistory.back());
+        m_sideToMove = other.m_sideToMove;
+    }
+
+    return *this;
 }
 
 bool ChessBoard::operator==(const ChessBoard &t_other) const

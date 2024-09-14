@@ -52,19 +52,19 @@ int TranspositionTable::getNodeType(const ChessBoard &t_key)
     throw std::runtime_error("ChessBoard not found");
 }
 
-void TranspositionTable::insert(const ChessBoard &t_key, float t_value, int t_depth, int t_nodeType)
+void TranspositionTable::insert(const ChessBoard &t_key, float t_score, int t_depth, int t_nodeType)
 {
     auto it = m_cache.find(t_key);
     if (it == m_cache.end()){
-        m_contents.emplace_front(t_key, Value{t_value, t_depth, t_nodeType});
+        m_contents.emplace_front(t_key, Value{t_score, t_depth, t_nodeType});
         m_cache[t_key] = m_contents.begin();
         if (m_contents.size() == m_maxSize){
             m_cache.erase(m_contents.back().first);
             m_contents.pop_back();
         }
     }
-    else if(t_depth >= it->second->second.depth) {
-        it->second->second = {t_value, t_depth};
+    else if(t_depth >= it->second->second.depth){
+        it->second->second = Value{t_score, t_depth, t_nodeType};
         m_contents.splice(m_contents.begin(), m_contents, it -> second);
     }
 }
