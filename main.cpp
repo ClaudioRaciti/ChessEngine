@@ -14,7 +14,7 @@
 #include "src/notation.h"
 
 #define INF std::numeric_limits<float>::infinity()
-#define DEPTH 9
+#define DEPTH 11
 
 
 int staticExchangeEval(const ChessMove &move, int sideToMove){
@@ -122,35 +122,38 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
     return bestScore;
 }
 
-float iterativeDeepening(ChessBoard &pos, int depth){
-    TranspositionTable map(1<<20);
-    std::vector<ChessMove> pv;
-    float res = alphaBeta(pos, map, pv, true, 0, -INF, INF);
-    for (int i = 1; i <= depth; i ++){
-        float alpha = res - 0.5f;
-        float beta = res + 0.5f;
-        auto start = std::chrono::high_resolution_clock::now();
-        res = alphaBeta(pos, map, pv, true, i, alpha, beta);
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> elapsed = end - start;
-
-        std::cout << "at depth " << i << " evaluation is " << res << "\t(" << elapsed.count() << "s)" << std::endl;
+float iterativeDeepening(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove> &pv, int depth, int maxDepth, float alpha, float beta){
+    auto start = std::chrono::high_resolution_clock::now();
+    float res = alphaBeta(pos, map, pv, true, depth, alpha, beta);
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> elapsed = end - start;
+    std::cout << "at ply " << depth << " evaluation is " << res << "\t(" << elapsed.count() << "s)";
+    if(res < alpha){
+        std::cout << " Fail low" << std::endl;
+        return iterativeDeepening(pos, map, pv, depth, maxDepth, -INF, beta);
     }
-    for (int i = 0; i < pv.size(); i ++) std::cout << depth  - i << ") " << pv[i] << std::endl;
-    std::cout << map.getSize() <<std::endl;
-    return res;
+    if(res > beta){ 
+        std::cout << " Fail high"<< std::endl;
+        return iterativeDeepening(pos, map, pv, depth, maxDepth, alpha, INF);
+    }
+    std::cout << std::endl;
+    if (depth == maxDepth) return res;
+    return iterativeDeepening(pos, map, pv, depth + 1, maxDepth, res - 0.3f, res + 0.3f);
 }
 
 int main(){
+    TranspositionTable map(1<<20);
+    std::vector<ChessMove> pv;
     ChessBoard cBoard;
-    ChessBoard nwBo = cBoard;
 
     std::cout << cBoard  << std::endl;
     auto start = std::chrono::high_resolution_clock::now();
-    float result = iterativeDeepening(cBoard, DEPTH);
+    float result = iterativeDeepening(cBoard, map, pv, 0, DEPTH, -INF, INF);
+    //float result = alphaBeta(cBoard, map, pv, false, 11, -INF, INF);
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> elapsed = end - start;
 
+    for(auto move = pv.begin(); move != pv.end(); ++move) std::cout << *move << std::endl;
     std::cout << "Evaluation during search at depth " << DEPTH << " is " << result  << std::endl;
     std::cout << "Tempo impiegato: " << elapsed.count() << " secondi" << std::endl;
 

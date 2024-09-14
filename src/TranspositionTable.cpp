@@ -63,7 +63,7 @@ void TranspositionTable::insert(const ChessBoard &t_key, float t_score, int t_de
             m_contents.pop_back();
         }
     }
-    else if(t_depth >= it->second->second.depth){
+    else if(t_depth > it->second->second.depth){
         it->second->second = Value{t_score, t_depth, t_nodeType};
         m_contents.splice(m_contents.begin(), m_contents, it -> second);
     }
