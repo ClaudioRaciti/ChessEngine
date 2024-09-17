@@ -63,6 +63,7 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: \
  /usr/include/c++/13/bits/uses_allocator.h \
  /usr/include/c++/13/bits/uses_allocator_args.h /usr/include/c++/13/tuple \
  /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
  /usr/include/c++/13/iostream /usr/include/c++/13/ostream \
  /usr/include/c++/13/ios /usr/include/c++/13/iosfwd \
  /usr/include/c++/13/bits/stringfwd.h /usr/include/c++/13/bits/postypes.h \
@@ -186,4 +187,4 @@ CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o: \
  /usr/include/c++/13/bits/enable_special_members.h \
  /usr/include/c++/13/bits/node_handle.h \
  /usr/include/c++/13/bits/erase_if.h \
- /home/claudio/Documenti/Code/ChessEngine/src/notation.h
+ /home/claudio/Documenti/Code/ChessEngine/src/Evaluation.h

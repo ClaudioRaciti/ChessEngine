@@ -215,6 +215,7 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: \
  /usr/include/c++/13/pstl/glue_numeric_defs.h \
  /home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.h \
  /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
  /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \
  /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
  /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h \
@@ -222,4 +223,4 @@ CMakeFiles/ChessEngine.dir/main.cpp.o: \
  /usr/include/c++/13/list /usr/include/c++/13/bits/stl_list.h \
  /usr/include/c++/13/bits/allocated_ptr.h \
  /usr/include/c++/13/bits/list.tcc \
- /home/claudio/Documenti/Code/ChessEngine/src/notation.h
+ /home/claudio/Documenti/Code/ChessEngine/src/Evaluation.h

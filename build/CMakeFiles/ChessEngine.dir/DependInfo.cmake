@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/claudio/Documenti/Code/ChessEngine/main.cpp" "CMakeFiles/ChessEngine.dir/main.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/main.cpp.o.d"
   "/home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.cpp" "CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o.d"
   "/home/claudio/Documenti/Code/ChessEngine/src/ChessMove.cpp" "CMakeFiles/ChessEngine.dir/src/ChessMove.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/ChessMove.cpp.o.d"
+  "/home/claudio/Documenti/Code/ChessEngine/src/Evaluation.cpp" "CMakeFiles/ChessEngine.dir/src/Evaluation.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/Evaluation.cpp.o.d"
   "/home/claudio/Documenti/Code/ChessEngine/src/LookupTables.cpp" "CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o.d"
   "/home/claudio/Documenti/Code/ChessEngine/src/PosInfo.cpp" "CMakeFiles/ChessEngine.dir/src/PosInfo.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/PosInfo.cpp.o.d"
   "/home/claudio/Documenti/Code/ChessEngine/src/TranspositionTable.cpp" "CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o" "gcc" "CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o.d"

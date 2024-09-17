@@ -21,9 +21,11 @@ public:
     bool isIllegal();
     bool isLegal();
 
-    std::vector<ChessMove> getMoveList();
+    std::vector<ChessMove> getCaptures();
+    std::vector<ChessMove> getQuiets();
     std::vector<uint64_t> getBitBoards() const;
     inline int getSideToMove() const {return m_sideToMove;}
+    float getGamePhase();
     void makeMove(ChessMove t_move);
     void undoMove(ChessMove t_move);
 
@@ -33,8 +35,9 @@ private:
     void initBoard();
     void toggleSideToMove();
 
-    void generatePieceMoves(int pieceType, std::vector<ChessMove>& t_moveList);
-    void generatePawnsMoves(std::vector<ChessMove>& t_moveList);
+
+    void generatePieceCaptures(int pieceType, std::vector<ChessMove> &t_moveList);
+    void generatePieceQuiets(int pieceType, std::vector<ChessMove> &t_moveList);
     void generatePawnsCaptures(std::vector<ChessMove>& t_moveList, uint64_t t_pawnsSet, uint64_t t_enemyPcs);
     void generatePawnsPushes(std::vector<ChessMove>& t_moveList, uint64_t t_pawnsSet, uint64_t t_emptySet);
     void generateDoublePushes(std::vector<ChessMove>& t_moveList, uint64_t t_pawnSet, uint64_t t_emptySet);
@@ -50,8 +53,8 @@ private:
 
 private:
     int m_sideToMove;
+    int m_nonPawnPieces;
     int m_kingSquare[2];
-
     uint64_t m_bitBoard[8];
 
     std::vector<PosInfo> m_posHistory;

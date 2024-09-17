@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o.d"
   "CMakeFiles/ChessEngine.dir/src/ChessMove.cpp.o"
   "CMakeFiles/ChessEngine.dir/src/ChessMove.cpp.o.d"
+  "CMakeFiles/ChessEngine.dir/src/Evaluation.cpp.o"
+  "CMakeFiles/ChessEngine.dir/src/Evaluation.cpp.o.d"
   "CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o"
   "CMakeFiles/ChessEngine.dir/src/LookupTables.cpp.o.d"
   "CMakeFiles/ChessEngine.dir/src/PosInfo.cpp.o"

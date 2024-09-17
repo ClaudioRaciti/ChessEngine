@@ -75,6 +75,7 @@ CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o: \
  /usr/include/c++/13/bits/stl_bvector.h \
  /usr/include/c++/13/bits/refwrap.h /usr/include/c++/13/bits/vector.tcc \
  /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
  /usr/include/c++/13/iostream /usr/include/c++/13/ostream \
  /usr/include/c++/13/ios /usr/include/c++/13/iosfwd \
  /usr/include/c++/13/bits/stringfwd.h /usr/include/c++/13/bits/postypes.h \
@@ -181,5 +182,4 @@ CMakeFiles/ChessEngine.dir/src/TranspositionTable.cpp.o: \
  /usr/include/c++/13/bits/istream.tcc \
  /home/claudio/Documenti/Code/ChessEngine/src/LookupTables.h \
  /home/claudio/Documenti/Code/ChessEngine/src/utils.h \
- /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h \
- /home/claudio/Documenti/Code/ChessEngine/src/notation.h
+ /home/claudio/Documenti/Code/ChessEngine/src/PosInfo.h

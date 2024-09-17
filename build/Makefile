@@ -201,6 +201,30 @@ src/ChessMove.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/ChessMove.cpp.s
 .PHONY : src/ChessMove.cpp.s
 
+src/Evaluation.o: src/Evaluation.cpp.o
+.PHONY : src/Evaluation.o
+
+# target to build an object file
+src/Evaluation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Evaluation.cpp.o
+.PHONY : src/Evaluation.cpp.o
+
+src/Evaluation.i: src/Evaluation.cpp.i
+.PHONY : src/Evaluation.i
+
+# target to preprocess a source file
+src/Evaluation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Evaluation.cpp.i
+.PHONY : src/Evaluation.cpp.i
+
+src/Evaluation.s: src/Evaluation.cpp.s
+.PHONY : src/Evaluation.s
+
+# target to generate assembly for a file
+src/Evaluation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ChessEngine.dir/build.make CMakeFiles/ChessEngine.dir/src/Evaluation.cpp.s
+.PHONY : src/Evaluation.cpp.s
+
 src/LookupTables.o: src/LookupTables.cpp.o
 .PHONY : src/LookupTables.o
 
@@ -315,6 +339,9 @@ help:
 	@echo "... src/ChessMove.o"
 	@echo "... src/ChessMove.i"
 	@echo "... src/ChessMove.s"
+	@echo "... src/Evaluation.o"
+	@echo "... src/Evaluation.i"
+	@echo "... src/Evaluation.s"
 	@echo "... src/LookupTables.o"
 	@echo "... src/LookupTables.i"
 	@echo "... src/LookupTables.s"

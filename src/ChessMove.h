@@ -1,5 +1,7 @@
 #pragma once
 
+#include "notation.h"
+
 #include <cstdint>
 #include <iostream>
 
@@ -29,9 +31,10 @@ public:
     void setCaptured(uint32_t t_taken);
 
     inline bool isCapture() const {return (getFlags() & 0x04) != 0;};
-    inline bool isDoublePush() const {return getFlags() == 1;};
+    inline bool isDoublePush() const {return getFlags() == doublePush;};
     inline bool isPromo() const {return (getFlags() & 0x08) != 0;};
-    inline bool isEnPassant() const {return getFlags() == 5;};
+    inline bool isEnPassant() const {return getFlags() == enPassant;};
+    inline bool isCastle() const {return (getFlags() == kingCastle) || (getFlags() == queenCastle);}
 
     uint32_t getButterflyIndex();
     uint16_t asShort();

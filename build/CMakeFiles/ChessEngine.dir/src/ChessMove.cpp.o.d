@@ -2,6 +2,7 @@ CMakeFiles/ChessEngine.dir/src/ChessMove.cpp.o: \
  /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.cpp \
  /usr/include/stdc-predef.h \
  /home/claudio/Documenti/Code/ChessEngine/src/ChessMove.h \
+ /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
  /usr/include/c++/13/cstdint \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/os_defines.h \
@@ -162,9 +163,8 @@ CMakeFiles/ChessEngine.dir/src/ChessMove.cpp.o: \
  /usr/include/c++/13/bits/locale_facets.tcc \
  /usr/include/c++/13/bits/basic_ios.tcc \
  /usr/include/c++/13/bits/ostream.tcc /usr/include/c++/13/istream \
- /usr/include/c++/13/bits/istream.tcc \
- /home/claudio/Documenti/Code/ChessEngine/src/notation.h \
- /usr/include/c++/13/map /usr/include/c++/13/bits/stl_tree.h \
+ /usr/include/c++/13/bits/istream.tcc /usr/include/c++/13/map \
+ /usr/include/c++/13/bits/stl_tree.h \
  /usr/include/c++/13/ext/aligned_buffer.h \
  /usr/include/c++/13/bits/node_handle.h \
  /usr/include/c++/13/bits/stl_map.h \

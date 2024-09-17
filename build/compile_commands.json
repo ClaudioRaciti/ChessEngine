@@ -7,6 +7,12 @@
 },
 {
   "directory": "/home/claudio/Documenti/Code/ChessEngine/build",
+  "command": "/usr/bin/g++    -O3 -g -o CMakeFiles/ChessEngine.dir/src/Evaluation.cpp.o -c /home/claudio/Documenti/Code/ChessEngine/src/Evaluation.cpp",
+  "file": "/home/claudio/Documenti/Code/ChessEngine/src/Evaluation.cpp",
+  "output": "CMakeFiles/ChessEngine.dir/src/Evaluation.cpp.o"
+},
+{
+  "directory": "/home/claudio/Documenti/Code/ChessEngine/build",
   "command": "/usr/bin/g++    -O3 -g -o CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o -c /home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.cpp",
   "file": "/home/claudio/Documenti/Code/ChessEngine/src/ChessBoard.cpp",
   "output": "CMakeFiles/ChessEngine.dir/src/ChessBoard.cpp.o"

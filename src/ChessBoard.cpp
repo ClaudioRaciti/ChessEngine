@@ -6,13 +6,15 @@
 
 #include "utils.h"
 #include "notation.h"
+#include "Evaluation.h"
 
-ChessBoard::ChessBoard() : m_sideToMove(white), m_lookup {LookupTables::getInstance()}
+ChessBoard::ChessBoard() : m_sideToMove(white), m_lookup {LookupTables::getInstance()}, m_nonPawnPieces{0}
 {
+    m_posHistory.emplace_back(PosInfo());
     initBoard();
     m_kingSquare[white] = btw::bitScanForward(m_bitBoard[white] & m_bitBoard[kings]);
     m_kingSquare[black] = btw::bitScanForward(m_bitBoard[black] & m_bitBoard[kings]);
-    m_posHistory.emplace_back(PosInfo());
+    for (int pieces = knights; pieces <= kings; pieces ++) m_nonPawnPieces += btw::popCount(m_bitBoard[pieces]) * mgValue[pieces - 2];
 }
 
 ChessBoard::ChessBoard(const ChessBoard &t_other) :  
@@ -28,6 +30,9 @@ ChessBoard::ChessBoard(const ChessBoard &t_other) :
     },
     m_lookup {
         LookupTables::getInstance()
+    },
+    m_nonPawnPieces{
+        t_other.m_nonPawnPieces
     }
 {
     m_posHistory.reserve(1);
@@ -40,6 +45,7 @@ ChessBoard& ChessBoard::operator=(const ChessBoard &other)
         std::copy(std::begin(other.m_bitBoard), std::end(other.m_bitBoard), std::begin(m_bitBoard));
         std::copy(std::begin(other.m_kingSquare), std::end(other.m_kingSquare), std::begin(m_kingSquare));
         m_posHistory.emplace_back(other.m_posHistory.back());
+        m_nonPawnPieces = other.m_nonPawnPieces;
         m_sideToMove = other.m_sideToMove;
     }
 
@@ -63,29 +69,54 @@ bool ChessBoard::isLegal()
     return !isIllegal();
 }
 
-std::vector<ChessMove> ChessBoard::getMoveList()
+std::vector<ChessMove> ChessBoard::getCaptures()
 {
     std::vector<ChessMove> moveList;
     moveList.reserve(256); // over the maximum number of moves possible for any legal position
 
-    generatePawnsMoves(moveList);
-    generatePieceMoves(knights, moveList);
-    generatePieceMoves(bishops, moveList);
-    generatePieceMoves(rooks  , moveList);
-    generatePieceMoves(queens , moveList);
-    generatePieceMoves(kings  , moveList);    
+    uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[m_sideToMove];
+    uint64_t enemyPcs = m_bitBoard[1 - m_sideToMove];
+
+    generatePawnsCaptures(moveList, pawnsSet, enemyPcs);
+    if(m_posHistory.back().isEpPossible())
+        generateEpCaptures(moveList, pawnsSet, m_posHistory.back().getEpSquare());
+    generatePieceCaptures(knights, moveList);
+    generatePieceCaptures(bishops, moveList);
+    generatePieceCaptures(rooks, moveList);
+    generatePieceCaptures(queens, moveList);
+    generatePieceCaptures(kings, moveList);
+    
+    return moveList;
+}
+
+std::vector<ChessMove> ChessBoard::getQuiets()
+{
+    std::vector<ChessMove> moveList;
+    moveList.reserve(256); // over the maximum number of moves possible for any legal position
+
+    uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[m_sideToMove];
+    uint64_t emptySet = ~ (m_bitBoard[black] | m_bitBoard[white]);
+
+
+    generatePieceQuiets(kings, moveList);
+    generatePieceQuiets(knights, moveList);
+    generatePawnsPushes(moveList, pawnsSet, emptySet);
+    generateDoublePushes(moveList, pawnsSet, emptySet);
+    generatePieceQuiets(bishops, moveList);
+    generatePieceQuiets(rooks, moveList);
+    generatePieceQuiets(queens, moveList);
     generateCastles(moveList);
 
     return moveList;
 }
 
-void ChessBoard::generatePieceMoves(int t_pieceType, std::vector<ChessMove>& t_moveList)
+void ChessBoard::generatePieceCaptures(int t_pieceType, std::vector<ChessMove> &t_moveList)
 {
     uint64_t pieceSet = m_bitBoard[t_pieceType] & m_bitBoard[m_sideToMove];
     uint64_t occupiedSquares = m_bitBoard[black] | m_bitBoard[white];
     uint64_t emptySquares = ~occupiedSquares;
     uint64_t enemyPieces = m_bitBoard[1 - m_sideToMove];
-
+    
     if (pieceSet) do {
         int startingSquare = btw::bitScanForward(pieceSet);
         uint64_t attackSet = getAttackSet(t_pieceType, occupiedSquares, startingSquare);
@@ -98,6 +129,19 @@ void ChessBoard::generatePieceMoves(int t_pieceType, std::vector<ChessMove>& t_m
                 ChessMove(t_pieceType, startingSquare, endSquare, capture, capturedPiece(endSquare))
             );
         } while (captures &= (captures -1 ));
+    } while (pieceSet &= (pieceSet - 1));
+}
+
+void ChessBoard::generatePieceQuiets(int t_pieceType, std::vector<ChessMove> &t_moveList)
+{
+    uint64_t pieceSet = m_bitBoard[t_pieceType] & m_bitBoard[m_sideToMove];
+    uint64_t occupiedSquares = m_bitBoard[black] | m_bitBoard[white];
+    uint64_t emptySquares = ~occupiedSquares;
+    uint64_t enemyPieces = m_bitBoard[1 - m_sideToMove];
+
+    if (pieceSet) do {
+        int startingSquare = btw::bitScanForward(pieceSet);
+        uint64_t attackSet = getAttackSet(t_pieceType, occupiedSquares, startingSquare);
 
         //serialize all non-capture moves
         uint64_t quietMoves    = attackSet & emptySquares;
@@ -108,20 +152,6 @@ void ChessBoard::generatePieceMoves(int t_pieceType, std::vector<ChessMove>& t_m
             );
         } while (quietMoves &= (quietMoves -1 ));
     } while (pieceSet &= (pieceSet - 1));
-}
-
-void ChessBoard::generatePawnsMoves(std::vector<ChessMove> &t_moveList)
-{
-    uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[m_sideToMove];
-    uint64_t enemyPcs = m_bitBoard[1 - m_sideToMove];
-    uint64_t emptySet = ~ (m_bitBoard[black] | m_bitBoard[white]);
-
-    generatePawnsPushes(t_moveList, pawnsSet, emptySet);
-    generatePawnsCaptures(t_moveList, pawnsSet, enemyPcs);
-    generateDoublePushes(t_moveList, pawnsSet, emptySet);
-
-    if(m_posHistory.back().isEpPossible())
-        generateEpCaptures(t_moveList, pawnsSet, m_posHistory.back().getEpSquare());
 }
 
 void ChessBoard::generatePawnsPushes(std::vector<ChessMove> &t_moveList, 
@@ -334,7 +364,17 @@ std::vector<uint64_t> ChessBoard::getBitBoards() const
     return std::vector<uint64_t>(m_bitBoard, m_bitBoard + 8);
 }
 
-void ChessBoard::makeMove(ChessMove t_move){
+float ChessBoard::getGamePhase()
+{
+    const int mgMax = 6766, egMin = 1630;
+
+    int npm = std::max(egMin, std::min(mgMax, m_nonPawnPieces));
+
+    return float(npm - egMin) / float(mgMax-egMin);
+}
+
+void ChessBoard::makeMove(ChessMove t_move)
+{
     PosInfo newPosInfo(m_posHistory.back());
     newPosInfo.incrementHalfmoveClock();
     newPosInfo.setEpState(false);
@@ -393,7 +433,8 @@ void ChessBoard::makeMove(ChessMove t_move){
         m_bitBoard[m_sideToMove] ^= moveMask;
 
         m_bitBoard[t_move.getCaptured()] ^= captureMask;
-        m_bitBoard[1 - m_sideToMove] ^= captureMask;        
+        m_bitBoard[1 - m_sideToMove] ^= captureMask; 
+        if(t_move.getCaptured() != pawns)m_nonPawnPieces -= mgValue[t_move.getCaptured() - 2];       
         break;
     case queenCastle: 
         if(m_sideToMove == white){
@@ -443,9 +484,12 @@ void ChessBoard::makeMove(ChessMove t_move){
 
         m_bitBoard[t_move.getCaptured()] ^= captureMask;
         m_bitBoard[pawns] ^= moveMask;
+        if(t_move.getCaptured() != pawns) m_nonPawnPieces -= mgValue[t_move.getCaptured() - 2];
+
         m_bitBoard[t_move.getPromoPiece()] ^= promoMask;
         m_bitBoard[1 - m_sideToMove] ^= captureMask;
         m_bitBoard[m_sideToMove] ^= moveMask | promoMask;
+        m_nonPawnPieces += mgValue[t_move.getPromoPiece() - 2];
         break;
     case knightPromo:
     case bishopPromo:
@@ -458,6 +502,7 @@ void ChessBoard::makeMove(ChessMove t_move){
         m_bitBoard[pawns] ^= moveMask;
         m_bitBoard[t_move.getPromoPiece()] ^= promoMask;
         m_bitBoard[m_sideToMove] ^= moveMask | promoMask;
+        m_nonPawnPieces += mgValue[t_move.getPromoPiece() - 2];
         break;
     case doublePush:
         newPosInfo.resetHalfmoveClock();
@@ -499,7 +544,8 @@ void ChessBoard::undoMove(ChessMove t_move)
         m_bitBoard[m_sideToMove] ^= moveMask;
 
         m_bitBoard[t_move.getCaptured()] ^= captureMask;
-        m_bitBoard[1 - m_sideToMove] ^= captureMask;        
+        m_bitBoard[1 - m_sideToMove] ^= captureMask; 
+        if(t_move.getCaptured() != pawns)m_nonPawnPieces += mgValue[t_move.getCaptured() - 2];              
         break;
     case queenCastle: 
         if(m_sideToMove == white){
@@ -547,9 +593,12 @@ void ChessBoard::undoMove(ChessMove t_move)
 
         m_bitBoard[t_move.getCaptured()] ^= captureMask;
         m_bitBoard[pawns] ^= moveMask;
+        if(t_move.getCaptured() != pawns) m_nonPawnPieces += mgValue[t_move.getCaptured() - 2];
+
         m_bitBoard[t_move.getPromoPiece()] ^= promoMask;
         m_bitBoard[1 - m_sideToMove] ^= captureMask;
         m_bitBoard[m_sideToMove] ^= moveMask | promoMask;
+        m_nonPawnPieces -= mgValue[t_move.getPromoPiece() - 2];
         break;
     case knightPromo:
     case bishopPromo:
@@ -561,6 +610,7 @@ void ChessBoard::undoMove(ChessMove t_move)
         m_bitBoard[pawns] ^= moveMask;
         m_bitBoard[t_move.getPromoPiece()] ^= promoMask;
         m_bitBoard[m_sideToMove] ^= moveMask | promoMask;
+        m_nonPawnPieces -= mgValue[t_move.getPromoPiece() - 2];
         break;
     case doublePush:
         moveMask  = (uint64_t) 1 << t_move.getStartingSquare();
@@ -603,8 +653,8 @@ void ChessBoard::initBoard(){
     // m_bitBoard[pawns]   = (uint64_t) 0x0000000000000000;
     // m_bitBoard[knights] = (uint64_t) 0x0000000000000000;
     // m_bitBoard[bishops] = (uint64_t) 0x0000000000000000;
-    // m_bitBoard[rooks]   = (uint64_t) 0x0000000000000000;
-    // m_bitBoard[queens]  = (uint64_t) 0x0020000000000000;
+    // m_bitBoard[rooks]   = (uint64_t) 0x0020000000000000;
+    // m_bitBoard[queens]  = (uint64_t) 0x0000000000000000;
     // m_bitBoard[kings]   = (uint64_t) 0x8000000000000010;
 }
 
