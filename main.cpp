@@ -49,7 +49,8 @@ void  orderQuiets(std::vector<ChessMove> &moveList, int sideToMove, float gamePh
 
 float quiescence(ChessBoard &pos, float alpha, float beta){
     int sign = (1 - 2*pos.getSideToMove());
-    bool evadeChecks = pos.isCheck();
+    int checkingPiece;
+    bool evadeChecks = pos.checkInfo(checkingPiece);
     bool unableToMove = true;
     float bestScore  = evadeChecks ? -INF : sign * evaluate(pos.getBitBoards(), 1.0f); 
 
@@ -60,16 +61,18 @@ float quiescence(ChessBoard &pos, float alpha, float beta){
     orderCaptures(moveList, pos.getSideToMove(), pos.getGamePhase());
 
     for(auto move = moveList.begin(); move != moveList.end() && alpha < beta; ++ move){
-        pos.makeMove(*move);
-        if(pos.isLegal()){
-            unableToMove = false;
-            float score = - quiescence(pos, -beta, -alpha);
-            if(score > bestScore){
-            bestScore = score;
-                if(score > alpha) alpha = bestScore;
-            }
-        }        
-        pos.undoMove(*move);
+        if(!evadeChecks || move->getCaptured() == checkingPiece){
+            pos.makeMove(*move);
+            if(pos.isLegal()){
+                unableToMove = false;
+                float score = - quiescence(pos, -beta, -alpha);
+                if(score > bestScore){
+                bestScore = score;
+                    if(score > alpha) alpha = bestScore;
+                }
+            }        
+            pos.undoMove(*move);
+        }
     }
 
     if(evadeChecks){

@@ -30,6 +30,7 @@ public:
     void undoMove(ChessMove t_move);
 
     bool isCheck();
+    bool checkInfo(int &t_checkingPiece);
 
 private:
     void initBoard();

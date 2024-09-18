@@ -629,6 +629,29 @@ bool ChessBoard::isCheck()
     return isCheck(1 - m_sideToMove);
 }
 
+bool ChessBoard::checkInfo(int &t_checkingPiece)
+{
+    uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[1 - m_sideToMove];
+    if ((m_lookup.pawnAttacks(m_kingSquare[m_sideToMove], m_sideToMove) & pawnsSet) != 0) {
+        t_checkingPiece = pawns;
+        return true;
+    }
+
+
+    uint64_t occupied = m_bitBoard[white] | m_bitBoard[black];
+
+    for(int pieces = knights; pieces < kings; pieces ++){
+        uint64_t piecesSet = m_bitBoard[pieces] & m_bitBoard[1 - m_sideToMove];
+        if((getAttackSet(pieces, occupied, m_kingSquare[m_sideToMove]) & piecesSet) != 0){
+            t_checkingPiece = pieces;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
 void ChessBoard::initBoard(){
     // m_bitBoard[white]   = (uint64_t) 0x000000000000ffff;
     // m_bitBoard[black]   = (uint64_t) 0xffff000000000000;
@@ -698,17 +721,11 @@ bool ChessBoard::isSquareAttacked(uint64_t t_occupied, int t_square, int t_attac
     uint64_t pawnsSet = m_bitBoard[pawns] & m_bitBoard[t_attackingSide];
     if ((m_lookup.pawnAttacks(t_square, 1-t_attackingSide) & pawnsSet) != 0) return true;
 
-    uint64_t knightsSet = m_bitBoard[knights] & m_bitBoard[t_attackingSide];
-    if ((m_lookup.knightAttacks(t_square) & knightsSet) != 0) return true;
 
-    uint64_t kingSet = m_bitBoard[kings] & m_bitBoard[t_attackingSide];
-    if ((m_lookup.kingAttacks(t_square) & kingSet) != 0) return true;
-
-    uint64_t rooksQueensSet = (m_bitBoard[queens] | m_bitBoard[rooks]) & m_bitBoard[t_attackingSide];
-    if ((m_lookup.rookAttacks(t_occupied, t_square) & rooksQueensSet) != 0) return true;
-
-    uint64_t bishopsQueensSet = (m_bitBoard[queens] | m_bitBoard[bishops]) & m_bitBoard[t_attackingSide];
-    if ((m_lookup.bishopAttacks(t_occupied, t_square) & bishopsQueensSet) != 0) return true;  
+    for (int pieces = knights; pieces <= kings; pieces ++){
+        uint64_t piecesSet = m_bitBoard[pieces] & m_bitBoard[t_attackingSide];
+        if((getAttackSet(pieces, t_occupied, t_square) & piecesSet) != 0) return true;
+    } 
 
     return false;
 }
