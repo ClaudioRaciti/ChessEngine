@@ -15,7 +15,7 @@
 #include "src/Evaluation.h"
 
 #define INF std::numeric_limits<float>::infinity()
-#define DEPTH 10
+#define DEPTH 11
 
 
 int staticExchangeEval(const ChessMove &move, int sideToMove, float gamePhase){
@@ -120,8 +120,10 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
 
     float bestScore = -INF;
     int nodeType = allNode;
+    int checkingPiece;
     bool unableToMove = true;
     bool searchedPV = false;
+    bool posIsCheck = pos.checkInfo(checkingPiece);
     ChessMove pvMove;
 
     if(followPV && pv.size() != 0){
@@ -152,24 +154,26 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
         orderCaptures(captureList, pos.getSideToMove(), pos.getGamePhase());
 
         for(auto move = captureList.begin(); move != captureList.end() && nodeType != cutNode; ++ move){
-            pos.makeMove(*move);
-            if(pos.isLegal() && !(searchedPV && *move == pvMove)){
-                unableToMove = false;
-                std::vector<ChessMove> variation;
-                float score = -alphaBeta(pos, map, variation, followPV, depth - 1, -beta, -alpha);
+            if(!posIsCheck || move->getCaptured() == checkingPiece){
+                pos.makeMove(*move);
+                if(pos.isLegal() && !(searchedPV && *move == pvMove)){
+                    unableToMove = false;
+                    std::vector<ChessMove> variation;
+                    float score = -alphaBeta(pos, map, variation, followPV, depth - 1, -beta, -alpha);
 
-                if(score > bestScore){
-                    bestScore = score;
-                    if(bestScore > alpha) {
-                        alpha = bestScore;
-                        nodeType = alpha >= beta ? cutNode : pvNode;
-                        
-                        variation.push_back(*move);
-                        pv = variation;
+                    if(score > bestScore){
+                        bestScore = score;
+                        if(bestScore > alpha) {
+                            alpha = bestScore;
+                            nodeType = alpha >= beta ? cutNode : pvNode;
+                            
+                            variation.push_back(*move);
+                            pv = variation;
+                        }
                     }
                 }
+                pos.undoMove(*move);
             }
-            pos.undoMove(*move);
         }
     }
     if(nodeType != cutNode){
@@ -199,7 +203,7 @@ float alphaBeta(ChessBoard &pos, TranspositionTable &map, std::vector<ChessMove>
     }
     
     if(unableToMove) {
-        bestScore = pos.isCheck() ? -(CHECKMATE + depth) : 0.0f;
+        bestScore = posIsCheck ? -(CHECKMATE + depth) : 0.0f;
         nodeType = endNode;
     }
     
